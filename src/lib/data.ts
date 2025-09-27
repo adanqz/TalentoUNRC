@@ -94,7 +94,7 @@ export const university: University = {
     id: 'unrc-1',
     name: 'Universidad Nacional Rosario Castellanos',
     logoUrl: 'https://picsum.photos/seed/unrc/200/200',
-    description: 'A public university in Mexico City, committed to academic excellence, scientific research, and community engagement. Fostering a vibrant environment for learning and innovation.',
+    description: 'The Rosario Castellanos National University is a public university in Mexico City. It is a deconcentrated body of the Ministry of Education, Science, Technology and Innovation of Mexico City, with technical, teaching and management autonomy.',
     expertise: ['Computer Science', 'Environmental Science', 'Urban Development', 'Public Health', 'Social Sciences'],
     contact: {
         email: 'info@rcastellanos.cdmx.gob.mx',
