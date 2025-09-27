@@ -1,5 +1,5 @@
 
-"use client"
+"use client";
 
 import {
   Avatar,
@@ -44,7 +44,7 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="#">Profile</Link>
+            <Link href="/student-profile">Profile</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
              <Link href="#">Settings</Link>

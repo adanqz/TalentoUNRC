@@ -92,7 +92,7 @@ export const businesses: Business[] = [
 
 export const university: University = {
     id: 'unrc-1',
-    name: 'Universidad Nacional de Río Cuarto',
+    name: 'Universidad Nacional Rosario Castellanos',
     logoUrl: 'https://picsum.photos/seed/unrc/200/200',
     description: 'A public university in Argentina, committed to academic excellence, scientific research, and community engagement. Fostering a vibrant environment for learning and innovation.',
     expertise: ['Computer Science', 'Agricultural Engineering', 'Economic Sciences', 'Veterinary Medicine', 'Exact Sciences'],
