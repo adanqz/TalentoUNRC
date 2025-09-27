@@ -42,10 +42,10 @@ export default function UniversityPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <GraduationCap /> Areas of Expertise
+                  <GraduationCap /> Áreas de Especialización
                 </CardTitle>
                 <CardDescription>
-                  Key academic and research fields at the university.
+                  Campos académicos y de investigación clave de la universidad.
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-2">
@@ -61,13 +61,13 @@ export default function UniversityPage() {
           <div>
             <Card>
               <CardHeader>
-                <CardTitle>Contact Information</CardTitle>
+                <CardTitle>Información de Contacto</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 text-sm">
                 <div className="flex items-start gap-3">
                   <Mail className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
                   <div>
-                    <h4 className="font-semibold">Email</h4>
+                    <h4 className="font-semibold">Correo Electrónico</h4>
                     <a
                       href={`mailto:${university.contact.email}`}
                       className="text-primary hover:underline"
@@ -79,7 +79,7 @@ export default function UniversityPage() {
                 <div className="flex items-start gap-3">
                   <Phone className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
                   <div>
-                    <h4 className="font-semibold">Phone</h4>
+                    <h4 className="font-semibold">Teléfono</h4>
                     <p className="text-muted-foreground">
                       {university.contact.phone}
                     </p>
@@ -88,7 +88,7 @@ export default function UniversityPage() {
                 <div className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
                   <div>
-                    <h4 className="font-semibold">Address</h4>
+                    <h4 className="font-semibold">Dirección</h4>
                     <p className="text-muted-foreground">
                       {university.contact.address}
                     </p>
@@ -97,7 +97,7 @@ export default function UniversityPage() {
                  <div className="flex items-start gap-3">
                   <Globe className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
                   <div>
-                    <h4 className="font-semibold">Website</h4>
+                    <h4 className="font-semibold">Sitio Web</h4>
                     <a
                       href={`https://${university.contact.website}`}
                       target="_blank"

@@ -26,6 +26,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { suggestPotentialCandidates } from "@/ai/flows/suggest-potential-candidates";
+import ClientComponent from "./client-component";
 
 const typeIcons = {
   Internship: <Briefcase className="mr-2 h-5 w-5" />,
@@ -41,14 +42,14 @@ async function SuggestedCandidates({ opportunityDescription }: { opportunityDesc
     return (
       <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2"><Wand2 className="text-accent" /> AI-Suggested Candidates</CardTitle>
+        <CardTitle className="flex items-center gap-2"><Wand2 className="text-accent" /> Candidatos Sugeridos por IA</CardTitle>
       </CardHeader>
       <CardContent>
           <Alert variant="default" className="border-amber-500 text-amber-500 dark:border-amber-400 dark:text-amber-400 [&>svg]:text-amber-500 dark:[&>svg]:text-amber-400">
             <AlertTriangle className="h-4 w-4" />
-            <AlertTitle>AI Features Disabled</AlertTitle>
+            <AlertTitle>Funcionalidades de IA Deshabilitadas</AlertTitle>
             <AlertDescription>
-              Please add your Gemini API key to the `.env` file to enable AI-powered candidate suggestions.
+              Por favor, añade tu clave de API de Gemini al archivo `.env` para habilitar las sugerencias de candidatos por IA.
             </AlertDescription>
           </Alert>
         </CardContent>
@@ -69,9 +70,9 @@ async function SuggestedCandidates({ opportunityDescription }: { opportunityDesc
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2"><Wand2 className="text-accent" /> AI-Suggested Candidates</CardTitle>
+        <CardTitle className="flex items-center gap-2"><Wand2 className="text-accent" /> Candidatos Sugeridos por IA</CardTitle>
         <CardDescription>
-          Potential students based on skill and interest matching.
+          Estudiantes potenciales basados en la coincidencia de habilidades e intereses.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -88,11 +89,11 @@ async function SuggestedCandidates({ opportunityDescription }: { opportunityDesc
                   <p className="text-sm text-muted-foreground">{candidate.email}</p>
                 </div>
               </div>
-              <Button variant="outline" size="sm">View Profile</Button>
+              <Button variant="outline" size="sm">Ver Perfil</Button>
             </div>
             <div className="space-y-1">
                 <div className="flex items-center justify-between text-sm">
-                    <span className="font-medium">Match Score</span>
+                    <span className="font-medium">Puntuación de Coincidencia</span>
                     <span>{Math.round(candidate.matchScore * 100)}%</span>
                 </div>
                 <Progress value={candidate.matchScore * 100} />
@@ -117,74 +118,6 @@ export default async function OpportunityDetailPage({
   }
 
   return (
-    <div className="bg-slate-50/50">
-      <div className="container mx-auto px-4 py-12 md:px-6">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-          <div className="md:col-span-2">
-            <div className="mb-8">
-              <div className="mb-4 flex items-center gap-3">
-                <Image
-                  src={opportunity.businessLogoUrl}
-                  alt={`${opportunity.businessName} logo`}
-                  width={50}
-                  height={50}
-                  className="rounded-full border bg-white"
-                  data-ai-hint="logo"
-                />
-                <div>
-                  <h1 className="font-headline text-3xl font-bold">
-                    {opportunity.title}
-                  </h1>
-                  <p className="text-lg text-muted-foreground">
-                    at{" "}
-                    <Link
-                      href={`/businesses/${opportunity.businessId}`}
-                      className="font-medium text-primary hover:underline"
-                    >
-                      {opportunity.businessName}
-                    </Link>
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-muted-foreground">
-                <div className="flex items-center text-sm">
-                  {typeIcons[opportunity.type]}
-                  <span>{opportunity.type}</span>
-                </div>
-                <div className="flex items-center text-sm">
-                  <MapPin className="mr-2 h-5 w-5" />
-                  <span>{opportunity.location}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="prose prose-slate max-w-none dark:prose-invert">
-              <h2 className="font-headline text-xl font-semibold">
-                Job Description
-              </h2>
-              <p>{opportunity.longDescription}</p>
-
-              <h2 className="font-headline text-xl font-semibold">
-                Required Skills
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {opportunity.skills.map((skill) => (
-                  <Badge key={skill} variant="secondary" className="text-sm">
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="space-y-8">
-            <Button size="lg" className="w-full">
-              Apply Now
-            </Button>
-            {isBusinessUser && <SuggestedCandidates opportunityDescription={opportunity.description} />}
-          </div>
-        </div>
-      </div>
-    </div>
+    <ClientComponent opportunity={opportunity} isBusinessUser={isBusinessUser} />
   );
 }

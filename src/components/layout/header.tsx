@@ -13,10 +13,10 @@ export default function Header() {
   const pathname = usePathname();
 
   const navItems = [
-    { href: "/opportunities", label: "Opportunities" },
-    { href: "/businesses", label: "Businesses" },
-    { href: "/university", label: "University" },
-    { href: "/messages", label: "Messages" },
+    { href: "/opportunities", label: "Oportunidades" },
+    { href: "/businesses", label: "Empresas" },
+    { href: "/university", label: "Universidad" },
+    { href: "/messages", label: "Mensajes" },
   ];
 
   return (
@@ -46,7 +46,7 @@ export default function Header() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search..."
+              placeholder="Buscar..."
               className="w-full rounded-lg bg-background pl-9 md:w-[200px] lg:w-[320px]"
             />
           </div>

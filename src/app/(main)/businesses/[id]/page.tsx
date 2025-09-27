@@ -41,7 +41,7 @@ export default function BusinessProfilePage({ params }: { params: { id: string }
               <h1 className="font-headline text-4xl font-bold">{business.name}</h1>
               <p className="max-w-2xl text-lg text-muted-foreground mx-auto md:mx-0">{business.mission}</p>
               <Button>
-                <Mail className="mr-2 h-4 w-4" /> Contact Business
+                <Mail className="mr-2 h-4 w-4" /> Contactar Empresa
               </Button>
             </div>
           </div>
@@ -52,9 +52,9 @@ export default function BusinessProfilePage({ params }: { params: { id: string }
           <div className="space-y-8 lg:col-span-2">
              <Card>
                 <CardHeader>
-                    <CardTitle>Open Opportunities</CardTitle>
+                    <CardTitle>Oportunidades Abiertas</CardTitle>
                     <CardDescription>
-                        Explore internships, projects and research collaborations offered by {business.name}.
+                        Explora pasantías, proyectos y colaboraciones de investigación ofrecidas por {business.name}.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -65,7 +65,7 @@ export default function BusinessProfilePage({ params }: { params: { id: string }
                         ))}
                     </div>
                     ) : (
-                    <p className="text-center text-muted-foreground py-8">No open opportunities at the moment.</p>
+                    <p className="text-center text-muted-foreground py-8">No hay oportunidades abiertas por el momento.</p>
                     )}
                 </CardContent>
             </Card>
@@ -73,7 +73,7 @@ export default function BusinessProfilePage({ params }: { params: { id: string }
           <div className="space-y-8">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Users /> Team</CardTitle>
+                <CardTitle className="flex items-center gap-2"><Users /> Equipo</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {teamMembers.length > 0 ? (
@@ -90,14 +90,14 @@ export default function BusinessProfilePage({ params }: { params: { id: string }
                     </div>
                   ))
                 ) : (
-                    <p className="text-sm text-muted-foreground">Team information not available.</p>
+                    <p className="text-sm text-muted-foreground">Información del equipo no disponible.</p>
                 )}
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Recent Projects</CardTitle>
+                <CardTitle>Proyectos Recientes</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-1 text-muted-foreground">

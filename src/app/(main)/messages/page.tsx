@@ -17,10 +17,10 @@ export default function MessagesPage() {
       <div className="h-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 border-t">
         <div className="flex flex-col border-r md:col-span-1">
           <div className="p-4">
-            <h2 className="font-headline text-2xl font-bold">Conversations</h2>
+            <h2 className="font-headline text-2xl font-bold">Conversaciones</h2>
             <div className="relative mt-4">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input placeholder="Search messages" className="pl-9" />
+              <Input placeholder="Buscar mensajes" className="pl-9" />
             </div>
           </div>
           <ScrollArea className="flex-1">
@@ -86,7 +86,7 @@ export default function MessagesPage() {
           </ScrollArea>
           <div className="border-t p-4">
             <div className="relative">
-              <Input placeholder="Type a message..." className="pr-12" />
+              <Input placeholder="Escribe un mensaje..." className="pr-12" />
               <Button size="icon" variant="ghost" className="absolute right-1 top-1/2 -translate-y-1/2">
                 <Send className="h-5 w-5 text-muted-foreground" />
               </Button>

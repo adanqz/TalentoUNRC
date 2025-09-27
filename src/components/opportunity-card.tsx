@@ -72,7 +72,7 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
       </CardContent>
       <CardFooter>
         <Button asChild className="w-full" variant="outline">
-          <Link href={`/opportunities/${opportunity.id}`}>View Details</Link>
+          <Link href={`/opportunities/${opportunity.id}`}>Ver Detalles</Link>
         </Button>
       </CardFooter>
     </Card>

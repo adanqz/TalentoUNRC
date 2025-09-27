@@ -38,7 +38,7 @@ export default function StudentProfilePage() {
               <h1 className="font-headline text-4xl font-bold">{student.name}</h1>
               <p className="max-w-2xl text-lg text-muted-foreground mx-auto md:mx-0">{student.email}</p>
               <Button>
-                <Mail className="mr-2 h-4 w-4" /> Contact Student
+                <Mail className="mr-2 h-4 w-4" /> Contactar Estudiante
               </Button>
             </div>
           </div>
@@ -49,24 +49,24 @@ export default function StudentProfilePage() {
           <div className="space-y-8 lg:col-span-2">
              <Card>
                 <CardHeader>
-                    <CardTitle>My Suggested Opportunities</CardTitle>
+                    <CardTitle>Mis Oportunidades Sugeridas</CardTitle>
                     <CardDescription>
-                        Explore internships, projects and research collaborations suggested for you by NexusConnect AI.
+                        Explora pasantías, proyectos y colaboraciones de investigación sugeridas para ti por la IA de NexusConnect.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-center text-muted-foreground py-8">No open opportunities at the moment.</p>
+                  <p className="text-center text-muted-foreground py-8">No hay oportunidades abiertas por el momento.</p>
                 </CardContent>
             </Card>
           </div>
           <div className="space-y-8">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Briefcase /> Skills & Interests</CardTitle>
+                <CardTitle className="flex items-center gap-2"><Briefcase /> Habilidades e Intereses</CardTitle>
               </CardHeader>
               <CardContent className="flex flex-col gap-4">
                 <div>
-                  <h4 className="font-semibold mb-2">Skills</h4>
+                  <h4 className="font-semibold mb-2">Habilidades</h4>
                   <div className="flex flex-wrap gap-2">
                     {student.skills?.map(skill => (
                       <Badge key={skill} variant="secondary">{skill}</Badge>
@@ -74,7 +74,7 @@ export default function StudentProfilePage() {
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Interests</h4>
+                  <h4 className="font-semibold mb-2">Intereses</h4>
                   <div className="flex flex-wrap gap-2">
                     {student.interests?.map(interest => (
                       <Badge key={interest}>{interest}</Badge>

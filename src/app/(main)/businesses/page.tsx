@@ -18,20 +18,20 @@ export default function BusinessesPage() {
     <div className="container mx-auto px-4 py-8 md:px-6">
       <div className="mb-8 space-y-2">
         <h1 className="font-headline text-3xl font-bold tracking-tight">
-          Partner Businesses
+          Empresas Asociadas
         </h1>
         <p className="text-muted-foreground">
-          Explore the innovative companies partnering through NexusConnect.
+          Explora las empresas innovadoras asociadas a través de NexusConnect.
         </p>
       </div>
 
        <div className="mb-8 flex flex-col gap-4 md:flex-row">
         <Input
           type="search"
-          placeholder="Search by company name or industry..."
+          placeholder="Buscar por nombre de empresa o industria..."
           className="flex-1"
         />
-        <Button>Search</Button>
+        <Button>Buscar</Button>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -55,7 +55,7 @@ export default function BusinessesPage() {
             </CardContent>
             <CardFooter>
               <Button asChild variant="outline" className="w-full">
-                <Link href={`/businesses/${biz.id}`}>View Profile</Link>
+                <Link href={`/businesses/${biz.id}`}>Ver Perfil</Link>
               </Button>
             </CardFooter>
           </Card>
