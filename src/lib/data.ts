@@ -93,7 +93,7 @@ export const businesses: Business[] = [
 export const university: University = {
     id: 'unrc-1',
     name: 'Universidad Nacional Rosario Castellanos',
-    logoUrl: 'https://picsum.photos/seed/unrc/200/200',
+    logoUrl: 'https://sanmartindelaspiramides.gob.mx/img/virtual/urc.jpg',
     description: 'The Rosario Castellanos National University is a public university in Mexico City. It is a deconcentrated body of the Ministry of Education, Science, Technology and Innovation of Mexico City, with technical, teaching and management autonomy.',
     expertise: ['Computer Science', 'Environmental Science', 'Urban Development', 'Public Health', 'Social Sciences'],
     contact: {
