@@ -94,12 +94,13 @@ export const university: University = {
     id: 'unrc-1',
     name: 'Universidad Nacional Rosario Castellanos',
     logoUrl: 'https://picsum.photos/seed/unrc/200/200',
-    description: 'A public university in Argentina, committed to academic excellence, scientific research, and community engagement. Fostering a vibrant environment for learning and innovation.',
-    expertise: ['Computer Science', 'Agricultural Engineering', 'Economic Sciences', 'Veterinary Medicine', 'Exact Sciences'],
+    description: 'A public university in Mexico City, committed to academic excellence, scientific research, and community engagement. Fostering a vibrant environment for learning and innovation.',
+    expertise: ['Computer Science', 'Environmental Science', 'Urban Development', 'Public Health', 'Social Sciences'],
     contact: {
-        email: 'info@unrc.edu.ar',
-        phone: '+54 358 467-6200',
-        address: 'Ruta Nacional 36, Km 601, X5804BYA Río Cuarto, Córdoba',
+        email: 'info@rcastellanos.cdmx.gob.mx',
+        phone: '+52 55 1234 5678',
+        address: 'San Juan de Aragón II Secc, Gustavo A. Madero, 07979 Ciudad de México, CDMX',
+        website: 'rcastellanos.cdmx.gob.mx'
     },
 };
 

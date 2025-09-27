@@ -41,6 +41,7 @@ export type University = {
     email: string;
     phone: string;
     address: string;
+    website: string;
   };
 };
 

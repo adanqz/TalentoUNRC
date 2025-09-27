@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, MapPin, GraduationCap } from "lucide-react";
+import { Mail, Phone, MapPin, GraduationCap, Globe } from "lucide-react";
 
 export default function UniversityPage() {
   return (
@@ -92,6 +92,20 @@ export default function UniversityPage() {
                     <p className="text-muted-foreground">
                       {university.contact.address}
                     </p>
+                  </div>
+                </div>
+                 <div className="flex items-start gap-3">
+                  <Globe className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
+                  <div>
+                    <h4 className="font-semibold">Website</h4>
+                    <a
+                      href={`https://${university.contact.website}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline"
+                    >
+                      {university.contact.website}
+                    </a>
                   </div>
                 </div>
               </CardContent>
