@@ -51,7 +51,7 @@ export default function StudentProfilePage() {
                 <CardHeader>
                     <CardTitle>Mis Oportunidades Sugeridas</CardTitle>
                     <CardDescription>
-                        Explora pasantías, proyectos y colaboraciones de investigación sugeridas para ti por la IA de NexusConnect.
+                        Explora pasantías, proyectos y colaboraciones de investigación sugeridas para ti por la IA de API TalentosUNRC.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>

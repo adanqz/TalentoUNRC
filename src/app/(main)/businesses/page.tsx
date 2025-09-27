@@ -21,7 +21,7 @@ export default function BusinessesPage() {
           Empresas Asociadas
         </h1>
         <p className="text-muted-foreground">
-          Explora las empresas innovadoras asociadas a través de NexusConnect.
+          Explora las empresas innovadoras asociadas a través de API TalentosUNRC.
         </p>
       </div>
 

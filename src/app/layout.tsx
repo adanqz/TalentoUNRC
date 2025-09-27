@@ -1,10 +1,9 @@
-
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'NexusConnect',
+  title: 'API TalentosUNRC',
   description: 'Conectando a estudiantes, empresas y la universidad para el crecimiento y la colaboración.',
 };
 
