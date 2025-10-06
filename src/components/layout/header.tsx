@@ -17,6 +17,7 @@ export default function Header() {
     { href: "/businesses", label: "Empresas" },
     { href: "/university", label: "Universidad" },
     { href: "/messages", label: "Mensajes" },
+    { href: "/dashboard", label: "Panel" },
   ];
 
   return (
