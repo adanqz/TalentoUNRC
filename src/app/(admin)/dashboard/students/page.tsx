@@ -26,6 +26,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+import Link from 'next/link';
 
 export default function AdminStudentsPage() {
   return (
@@ -98,9 +99,11 @@ export default function AdminStudentsPage() {
           </Table>
         </CardContent>
       </Card>
-      <Button className="fixed bottom-12 right-12 h-16 w-16 rounded-full shadow-lg">
-        <Plus className="h-6 w-6" />
-        <span className="sr-only">Agregar Estudiante</span>
+      <Button asChild className="fixed bottom-12 right-12 h-16 w-16 rounded-full shadow-lg">
+        <Link href="/dashboard/students/new">
+            <Plus className="h-6 w-6" />
+            <span className="sr-only">Agregar Estudiante</span>
+        </Link>
       </Button>
     </div>
   );

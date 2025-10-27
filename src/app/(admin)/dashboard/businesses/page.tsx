@@ -27,6 +27,7 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function AdminBusinessesPage() {
   return (
@@ -91,9 +92,11 @@ export default function AdminBusinessesPage() {
           </Table>
         </CardContent>
       </Card>
-       <Button className="fixed bottom-12 right-12 h-16 w-16 rounded-full shadow-lg">
-        <Plus className="h-6 w-6" />
-        <span className="sr-only">Agregar Empresa</span>
+       <Button asChild className="fixed bottom-12 right-12 h-16 w-16 rounded-full shadow-lg">
+        <Link href="/dashboard/businesses/new">
+            <Plus className="h-6 w-6" />
+            <span className="sr-only">Agregar Empresa</span>
+        </Link>
       </Button>
     </div>
   );
