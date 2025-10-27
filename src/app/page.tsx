@@ -41,48 +41,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Companies Section */}
-      <section className="bg-background py-12">
-        <div className="container mx-auto px-4 md:px-6">
-          <h3 className="mb-8 text-center text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-            Empresas que confían en nuestro talento
-          </h3>
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:gap-x-12">
-            {partnerBusinesses.map(biz => (
-              <Image
-                key={biz.id}
-                src={biz.logoUrl}
-                alt={`${biz.name} logo`}
-                width={120}
-                height={50}
-                className="object-contain grayscale transition hover:grayscale-0"
-                data-ai-hint="logo"
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Latest Opportunities Section */}
-      <section className="bg-slate-50/50 py-20">
-        <div className="container mx-auto px-4 md:px-6">
-          <h2 className="mb-10 text-center font-headline text-3xl font-bold">
-            Últimas Oportunidades
-          </h2>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {latestOpportunities.map(opp => (
-              <OpportunityCard key={opp.id} opportunity={opp} />
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <Button asChild variant="outline">
-              <Link href="/opportunities">Ver Todas las Oportunidades</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-       {/* Explore Section */}
+      {/* Explore Section */}
       <section className="bg-background py-20">
         <div className="container mx-auto px-4 md:px-6">
             <h2 className="mb-10 text-center font-headline text-3xl font-bold">Explora Nuestra Plataforma</h2>
@@ -130,6 +89,47 @@ export default function Home() {
                     </Button>
                 </Card>
             </div>
+        </div>
+      </section>
+      
+      {/* Featured Companies Section */}
+      <section className="bg-slate-50/50 py-12">
+        <div className="container mx-auto px-4 md:px-6">
+          <h3 className="mb-8 text-center text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Empresas que confían en nuestro talento
+          </h3>
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:gap-x-12">
+            {partnerBusinesses.map(biz => (
+              <Image
+                key={biz.id}
+                src={biz.logoUrl}
+                alt={`${biz.name} logo`}
+                width={120}
+                height={50}
+                className="object-contain grayscale transition hover:grayscale-0"
+                data-ai-hint="logo"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Opportunities Section */}
+      <section className="bg-background py-20">
+        <div className="container mx-auto px-4 md:px-6">
+          <h2 className="mb-10 text-center font-headline text-3xl font-bold">
+            Últimas Oportunidades
+          </h2>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {latestOpportunities.map(opp => (
+              <OpportunityCard key={opp.id} opportunity={opp} />
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Button asChild variant="outline">
+              <Link href="/opportunities">Ver Todas las Oportunidades</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
