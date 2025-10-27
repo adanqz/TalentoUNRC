@@ -1,4 +1,3 @@
-
 'use client';
 import type { Opportunity } from "@/lib/types";
 import Image from "next/image";
@@ -43,7 +42,7 @@ function SuggestedCandidates({ opportunityDescription }: SuggestedCandidatesProp
 
   useEffect(() => {
     async function getSuggestions() {
-      if (process.env.NEXT_PUBLIC_GEMINI_API_KEY && process.env.NEXT_PUBLIC_GEMINI_API_KEY !== "YOUR_API_KEY") {
+      if (process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== "YOUR_API_KEY") {
         try {
           const candidates = await Promise.all(
             users.slice(0, 2).map(async (student) => {
@@ -79,7 +78,7 @@ function SuggestedCandidates({ opportunityDescription }: SuggestedCandidatesProp
       );
   }
 
-  if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY === "YOUR_API_KEY") {
+  if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === "YOUR_API_KEY") {
     return (
       <Card>
         <CardHeader>
@@ -143,62 +142,70 @@ export default function ClientComponent({ opportunity, isBusinessUser }: { oppor
         <div className="bg-slate-50/50">
             <div className="container mx-auto px-4 py-12 md:px-6">
                 <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-                    <div className="md:col-span-2">
-                        <div className="mb-8">
-                            <div className="mb-4 flex items-center gap-3">
-                                <Image
-                                    src={opportunity.businessLogoUrl}
-                                    alt={`${opportunity.businessName} logo`}
-                                    width={50}
-                                    height={50}
-                                    className="rounded-full border bg-white"
-                                    data-ai-hint="logo"
-                                />
-                                <div>
-                                    <h1 className="font-headline text-3xl font-bold">
-                                        {opportunity.title}
-                                    </h1>
-                                    <p className="text-lg text-muted-foreground">
-                                        en{" "}
-                                        <Link
-                                            href={`/businesses/${opportunity.businessId}`}
-                                            className="font-medium text-primary hover:underline"
-                                        >
-                                            {opportunity.businessName}
-                                        </Link>
-                                    </p>
+                    <div className="space-y-8 md:col-span-2">
+                        <Card>
+                            <CardHeader>
+                                <div className="flex items-center gap-3">
+                                    <Image
+                                        src={opportunity.businessLogoUrl}
+                                        alt={`${opportunity.businessName} logo`}
+                                        width={50}
+                                        height={50}
+                                        className="rounded-full border bg-white"
+                                        data-ai-hint="logo"
+                                    />
+                                    <div>
+                                        <CardTitle className="text-2xl">{opportunity.title}</CardTitle>
+                                        <CardDescription className="text-md">
+                                            en{" "}
+                                            <Link
+                                                href={`/businesses/${opportunity.businessId}`}
+                                                className="font-medium text-primary hover:underline"
+                                            >
+                                                {opportunity.businessName}
+                                            </Link>
+                                        </CardDescription>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-muted-foreground">
-                                <div className="flex items-center text-sm">
-                                    {typeIcons[opportunity.type]}
-                                    <span>{opportunity.type}</span>
+                                <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-muted-foreground">
+                                    <div className="flex items-center text-sm">
+                                        {typeIcons[opportunity.type]}
+                                        <span>{opportunity.type}</span>
+                                    </div>
+                                    <div className="flex items-center text-sm">
+                                        <MapPin className="mr-2 h-5 w-5" />
+                                        <span>{opportunity.location}</span>
+                                    </div>
                                 </div>
-                                <div className="flex items-center text-sm">
-                                    <MapPin className="mr-2 h-5 w-5" />
-                                    <span>{opportunity.location}</span>
+                            </CardHeader>
+                        </Card>
+
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="text-xl">Descripción del Puesto</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="prose prose-slate max-w-none dark:prose-invert">
+                                    <p>{opportunity.longDescription}</p>
                                 </div>
-                            </div>
-                        </div>
+                            </CardContent>
+                        </Card>
+                        
+                        <Card>
+                             <CardHeader>
+                                <CardTitle className="text-xl">Habilidades Requeridas</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex flex-wrap gap-2">
+                                    {opportunity.skills.map((skill) => (
+                                        <Badge key={skill} variant="secondary" className="text-sm">
+                                            {skill}
+                                        </Badge>
+                                    ))}
+                                </div>
+                            </CardContent>
+                        </Card>
 
-                        <div className="prose prose-slate max-w-none dark:prose-invert">
-                            <h2 className="font-headline text-xl font-semibold">
-                                Descripción del Puesto
-                            </h2>
-                            <p>{opportunity.longDescription}</p>
-
-                            <h2 className="font-headline text-xl font-semibold">
-                                Habilidades Requeridas
-                            </h2>
-                            <div className="flex flex-wrap gap-2">
-                                {opportunity.skills.map((skill) => (
-                                    <Badge key={skill} variant="secondary" className="text-sm">
-                                        {skill}
-                                    </Badge>
-                                ))}
-                            </div>
-                        </div>
                     </div>
                     <div className="space-y-8">
                         <Button size="lg" className="w-full">
