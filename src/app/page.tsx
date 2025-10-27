@@ -147,7 +147,7 @@ export default function Home() {
             <Button asChild size="lg" variant="secondary">
               <Link href="/student-profile">Crea tu Perfil</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+            <Button asChild size="lg" variant="secondary">
               <Link href="/businesses">Explora Empresas</Link>
             </Button>
           </div>
