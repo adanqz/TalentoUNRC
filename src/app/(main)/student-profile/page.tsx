@@ -4,7 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mail, Briefcase, Wand2, BookOpen, FileText } from "lucide-react";
+import { Mail, Briefcase, Wand2, BookOpen, FileText, Download } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -22,6 +22,7 @@ import { OpportunityCard } from "@/components/opportunity-card";
 import { suggestRelevantOpportunities } from "@/ai/flows/suggest-relevant-opportunities";
 import type { Opportunity } from "@/lib/types";
 import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 
 export default async function StudentProfilePage({ searchParams }: { searchParams: { id?: string }}) {
   const studentId = searchParams.id || users[0].id;
@@ -67,9 +68,14 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
             <div className="flex-1 space-y-2">
               <h1 className="font-headline text-4xl font-bold">{student.name}</h1>
               <p className="max-w-2xl text-lg text-muted-foreground mx-auto md:mx-0">{student.email}</p>
-              <Button>
-                <Mail className="mr-2 h-4 w-4" /> Contactar Estudiante
-              </Button>
+              <div className="flex justify-center md:justify-start gap-2">
+                <Button>
+                  <Mail className="mr-2 h-4 w-4" /> Contactar Estudiante
+                </Button>
+                 <Button variant="outline">
+                    <Download className="mr-2 h-4 w-4" /> Descargar CV en PDF
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -79,16 +85,15 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
           <div className="space-y-8 lg:col-span-2">
              <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><BookOpen /> Proyectos por Semestre</CardTitle>
+                    <CardTitle className="flex items-center gap-2"><BookOpen /> Proyectos y Documentos</CardTitle>
                     <CardDescription>
-                        Explora los proyectos que {student.name} ha completado a lo largo de su carrera.
+                        Explora los proyectos y documentos de {student.name}.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {student.semesterProjects && student.semesterProjects.length > 0 ? (
-                    <Accordion type="single" collapsible defaultValue="Semestre 1">
-                      {student.semesterProjects.map(semesterProject => (
-                        <AccordionItem value={semesterProject.semester} key={semesterProject.semester}>
+                    <Accordion type="single" collapsible defaultValue="item-1">
+                      {student.semesterProjects && student.semesterProjects.length > 0 && student.semesterProjects.map((semesterProject, index) => (
+                        <AccordionItem value={`item-${index + 1}`} key={semesterProject.semester}>
                           <AccordionTrigger className="text-lg font-semibold">{semesterProject.semester}</AccordionTrigger>
                           <AccordionContent>
                             <ul className="space-y-3">
@@ -108,9 +113,6 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
                         </AccordionItem>
                       ))}
                     </Accordion>
-                  ) : (
-                    <p className="text-center text-muted-foreground py-8">No hay proyectos para mostrar.</p>
-                  )}
                 </CardContent>
             </Card>
 
@@ -148,6 +150,7 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
                     ))}
                   </div>
                 </div>
+                 <Separator className="my-4" />
                 <div>
                   <h4 className="font-semibold mb-2">Intereses</h4>
                   <div className="flex flex-wrap gap-2">
@@ -164,3 +167,5 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
     </>
   );
 }
+
+    
