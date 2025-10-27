@@ -4,7 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mail, Briefcase, Wand2 } from "lucide-react";
+import { Mail, Briefcase, Wand2, BookOpen, FileText } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -12,9 +12,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 import { OpportunityCard } from "@/components/opportunity-card";
 import { suggestRelevantOpportunities } from "@/ai/flows/suggest-relevant-opportunities";
 import type { Opportunity } from "@/lib/types";
+import Link from "next/link";
 
 export default async function StudentProfilePage({ searchParams }: { searchParams: { id?: string }}) {
   const studentId = searchParams.id || users[0].id;
@@ -72,9 +79,46 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
           <div className="space-y-8 lg:col-span-2">
              <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><Wand2 className="text-accent" /> Mis Oportunidades Sugeridas</CardTitle>
+                    <CardTitle className="flex items-center gap-2"><BookOpen /> Proyectos por Semestre</CardTitle>
                     <CardDescription>
-                        Explora pasantías, proyectos y colaboraciones de investigación sugeridas para ti por la IA de API TalentosUNRC.
+                        Explora los proyectos que {student.name} ha completado a lo largo de su carrera.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {student.semesterProjects && student.semesterProjects.length > 0 ? (
+                    <Accordion type="single" collapsible defaultValue="Semestre 1">
+                      {student.semesterProjects.map(semesterProject => (
+                        <AccordionItem value={semesterProject.semester} key={semesterProject.semester}>
+                          <AccordionTrigger className="text-lg font-semibold">{semesterProject.semester}</AccordionTrigger>
+                          <AccordionContent>
+                            <ul className="space-y-3">
+                              {semesterProject.projects.map(project => (
+                                <li key={project.id}>
+                                  <Link href={project.pdfUrl} target="_blank" className="flex items-center justify-between rounded-md p-3 hover:bg-muted">
+                                      <div className="flex items-center gap-3">
+                                          <FileText className="h-5 w-5 text-primary" />
+                                          <span className="font-medium">{project.name}</span>
+                                      </div>
+                                      <Button variant="outline" size="sm">Ver PDF</Button>
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  ) : (
+                    <p className="text-center text-muted-foreground py-8">No hay proyectos para mostrar.</p>
+                  )}
+                </CardContent>
+            </Card>
+
+             <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><Wand2 className="text-accent" /> Oportunidades Sugeridas</CardTitle>
+                    <CardDescription>
+                        Pasantías y proyectos sugeridos para {student.name} por la IA de API TalentosUNRC.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>

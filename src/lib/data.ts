@@ -2,7 +2,16 @@
 import type { User, Business, Opportunity, University, Conversation } from '@/lib/types';
 
 export const users: User[] = [
-  { id: 'user-1', name: 'Ana Torres', email: 'ana.t@example.com', avatarUrl: 'https://picsum.photos/seed/user1/100/100', skills: ['React', 'Node.js', 'TypeScript'], interests: ['Desarrollo Web', 'IA'] },
+  { id: 'user-1', name: 'Ana Torres', email: 'ana.t@example.com', avatarUrl: 'https://picsum.photos/seed/user1/100/100', skills: ['React', 'Node.js', 'TypeScript'], interests: ['Desarrollo Web', 'IA'], semesterProjects: [
+    { semester: 'Semestre 1', projects: [
+      { id: 'proj-1-1', name: 'Introducción a la Programación', pdfUrl: '#' },
+      { id: 'proj-1-2', name: 'Fundamentos de Diseño Web', pdfUrl: '#' },
+    ]},
+    { semester: 'Semestre 2', projects: [
+      { id: 'proj-2-1', name: 'Programación Orientada a Objetos', pdfUrl: '#' },
+      { id: 'proj-2-2', name: 'Bases de Datos Relacionales', pdfUrl: '#' },
+    ]}
+  ]},
   { id: 'user-2', name: 'Carlos Gomez', email: 'carlos.g@example.com', avatarUrl: 'https://picsum.photos/seed/user2/100/100', skills: ['Python', 'Análisis de Datos', 'Machine Learning'], interests: ['Ciencia de Datos', 'Fintech'] },
   { id: 'user-3', name: 'Sofia Diaz', email: 'sofia.d@example.com', avatarUrl: 'https://picsum.photos/seed/user3/100/100' },
   { id: 'user-4', name: 'Javier Peña', email: 'javier.p@example.com', avatarUrl: 'https://picsum.photos/seed/user4/100/100' },

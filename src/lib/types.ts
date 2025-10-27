@@ -1,4 +1,15 @@
 
+export type Project = {
+  id: string;
+  name: string;
+  pdfUrl: string;
+};
+
+export type SemesterProjects = {
+  semester: string;
+  projects: Project[];
+};
+
 export type User = {
   id: string;
   name: string;
@@ -6,6 +17,7 @@ export type User = {
   avatarUrl: string;
   skills?: string[];
   interests?: string[];
+  semesterProjects?: SemesterProjects[];
 };
 
 export type Business = {
