@@ -7,6 +7,8 @@ export const users: User[] = [
   { id: 'user-3', name: 'Sofia Diaz', email: 'sofia.d@example.com', avatarUrl: 'https://picsum.photos/seed/user3/100/100' },
   { id: 'user-4', name: 'Javier Peña', email: 'javier.p@example.com', avatarUrl: 'https://picsum.photos/seed/user4/100/100' },
   { id: 'user-5', name: 'Isabel Luna', email: 'isabel.l@example.com', avatarUrl: 'https://picsum.photos/seed/user5/100/100' },
+  { id: 'user-6', name: 'Maria Rodriguez', email: 'maria.r@example.com', avatarUrl: 'https://picsum.photos/seed/user6/100/100', skills: ['Diseño UI/UX', 'Figma', 'Adobe XD'], interests: ['Diseño de Producto', 'Experiencia de Usuario'] },
+  { id: 'user-7', name: 'David Chen', email: 'david.c@example.com', avatarUrl: 'https://picsum.photos/seed/user7/100/100', skills: ['AWS', 'Docker', 'Kubernetes'], interests: ['DevOps', 'Cloud Computing'] },
 ];
 
 export const opportunities: Opportunity[] = [
@@ -58,6 +60,42 @@ export const opportunities: Opportunity[] = [
     location: 'Río Cuarto, Córdoba',
     skills: ['Node.js', 'Express', 'PostgreSQL', 'APIs REST'],
   },
+  {
+    id: 'opp-5',
+    title: 'Pasantía de Diseño UI/UX',
+    businessName: 'Innovatech',
+    businessId: 'biz-4',
+    businessLogoUrl: 'https://picsum.photos/seed/logo4/40/40',
+    type: 'Internship',
+    description: 'Crea interfaces de usuario intuitivas y atractivas para nuestras aplicaciones web y móviles.',
+    longDescription: 'Como pasante de UI/UX, serás responsable de realizar investigaciones de usuarios, crear wireframes y prototipos, y diseñar interfaces de usuario visualmente atractivas. Trabajarás en estrecha colaboración con los gerentes de producto y desarrolladores para garantizar una experiencia de usuario perfecta.',
+    location: 'Remoto',
+    skills: ['Figma', 'Sketch', 'Adobe XD', 'Investigación de Usuarios'],
+  },
+  {
+    id: 'opp-6',
+    title: 'Ingeniero de la Nube',
+    businessName: 'QuantumLeap',
+    businessId: 'biz-5',
+    businessLogoUrl: 'https://picsum.photos/seed/logo5/40/40',
+    type: 'Project',
+    description: 'Diseña y gestiona nuestra infraestructura en la nube en AWS.',
+    longDescription: 'Buscamos un ingeniero de la nube experimentado para unirse a nuestro equipo. Serás responsable de diseñar, implementar y mantener nuestra infraestructura en la nube en AWS. Debes tener una sólida experiencia con servicios de AWS como EC2, S3, RDS y Lambda.',
+    location: 'Río Cuarto, Córdoba',
+    skills: ['AWS', 'Terraform', 'Docker', 'CI/CD'],
+  },
+  {
+    id: 'opp-7',
+    title: 'Pasantía de Marketing',
+    businessName: 'Agro-Solutions',
+    businessId: 'biz-3',
+    businessLogoUrl: 'https://picsum.photos/seed/logo3/40/40',
+    type: 'Internship',
+    description: 'Apoya a nuestro equipo de marketing con campañas en redes sociales, creación de contenido y estudios de mercado.',
+    longDescription: 'Esta es una excelente oportunidad para que un estudiante de marketing gane experiencia práctica. Ayudarás a desarrollar y ejecutar campañas en redes sociales, escribirás entradas de blog y contenido para el sitio web, y realizarás estudios de mercado para identificar nuevas oportunidades.',
+    location: 'Remoto',
+    skills: ['Redes Sociales', 'Marketing de Contenidos', 'SEO', 'Google Analytics'],
+  },
 ];
 
 export const businesses: Business[] = [
@@ -86,7 +124,25 @@ export const businesses: Business[] = [
     mission: 'Modernizar la agricultura a través de la tecnología. Desarrollamos herramientas innovadoras para ayudar a los agricultores a aumentar la eficiencia, la sostenibilidad y la rentabilidad.',
     team: [],
     projects: ['Sistema de Riego Inteligente', 'App de Monitoreo de Salud de Cultivos'],
-    opportunities: ['opp-3'],
+    opportunities: ['opp-3', 'opp-7'],
+  },
+  {
+    id: 'biz-4',
+    name: 'Innovatech',
+    logoUrl: 'https://picsum.photos/seed/logo4/200/200',
+    mission: 'Pioneros en el futuro de la tecnología con soluciones de software de vanguardia. Nos especializamos en IA y machine learning.',
+    team: [users[5]],
+    projects: ['Plataforma de IA', 'Motor de Recomendaciones'],
+    opportunities: ['opp-5'],
+  },
+  {
+    id: 'biz-5',
+    name: 'QuantumLeap',
+    logoUrl: 'https://picsum.photos/seed/logo5/200/200',
+    mission: 'Dando un salto cuántico en la computación. Nuestra misión es construir la primera computadora cuántica comercialmente viable del mundo.',
+    team: [users[6]],
+    projects: ['Simulador Cuántico', 'Hardware Cuántico'],
+    opportunities: ['opp-6'],
   },
 ];
 
