@@ -13,13 +13,13 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[500px] w-full">
+      <section className="relative h-[60vh] min-h-[500px] w-full bg-slate-50">
         <Image
-          src="https://picsum.photos/seed/hero/1920/1080"
-          alt="Students collaborating"
+          src="https://picsum.photos/seed/paris/1920/1080"
+          alt="Vista de la ciudad de París"
           fill
           className="object-cover"
-          data-ai-hint="students collaborating"
+          data-ai-hint="cityscape paris"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20" />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
@@ -41,7 +41,7 @@ export default function Home() {
       </section>
 
       {/* Featured Companies Section */}
-      <section className="bg-slate-50 py-12 dark:bg-slate-800/50">
+      <section className="bg-background py-12">
         <div className="container mx-auto px-4 md:px-6">
           <h3 className="mb-8 text-center text-sm font-semibold uppercase tracking-wider text-muted-foreground">
             Empresas que confían en nuestro talento
@@ -63,7 +63,7 @@ export default function Home() {
       </section>
 
       {/* Latest Opportunities Section */}
-      <section className="py-20">
+      <section className="bg-background py-20">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="mb-10 text-center font-headline text-3xl font-bold">
             Últimas Oportunidades
