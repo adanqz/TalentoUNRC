@@ -19,19 +19,26 @@ export default async function OpportunitiesPage() {
   const currentUser = users[0];
   let suggestedOpportunities: Opportunity[] = [];
   let otherOpportunities: Opportunity[] = opportunities;
-  let hasApiKey = process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== "YOUR_API_KEY";
+  let hasApiKey = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== "YOUR_API_KEY";
 
   if (hasApiKey) {
-    const allOpportunityDescriptions = opportunities.map(o => o.description);
-    
-    const suggestedOpportunitiesResult = await suggestRelevantOpportunities({
-      studentSkills: currentUser.skills || [],
-      studentInterests: currentUser.interests || [],
-      availableOpportunities: allOpportunityDescriptions,
-    });
+    try {
+      const allOpportunityDescriptions = opportunities.map(o => o.description);
+      
+      const suggestedOpportunitiesResult = await suggestRelevantOpportunities({
+        studentSkills: currentUser.skills || [],
+        studentInterests: currentUser.interests || [],
+        availableOpportunities: allOpportunityDescriptions,
+      });
 
-    suggestedOpportunities = opportunities.filter(o => suggestedOpportunitiesResult.relevantOpportunities.includes(o.description));
-    otherOpportunities = opportunities.filter(o => !suggestedOpportunitiesResult.relevantOpportunities.includes(o.description));
+      if (suggestedOpportunitiesResult && suggestedOpportunitiesResult.relevantOpportunities) {
+        suggestedOpportunities = opportunities.filter(o => suggestedOpportunitiesResult.relevantOpportunities.includes(o.description));
+        otherOpportunities = opportunities.filter(o => !suggestedOpportunitiesResult.relevantOpportunities.includes(o.description));
+      }
+    } catch(e) {
+      console.error(e);
+      // Keep all opportunities in the other opportunities list
+    }
   }
 
   return (

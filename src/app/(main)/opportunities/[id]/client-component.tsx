@@ -54,7 +54,7 @@ function SuggestedCandidates({ potentialCandidates }: SuggestedCandidatesProps) 
     );
   }
 
-  if (potentialCandidates.length === 0) {
+  if (!potentialCandidates || potentialCandidates.length === 0) {
       return (
           <Card>
               <CardHeader>
@@ -91,7 +91,9 @@ function SuggestedCandidates({ potentialCandidates }: SuggestedCandidatesProps) 
                   <p className="text-sm text-muted-foreground">{candidate.email}</p>
                 </div>
               </div>
-              <Button variant="outline" size="sm">Ver Perfil</Button>
+              <Button asChild variant="outline" size="sm">
+                <Link href={`/student-profile?id=${candidate.id}`}>Ver Perfil</Link>
+              </Button>
             </div>
             <div className="space-y-1">
                 <div className="flex items-center justify-between text-sm">

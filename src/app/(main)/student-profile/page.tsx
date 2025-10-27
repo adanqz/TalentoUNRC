@@ -1,6 +1,6 @@
 
-import { users } from "@/lib/data";
-import { notFound } from "next/navigation";
+import { users, opportunities, getOpportunityById } from "@/lib/data";
+import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,13 +13,36 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { OpportunityCard } from "@/components/opportunity-card";
+import { suggestRelevantOpportunities } from "@/ai/flows/suggest-relevant-opportunities";
+import type { Opportunity } from "@/lib/types";
 
-export default function StudentProfilePage() {
-  const student = users[0]; 
+export default async function StudentProfilePage({ searchParams }: { searchParams: { id?: string }}) {
+  const studentId = searchParams.id || users[0].id;
+  const student = users.find(u => u.id === studentId);
 
   if (!student) {
     notFound();
   }
+
+  const hasApiKey = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== "YOUR_API_KEY";
+  let suggestedOpportunities: Opportunity[] = [];
+
+  if (hasApiKey) {
+    try {
+      const allOpportunityDescriptions = opportunities.map(o => o.description);
+      const result = await suggestRelevantOpportunities({
+        studentSkills: student.skills || [],
+        studentInterests: student.interests || [],
+        availableOpportunities: allOpportunityDescriptions,
+      });
+      if (result && result.relevantOpportunities) {
+        suggestedOpportunities = opportunities.filter(o => result.relevantOpportunities.includes(o.description));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
 
   return (
     <>
@@ -49,13 +72,21 @@ export default function StudentProfilePage() {
           <div className="space-y-8 lg:col-span-2">
              <Card>
                 <CardHeader>
-                    <CardTitle>Mis Oportunidades Sugeridas</CardTitle>
+                    <CardTitle className="flex items-center gap-2"><Wand2 className="text-accent" /> Mis Oportunidades Sugeridas</CardTitle>
                     <CardDescription>
                         Explora pasantías, proyectos y colaboraciones de investigación sugeridas para ti por la IA de API TalentosUNRC.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-center text-muted-foreground py-8">No hay oportunidades abiertas por el momento.</p>
+                  {suggestedOpportunities.length > 0 ? (
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                      {suggestedOpportunities.map(opp => (
+                        <OpportunityCard key={opp.id} opportunity={opp} />
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-center text-muted-foreground py-8">No hay oportunidades sugeridas por el momento.</p>
+                  )}
                 </CardContent>
             </Card>
           </div>
