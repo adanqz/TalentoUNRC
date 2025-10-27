@@ -53,21 +53,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               ))}
             </nav>
           </div>
-          <div className="mt-auto p-4">
-            <Card>
-              <CardHeader className="p-2 pt-0 md:p-4">
-                <CardTitle>API TalentosUNRC</CardTitle>
-                <CardDescription>
-                  Desbloquea todo el potencial de la plataforma con el plan Pro.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                <Button size="sm" className="w-full">
-                  Actualizar
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </div>
       <div className="flex flex-col">
