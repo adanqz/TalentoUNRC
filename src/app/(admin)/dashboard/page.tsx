@@ -16,7 +16,7 @@ import { suggestPotentialCandidates } from '@/ai/flows/suggest-potential-candida
 import { suggestRelevantOpportunities } from '@/ai/flows/suggest-relevant-opportunities';
 import { suggestSuitableCandidates } from '@/ai/flows/suggest-suitable-candidates';
 import { Loader2, Wand2, Users, Building, Briefcase } from 'lucide-react';
-import { Bar, BarChart, CartesianGrid, XAxis, Pie, PieChart, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis, Pie, PieChart, Cell, Tooltip } from 'recharts';
 import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
 import { opportunities, users, businesses } from '@/lib/data';
 
@@ -114,8 +114,8 @@ export default function DashboardPage() {
 
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-6">
-      <div className="mb-8 space-y-2">
+    <>
+      <div className="space-y-2">
         <h1 className="font-headline text-3xl font-bold tracking-tight">
           Panel de Administración
         </h1>
@@ -124,7 +124,7 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4 mb-8">
+      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
@@ -158,7 +158,7 @@ export default function DashboardPage() {
         </Card>
       </div>
       
-      <div className="grid gap-8 md:grid-cols-2 mb-8">
+      <div className="grid gap-8 md:grid-cols-2">
         <Card>
             <CardHeader>
                 <CardTitle>Distribución de Oportunidades</CardTitle>
@@ -193,7 +193,7 @@ export default function DashboardPage() {
         </Card>
       </div>
 
-       <div className="mb-8 space-y-2">
+       <div className="space-y-2">
         <h2 className="font-headline text-2xl font-bold tracking-tight flex items-center gap-2">
           <Wand2 /> Panel de la API de IA
         </h2>
@@ -323,6 +323,6 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       )}
-    </div>
+    </>
   );
 }
