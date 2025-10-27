@@ -61,10 +61,12 @@ export default function Header() {
               key={item.href}
               href={item.href}
               className={cn(
-                "transition-colors hover:text-primary",
+                "transition-colors",
                 pathname.startsWith(item.href)
                   ? "text-primary font-semibold"
-                  : isLandingPage && !isScrolled ? "text-white hover:text-slate-200" : "text-muted-foreground",
+                  : isLandingPage && !isScrolled 
+                  ? "text-white hover:text-slate-200" 
+                  : "text-muted-foreground hover:text-primary",
               )}
             >
               {item.label}
@@ -114,3 +116,4 @@ export default function Header() {
     </header>
   );
 }
+
