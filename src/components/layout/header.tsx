@@ -51,7 +51,7 @@ export default function Header() {
     >
       <div className="container flex h-16 items-center px-4 md:px-6">
         <div className="mr-6 flex items-center">
-          <Logo />
+          <Logo className={cn(isLandingPage && !isScrolled && "text-white")} />
         </div>
         
         {/* Desktop Navigation */}
