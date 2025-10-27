@@ -81,17 +81,17 @@ function SuggestedCandidates({ potentialCandidates }: SuggestedCandidatesProps) 
         {potentialCandidates.map((candidate) => (
           <div key={candidate.id} className="space-y-2 rounded-lg border p-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 overflow-hidden">
                 <Avatar>
                   <AvatarImage src={candidate.avatarUrl} alt={candidate.name} />
                   <AvatarFallback>{candidate.name.charAt(0)}</AvatarFallback>
                 </Avatar>
-                <div>
-                  <h4 className="font-semibold">{candidate.name}</h4>
-                  <p className="text-sm text-muted-foreground">{candidate.email}</p>
+                <div className="overflow-hidden">
+                  <h4 className="font-semibold truncate">{candidate.name}</h4>
+                  <p className="text-sm text-muted-foreground truncate">{candidate.email}</p>
                 </div>
               </div>
-              <Button asChild variant="outline" size="sm">
+              <Button asChild variant="outline" size="sm" className="flex-shrink-0">
                 <Link href={`/student-profile?id=${candidate.id}`}>Ver Perfil</Link>
               </Button>
             </div>
