@@ -4,7 +4,8 @@ import { businesses, opportunities } from '@/lib/data';
 import Image from 'next/image';
 import Link from 'next/link';
 import { OpportunityCard } from '@/components/opportunity-card';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Briefcase, Building, Users } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function Home() {
   const latestOpportunities = opportunities.slice(0, 3);
@@ -63,7 +64,7 @@ export default function Home() {
       </section>
 
       {/* Latest Opportunities Section */}
-      <section className="bg-background py-20">
+      <section className="bg-slate-50/50 py-20">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="mb-10 text-center font-headline text-3xl font-bold">
             Últimas Oportunidades
@@ -78,6 +79,57 @@ export default function Home() {
               <Link href="/opportunities">Ver Todas las Oportunidades</Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+       {/* Explore Section */}
+      <section className="bg-background py-20">
+        <div className="container mx-auto px-4 md:px-6">
+            <h2 className="mb-10 text-center font-headline text-3xl font-bold">Explora Nuestra Plataforma</h2>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+                <Card className="text-center flex flex-col items-center justify-center p-6">
+                    <CardHeader>
+                        <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full">
+                            <Briefcase className="h-8 w-8" />
+                        </div>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                        <CardTitle className="text-xl mb-2">Oportunidades</CardTitle>
+                        <CardDescription>Encuentra la pasantía, proyecto o investigación perfecta para ti.</CardDescription>
+                    </CardContent>
+                    <Button asChild className="w-full">
+                        <Link href="/opportunities">Ver Oportunidades</Link>
+                    </Button>
+                </Card>
+                 <Card className="text-center flex flex-col items-center justify-center p-6">
+                    <CardHeader>
+                        <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full">
+                            <Building className="h-8 w-8" />
+                        </div>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                        <CardTitle className="text-xl mb-2">Empresas</CardTitle>
+                        <CardDescription>Conecta con empresas innovadoras y líderes en la industria.</CardDescription>
+                    </CardContent>
+                    <Button asChild className="w-full">
+                        <Link href="/businesses">Explorar Empresas</Link>
+                    </Button>
+                </Card>
+                 <Card className="text-center flex flex-col items-center justify-center p-6">
+                    <CardHeader>
+                        <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full">
+                            <Users className="h-8 w-8" />
+                        </div>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                        <CardTitle className="text-xl mb-2">Estudiantes</CardTitle>
+                        <CardDescription>Descubre el talento emergente de nuestra universidad.</CardDescription>
+                    </CardContent>
+                    <Button asChild className="w-full">
+                        <Link href="/students">Ver Estudiantes</Link>
+                    </Button>
+                </Card>
+            </div>
         </div>
       </section>
 
