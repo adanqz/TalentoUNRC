@@ -22,9 +22,6 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
-import { suggestPotentialCandidates } from "@/ai/flows/suggest-potential-candidates";
-import { users } from "@/lib/data";
-import { useEffect, useState } from "react";
 
 const typeIcons = {
     Pasantía: <Briefcase className="mr-2 h-5 w-5" />,
@@ -33,52 +30,12 @@ const typeIcons = {
 };
 
 type SuggestedCandidatesProps = {
-    opportunityDescription: string;
+    potentialCandidates: any[] | null;
 };
 
-function SuggestedCandidates({ opportunityDescription }: SuggestedCandidatesProps) {
-  const [potentialCandidates, setPotentialCandidates] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+function SuggestedCandidates({ potentialCandidates }: SuggestedCandidatesProps) {
 
-  useEffect(() => {
-    async function getSuggestions() {
-      if (process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== "YOUR_API_KEY") {
-        try {
-          const candidates = await Promise.all(
-            users.slice(0, 2).map(async (student) => {
-              const result = await suggestPotentialCandidates({
-                opportunityDescription,
-                studentSkills: student.skills || [],
-              });
-              return { ...student, ...result };
-            })
-          );
-          setPotentialCandidates(candidates);
-        } catch (error) {
-          console.error("Error getting potential candidates:", error);
-        }
-      }
-      setLoading(false);
-    }
-    getSuggestions();
-  }, [opportunityDescription]);
-
-  if (loading) {
-      return (
-          <Card>
-              <CardHeader>
-                  <CardTitle className="flex items-center gap-2"><Wand2 className="text-accent" /> Candidatos Sugeridos por IA</CardTitle>
-              </CardHeader>
-              <CardContent>
-                  <div className="flex items-center justify-center py-8">
-                      <p>Buscando candidatos...</p>
-                  </div>
-              </CardContent>
-          </Card>
-      );
-  }
-
-  if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === "YOUR_API_KEY") {
+  if (potentialCandidates === null) {
     return (
       <Card>
         <CardHeader>
@@ -95,6 +52,21 @@ function SuggestedCandidates({ opportunityDescription }: SuggestedCandidatesProp
         </CardContent>
       </Card>
     );
+  }
+
+  if (potentialCandidates.length === 0) {
+      return (
+          <Card>
+              <CardHeader>
+                  <CardTitle className="flex items-center gap-2"><Wand2 className="text-accent" /> Candidatos Sugeridos por IA</CardTitle>
+              </CardHeader>
+              <CardContent>
+                  <div className="flex items-center justify-center py-8">
+                      <p>No se encontraron candidatos adecuados.</p>
+                  </div>
+              </CardContent>
+          </Card>
+      );
   }
 
   return (
@@ -137,7 +109,7 @@ function SuggestedCandidates({ opportunityDescription }: SuggestedCandidatesProp
 }
 
 
-export default function ClientComponent({ opportunity, isBusinessUser }: { opportunity: Opportunity; isBusinessUser: boolean }) {
+export default function ClientComponent({ opportunity, isBusinessUser, potentialCandidates }: { opportunity: Opportunity; isBusinessUser: boolean, potentialCandidates: any[] | null }) {
     return (
         <div className="bg-slate-50/50">
             <div className="container mx-auto px-4 py-12 md:px-6">
@@ -145,7 +117,7 @@ export default function ClientComponent({ opportunity, isBusinessUser }: { oppor
                     <div className="space-y-8 md:col-span-2">
                         <Card>
                             <CardHeader>
-                                <div className="flex items-center gap-3">
+                                <div className="flex items-start gap-4">
                                     <Image
                                         src={opportunity.businessLogoUrl}
                                         alt={`${opportunity.businessName} logo`}
@@ -154,7 +126,7 @@ export default function ClientComponent({ opportunity, isBusinessUser }: { oppor
                                         className="rounded-full border bg-white"
                                         data-ai-hint="logo"
                                     />
-                                    <div>
+                                    <div className="flex-1">
                                         <CardTitle className="text-2xl">{opportunity.title}</CardTitle>
                                         <CardDescription className="text-md">
                                             en{" "}
@@ -165,16 +137,16 @@ export default function ClientComponent({ opportunity, isBusinessUser }: { oppor
                                                 {opportunity.businessName}
                                             </Link>
                                         </CardDescription>
-                                    </div>
-                                </div>
-                                <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-muted-foreground">
-                                    <div className="flex items-center text-sm">
-                                        {typeIcons[opportunity.type]}
-                                        <span>{opportunity.type}</span>
-                                    </div>
-                                    <div className="flex items-center text-sm">
-                                        <MapPin className="mr-2 h-5 w-5" />
-                                        <span>{opportunity.location}</span>
+                                        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-muted-foreground">
+                                            <div className="flex items-center text-sm">
+                                                {typeIcons[opportunity.type]}
+                                                <span>{opportunity.type}</span>
+                                            </div>
+                                            <div className="flex items-center text-sm">
+                                                <MapPin className="mr-2 h-5 w-5" />
+                                                <span>{opportunity.location}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </CardHeader>
@@ -211,7 +183,7 @@ export default function ClientComponent({ opportunity, isBusinessUser }: { oppor
                         <Button size="lg" className="w-full">
                             Aplicar Ahora
                         </Button>
-                        {isBusinessUser && <SuggestedCandidates opportunityDescription={opportunity.description} />}
+                        {isBusinessUser && <SuggestedCandidates potentialCandidates={potentialCandidates} />}
                     </div>
                 </div>
             </div>
