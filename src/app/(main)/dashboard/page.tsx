@@ -16,7 +16,38 @@ import { Textarea } from '@/components/ui/textarea';
 import { suggestPotentialCandidates } from '@/ai/flows/suggest-potential-candidates';
 import { suggestRelevantOpportunities } from '@/ai/flows/suggest-relevant-opportunities';
 import { suggestSuitableCandidates } from '@/ai/flows/suggest-suitable-candidates';
-import { Loader2, Wand2 } from 'lucide-react';
+import { Loader2, Wand2, Users, Building, Briefcase } from 'lucide-react';
+import { Bar, BarChart, CartesianGrid, XAxis, Pie, PieChart, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
+import { opportunities, users, businesses } from '@/lib/data';
+
+const opportunityTypes = opportunities.reduce((acc, opp) => {
+  if (!acc[opp.type]) {
+    acc[opp.type] = 0;
+  }
+  acc[opp.type]++;
+  return acc;
+}, {} as Record<string, number>);
+
+const opportunityChartData = Object.keys(opportunityTypes).map(key => ({
+  name: key,
+  value: opportunityTypes[key],
+}));
+
+const studentSkills = users.flatMap(u => u.skills || []).reduce((acc, skill) => {
+    if (!acc[skill]) {
+        acc[skill] = 0;
+    }
+    acc[skill]++;
+    return acc;
+}, {} as Record<string, number>);
+
+const skillsChartData = Object.keys(studentSkills).map(key => ({
+  name: key,
+  value: studentSkills[key],
+}));
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(false);
@@ -86,9 +117,87 @@ export default function DashboardPage() {
   return (
     <div className="container mx-auto px-4 py-8 md:px-6">
       <div className="mb-8 space-y-2">
-        <h1 className="font-headline text-3xl font-bold tracking-tight flex items-center gap-2">
-          <Wand2 /> Panel de la API de IA
+        <h1 className="font-headline text-3xl font-bold tracking-tight">
+          Panel de Administración
         </h1>
+        <p className="text-muted-foreground">
+          Una vista general de las métricas de la plataforma y las herramientas de IA.
+        </p>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4 mb-8">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Total de Estudiantes
+            </CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{users.length}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Total de Empresas
+            </CardTitle>
+            <Building className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{businesses.length}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total de Oportunidades</CardTitle>
+            <Briefcase className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{opportunities.length}</div>
+          </CardContent>
+        </Card>
+      </div>
+      
+      <div className="grid gap-8 md:grid-cols-2 mb-8">
+        <Card>
+            <CardHeader>
+                <CardTitle>Distribución de Oportunidades</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <ChartContainer config={{}} className="h-64 w-full">
+                    <BarChart data={opportunityChartData} margin={{ top: 20, right: 20, bottom: 5, left: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <Tooltip content={<ChartTooltipContent />} />
+                        <Bar dataKey="value" fill="hsl(var(--primary))" radius={4} />
+                    </BarChart>
+                </ChartContainer>
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle>Distribución de Habilidades de Estudiantes</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <ChartContainer config={{}} className="h-64 w-full">
+                    <PieChart>
+                        <Tooltip content={<ChartTooltipContent nameKey="name" />} />
+                        <Pie data={skillsChartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
+                            {skillsChartData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                        </Pie>
+                    </PieChart>
+                </ChartContainer>
+            </CardContent>
+        </Card>
+      </div>
+
+       <div className="mb-8 space-y-2">
+        <h2 className="font-headline text-2xl font-bold tracking-tight flex items-center gap-2">
+          <Wand2 /> Panel de la API de IA
+        </h2>
         <p className="text-muted-foreground">
           Interactúa con los flujos de Genkit para probar las capacidades de IA de la aplicación.
         </p>
