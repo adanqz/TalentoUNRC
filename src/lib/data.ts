@@ -33,7 +33,7 @@ export const opportunities: Opportunity[] = [
     type: 'Research',
     description: 'Analiza grandes conjuntos de datos para extraer insights significativos y construir modelos predictivos.',
     longDescription: 'Como socio de investigación, te sumergirás en conjuntos de datos complejos, aplicarás análisis estadístico y técnicas de machine learning para descubrir tendencias y presentarás tus hallazgos a los stakeholders. Este proyecto requiere una base sólida en estadística y programación.',
-    location: 'Río Cuarto, Córdoba',
+    location: 'Ciudad de México',
     skills: ['Python', 'R', 'SQL', 'Machine Learning', 'Visualización de Datos'],
   },
   {
@@ -57,7 +57,7 @@ export const opportunities: Opportunity[] = [
     type: 'Internship',
     description: 'Ayuda a construir y mantener nuestros servicios de backend y APIs escalables.',
     longDescription: 'En este rol, trabajarás con Node.js, Express y bases de datos como PostgreSQL y MongoDB. Serás responsable de diseñar e implementar APIs RESTful, asegurando un alto rendimiento y confiabilidad. La experiencia con plataformas en la nube como AWS o Google Cloud es una ventaja.',
-    location: 'Río Cuarto, Córdoba',
+    location: 'Ciudad de México',
     skills: ['Node.js', 'Express', 'PostgreSQL', 'APIs REST'],
   },
   {
@@ -81,7 +81,7 @@ export const opportunities: Opportunity[] = [
     type: 'Project',
     description: 'Diseña y gestiona nuestra infraestructura en la nube en AWS.',
     longDescription: 'Buscamos un ingeniero de la nube experimentado para unirse a nuestro equipo. Serás responsable de diseñar, implementar y mantener nuestra infraestructura en la nube en AWS. Debes tener una sólida experiencia con servicios de AWS como EC2, S3, RDS y Lambda.',
-    location: 'Río Cuarto, Córdoba',
+    location: 'Ciudad de México',
     skills: ['AWS', 'Terraform', 'Docker', 'CI/CD'],
   },
   {

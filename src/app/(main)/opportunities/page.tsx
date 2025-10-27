@@ -68,7 +68,7 @@ export default async function OpportunitiesPage() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="remote">Remoto</SelectItem>
-              <SelectItem value="rio-cuarto">Río Cuarto</SelectItem>
+              <SelectItem value="ciudad-de-mexico">Ciudad de México</SelectItem>
             </SelectContent>
           </Select>
           <Button>Buscar</Button>
