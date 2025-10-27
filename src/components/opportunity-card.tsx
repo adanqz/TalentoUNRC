@@ -19,7 +19,7 @@ type OpportunityCardProps = {
 };
 
 const typeIcons = {
-  Internship: <Briefcase className="h-4 w-4 text-muted-foreground" />,
+  Pasantía: <Briefcase className="h-4 w-4 text-muted-foreground" />,
   Project: <GitBranch className="h-4 w-4 text-muted-foreground" />,
   Research: <FlaskConical className="h-4 w-4 text-muted-foreground" />,
 };

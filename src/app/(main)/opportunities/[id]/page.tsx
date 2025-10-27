@@ -29,7 +29,7 @@ import { suggestPotentialCandidates } from "@/ai/flows/suggest-potential-candida
 import ClientComponent from "./client-component";
 
 const typeIcons = {
-  Internship: <Briefcase className="mr-2 h-5 w-5" />,
+  Pasantía: <Briefcase className="mr-2 h-5 w-5" />,
   Project: <GitBranch className="mr-2 h-5 w-5" />,
   Research: <FlaskConical className="mr-2 h-5 w-5" />,
 };

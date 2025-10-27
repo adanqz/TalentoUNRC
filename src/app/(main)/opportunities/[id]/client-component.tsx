@@ -27,7 +27,7 @@ import { users } from "@/lib/data";
 import { useEffect, useState } from "react";
 
 const typeIcons = {
-    Internship: <Briefcase className="mr-2 h-5 w-5" />,
+    Pasantía: <Briefcase className="mr-2 h-5 w-5" />,
     Project: <GitBranch className="mr-2 h-5 w-5" />,
     Research: <FlaskConical className="mr-2 h-5 w-5" />,
 };

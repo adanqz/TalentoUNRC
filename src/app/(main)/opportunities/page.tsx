@@ -57,7 +57,7 @@ export default async function OpportunitiesPage() {
               <SelectValue placeholder="Tipo de Oportunidad" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="internship">Pasantía</SelectItem>
+              <SelectItem value="pasantia">Pasantía</SelectItem>
               <SelectItem value="project">Proyecto</SelectItem>
               <SelectItem value="research">Investigación</SelectItem>
             </SelectContent>

@@ -24,7 +24,7 @@ export type Opportunity = {
   businessName: string;
   businessId: string;
   businessLogoUrl: string;
-  type: 'Internship' | 'Project' | 'Research';
+  type: 'Pasantía' | 'Project' | 'Research';
   description: string;
   longDescription: string;
   location: string;
