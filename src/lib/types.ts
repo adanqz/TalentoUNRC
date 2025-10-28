@@ -46,6 +46,7 @@ export type Opportunity = {
   description: string;
   longDescription: string;
   location: string;
+  modality: 'Remoto' | 'Híbrido' | 'Presencial';
   skills: string[];
 };
 

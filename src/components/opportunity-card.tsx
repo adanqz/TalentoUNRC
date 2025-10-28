@@ -55,7 +55,7 @@ export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps
             </div>
             <div className="flex items-center gap-1.5">
                 <MapPin className="h-4 w-4" />
-                <span>{opportunity.location}</span>
+                <span>{opportunity.location} ({opportunity.modality})</span>
             </div>
         </div>
         <div className="flex flex-wrap gap-2">

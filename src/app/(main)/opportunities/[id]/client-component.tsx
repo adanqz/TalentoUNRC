@@ -149,7 +149,7 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
                                             </div>
                                             <div className="flex items-center text-sm">
                                                 <MapPin className="mr-2 h-5 w-5" />
-                                                <span>{opportunity.location}</span>
+                                                <span>{opportunity.location} ({opportunity.modality})</span>
                                             </div>
                                         </div>
                                     </div>
