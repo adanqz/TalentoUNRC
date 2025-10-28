@@ -58,7 +58,6 @@ export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps
                 <span>{opportunity.location}</span>
             </div>
         </div>
-        <p className="line-clamp-2 text-sm text-muted-foreground">{opportunity.description}</p>
         <div className="flex flex-wrap gap-2">
           {opportunity.skills.slice(0,3).map((skill) => (
             <Badge key={skill} variant="secondary">
