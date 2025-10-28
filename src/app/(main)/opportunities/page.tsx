@@ -49,7 +49,7 @@ export default async function OpportunitiesPage() {
           Encuentra tu Próxima Oportunidad
         </h1>
         <p className="text-lg text-muted-foreground">
-          Busca pasantías, proyectos y colaboraciones de investigación de las mejores empresas.
+          Busca servicio social, prácticas profesionales, proyectos y colaboraciones de investigación de las mejores empresas.
         </p>
       </div>
 
@@ -68,7 +68,8 @@ export default async function OpportunitiesPage() {
               <SelectValue placeholder="Tipo de Oportunidad" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="pasantia">Pasantía</SelectItem>
+              <SelectItem value="servicio-social">Servicio Social</SelectItem>
+              <SelectItem value="practicas-profesionales">Prácticas Profesionales</SelectItem>
               <SelectItem value="project">Proyecto</SelectItem>
               <SelectItem value="research">Investigación</SelectItem>
             </SelectContent>

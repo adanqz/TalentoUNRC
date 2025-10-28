@@ -56,7 +56,8 @@ export default function NewOpportunityPage() {
                         <SelectValue placeholder="Seleccione un tipo" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="Pasantía">Pasantía</SelectItem>
+                        <SelectItem value="Servicio Social">Servicio Social</SelectItem>
+                        <SelectItem value="Prácticas Profesionales">Prácticas Profesionales</SelectItem>
                         <SelectItem value="Project">Proyecto</SelectItem>
                         <SelectItem value="Research">Investigación</SelectItem>
                     </SelectContent>

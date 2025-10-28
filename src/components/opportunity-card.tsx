@@ -12,15 +12,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Briefcase, MapPin, FlaskConical, GitBranch } from "lucide-react";
+import { Briefcase, MapPin, FlaskConical, GitBranch, Handshake } from "lucide-react";
 
 type OpportunityCardProps = {
   opportunity: Opportunity;
   highlight?: boolean;
 };
 
-const typeIcons = {
-  Pasantía: <Briefcase className="h-4 w-4 text-muted-foreground" />,
+const typeIcons: Record<Opportunity['type'], React.ReactNode> = {
+  'Prácticas Profesionales': <Briefcase className="h-4 w-4 text-muted-foreground" />,
+  'Servicio Social': <Handshake className="h-4 w-4 text-muted-foreground" />,
   Project: <GitBranch className="h-4 w-4 text-muted-foreground" />,
   Research: <FlaskConical className="h-4 w-4 text-muted-foreground" />,
 };

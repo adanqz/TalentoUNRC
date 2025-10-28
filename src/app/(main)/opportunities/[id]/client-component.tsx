@@ -1,3 +1,4 @@
+
 'use client';
 import type { Opportunity } from "@/lib/types";
 import Image from "next/image";
@@ -11,6 +12,7 @@ import {
   GitBranch,
   Wand2,
   AlertTriangle,
+  Handshake,
 } from "lucide-react";
 import {
   Card,
@@ -23,8 +25,9 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 
-const typeIcons = {
-    Pasantía: <Briefcase className="mr-2 h-5 w-5" />,
+const typeIcons: Record<Opportunity['type'], React.ReactNode> = {
+    'Prácticas Profesionales': <Briefcase className="mr-2 h-5 w-5" />,
+    'Servicio Social': <Handshake className="mr-2 h-5 w-5" />,
     Project: <GitBranch className="mr-2 h-5 w-5" />,
     Research: <FlaskConical className="mr-2 h-5 w-5" />,
 };

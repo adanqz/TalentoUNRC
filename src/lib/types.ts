@@ -42,7 +42,7 @@ export type Opportunity = {
   businessName: string;
   businessId: string;
   businessLogoUrl: string;
-  type: 'Pasantía' | 'Project' | 'Research';
+  type: 'Servicio Social' | 'Prácticas Profesionales' | 'Project' | 'Research';
   description: string;
   longDescription: string;
   location: string;
