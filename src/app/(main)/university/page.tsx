@@ -14,28 +14,35 @@ import { Mail, Phone, MapPin, GraduationCap, Globe } from "lucide-react";
 export default function UniversityPage() {
   return (
     <>
-      <div className="bg-card">
-        <div className="container mx-auto px-4 py-12 md:px-6">
-          <div className="flex flex-col items-center gap-6 text-center">
-            <Image
-              src={university.logoUrl}
-              alt={`${university.name} logo`}
-              width={120}
-              height={120}
-              className="rounded-full border-4 border-white shadow-lg"
-              data-ai-hint="university campus"
-            />
-            <div className="space-y-2">
-              <h1 className="font-headline text-4xl font-bold tracking-tight">
-                {university.name}
-              </h1>
-              <p className="mx-auto max-w-3xl text-lg text-muted-foreground">
-                {university.description}
-              </p>
+      <section className="relative w-full border-b bg-slate-50 py-20 md:py-24 lg:py-32">
+        <Image
+          src="https://images.unsplash.com/photo-1562774053-701939374585?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx1bml2ZXJzaXR5JTIwY2FtcHVzfGVufDB8fHx8MTc2MTgzODE3NHww&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Campus de la Universidad"
+          layout="fill"
+          className="object-cover"
+          data-ai-hint="university campus"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 container mx-auto px-4 md:px-6">
+            <div className="mx-auto max-w-4xl text-center">
+                 <Image
+                    src={university.logoUrl}
+                    alt={`${university.name} logo`}
+                    width={100}
+                    height={100}
+                    className="rounded-full border-4 border-white shadow-lg mx-auto mb-4 bg-white"
+                    data-ai-hint="university campus"
+                    />
+                 <h1 className="font-headline text-4xl font-bold tracking-tight text-white md:text-5xl">
+                    {university.name}
+                </h1>
+                <p className="mt-4 text-lg text-slate-200 md:text-xl">
+                    {university.description}
+                </p>
             </div>
-          </div>
         </div>
-      </div>
+    </section>
+
       <div className="container mx-auto px-4 py-12 md:px-6">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="md:col-span-2">
