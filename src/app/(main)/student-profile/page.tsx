@@ -154,9 +154,9 @@ export default function StudentProfilePage() {
           <div className="space-y-8 lg:col-span-2">
              <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><BookOpen /> Proyectos y Documentos</CardTitle>
+                    <CardTitle className="flex items-center gap-2"><BookOpen /> Proyectos Prototípicos</CardTitle>
                     <CardDescription>
-                        Explora los proyectos y documentos de {student.name}.
+                        Reflejo del trabajo conjunto por semestre
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -166,7 +166,7 @@ export default function StudentProfilePage() {
                           <AccordionTrigger className="text-lg font-semibold">{semesterProject.semester}</AccordionTrigger>
                           <AccordionContent>
                             <ul className="space-y-3">
-                              {semesterProject.projects.map(project => (
+                              {semesterProject.projects.slice(0, 1).map(project => (
                                 <li key={project.id}>
                                   <Link href={project.pdfUrl} target="_blank" className="flex items-center justify-between rounded-md p-3 hover:bg-muted">
                                       <div className="flex items-center gap-3">
