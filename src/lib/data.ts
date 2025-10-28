@@ -1,5 +1,6 @@
 
-import type { User, Business, Opportunity, University, Conversation } from '@/lib/types';
+
+import type { User, Business, Opportunity, University, Conversation, OnlineUser } from '@/lib/types';
 import { PlaceHolderImages } from './placeholder-images';
 
 const getImage = (id: string) => {
@@ -383,6 +384,14 @@ export const conversations: Conversation[] = [
         unreadCount: 0,
     }
 ]
+
+export const onlineUsers: OnlineUser[] = [
+    { id: 'user-1', name: 'Ana Torres', avatarUrl: getImage('user-avatar-1'), currentPage: '/opportunities', onlineSince: new Date(Date.now() - 1000 * 60 * 5) }, // 5 minutes ago
+    { id: 'user-5', name: 'Isabel Luna', avatarUrl: getImage('user-avatar-5'), currentPage: '/student-profile', onlineSince: new Date(Date.now() - 1000 * 60 * 12) }, // 12 minutes ago
+    { id: 'user-7', name: 'David Chen', avatarUrl: getImage('user-avatar-7'), currentPage: '/businesses/biz-1', onlineSince: new Date(Date.now() - 1000 * 60 * 2) }, // 2 minutes ago
+    { id: 'user-2', name: 'Carlos Gomez', avatarUrl: getImage('user-avatar-2'), currentPage: '/dashboard', onlineSince: new Date(Date.now() - 1000 * 60 * 30) }, // 30 minutes ago
+];
+
 
 // Helper functions to get data by ID
 export const getBusinessById = (id: string) => businesses.find(b => b.id === id);

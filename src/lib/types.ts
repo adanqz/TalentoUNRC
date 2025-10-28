@@ -1,4 +1,5 @@
 
+
 export type Project = {
   id: string;
   name: string;
@@ -36,6 +37,14 @@ export type User = {
   semesterProjects?: SemesterProjects[];
   languages?: Language[];
   externalLinks?: ExternalLink[];
+};
+
+export type OnlineUser = {
+    id: string;
+    name: string;
+    avatarUrl: string;
+    currentPage: string;
+    onlineSince: Date;
 };
 
 export type Business = {

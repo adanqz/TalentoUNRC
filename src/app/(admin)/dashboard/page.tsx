@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -15,10 +16,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { suggestPotentialCandidates } from '@/ai/flows/suggest-potential-candidates';
 import { suggestRelevantOpportunities } from '@/ai/flows/suggest-relevant-opportunities';
 import { suggestSuitableCandidates } from '@/ai/flows/suggest-suitable-candidates';
-import { Loader2, Wand2, Users, Building, Briefcase } from 'lucide-react';
+import { Loader2, Wand2, Users, Building, Briefcase, Wifi } from 'lucide-react';
 import { Bar, BarChart, CartesianGrid, XAxis, Pie, PieChart, Cell, Tooltip } from 'recharts';
 import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
-import { opportunities, users, businesses } from '@/lib/data';
+import { opportunities, users, businesses, onlineUsers } from '@/lib/data';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { formatDistanceToNow } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 const opportunityTypes = opportunities.reduce((acc, opp) => {
   if (!acc[opp.type]) {
@@ -51,6 +55,12 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 export default function DashboardPage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000 * 30); // update every 30 seconds
+    return () => clearInterval(timer);
+  }, []);
 
   const [potentialCandidatesForm, setPotentialCandidatesForm] = useState({
     opportunityDescription: 'Pasantía de verano de 3 meses para un desarrollador de software para trabajar en nuestro producto SaaS. El candidato ideal debe tener experiencia con React y Node.js.',
@@ -124,7 +134,7 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
@@ -156,9 +166,49 @@ export default function DashboardPage() {
             <div className="text-2xl font-bold">{opportunities.length}</div>
           </CardContent>
         </Card>
+         <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Usuarios en Línea</CardTitle>
+            <Wifi className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{onlineUsers.length}</div>
+          </CardContent>
+        </Card>
       </div>
-      
-      <div className="grid gap-8 md:grid-cols-2">
+
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <Card className="lg:col-span-2">
+            <CardHeader>
+                <CardTitle>Actividad de Usuarios en Tiempo Real</CardTitle>
+                <CardDescription>
+                    Usuarios actualmente navegando en el sitio.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-4">
+                    {onlineUsers.map(user => (
+                        <div key={user.id} className="flex items-center gap-4">
+                            <Avatar className="h-10 w-10 border">
+                                <AvatarImage src={user.avatarUrl} alt={user.name} />
+                                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1">
+                                <p className="font-semibold">{user.name}</p>
+                                <p className="text-sm text-muted-foreground">
+                                    En: <code className="bg-muted px-1.5 py-0.5 rounded-sm">{user.currentPage}</code>
+                                </p>
+                            </div>
+                            <div className="text-right">
+                                <p className="text-sm text-muted-foreground">
+                                    {formatDistanceToNow(user.onlineSince, { addSuffix: true, locale: es })}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </CardContent>
+        </Card>
         <Card>
             <CardHeader>
                 <CardTitle>Distribución de Oportunidades</CardTitle>
@@ -174,7 +224,7 @@ export default function DashboardPage() {
                 </ChartContainer>
             </CardContent>
         </Card>
-        <Card>
+        <Card className="lg:col-span-3">
             <CardHeader>
                 <CardTitle>Distribución de Habilidades de Estudiantes</CardTitle>
             </CardHeader>
@@ -254,7 +304,7 @@ export default function DashboardPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="ro-student-interests">Intereses del Estudiante (separados por comas)</Label>
+              <Label htmlFor="ro-student-interests">Intereses del Estudiante (separadas por comas)</Label>
               <Input
                 id="ro-student-interests"
                 value={relevantOppsForm.studentInterests}
