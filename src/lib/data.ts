@@ -79,7 +79,7 @@ export const opportunities: Opportunity[] = [
     type: 'Research',
     description: 'Analiza grandes conjuntos de datos para extraer insights significativos y construir modelos predictivos.',
     longDescription: 'Como socio de investigación, te sumergirás en conjuntos de datos complejos, aplicarás análisis estadístico y técnicas de machine learning para descubrir tendencias y presentarás tus hallazgos a los stakeholders. Este proyecto requiere una base sólida en estadística y programación.',
-    location: 'Ciudad de México',
+    location: 'Coyoacán',
     skills: ['Python', 'R', 'SQL', 'Machine Learning', 'Visualización de Datos'],
   },
   {
@@ -103,7 +103,7 @@ export const opportunities: Opportunity[] = [
     type: 'Servicio Social',
     description: 'Ayuda a construir y mantener nuestros servicios de backend y APIs escalables.',
     longDescription: 'En este rol, trabajarás con Node.js, Express y bases de datos como PostgreSQL y MongoDB. Serás responsable de diseñar e implementar APIs RESTful, asegurando un alto rendimiento y confiabilidad. La experiencia con plataformas en la nube como AWS o Google Cloud es una ventaja.',
-    location: 'Ciudad de México',
+    location: 'Cuauhtémoc',
     skills: ['Node.js', 'Express', 'PostgreSQL', 'APIs REST', 'Docker'],
   },
   {
@@ -127,7 +127,7 @@ export const opportunities: Opportunity[] = [
     type: 'Project',
     description: 'Diseña y gestiona nuestra infraestructura en la nube en AWS.',
     longDescription: 'Buscamos un ingeniero de la nube experimentado para unirse a nuestro equipo. Serás responsable de diseñar, implementar y mantener nuestra infraestructura en la nube en AWS. Debes tener una sólida experiencia con servicios de AWS como EC2, S3, RDS y Lambda.',
-    location: 'Ciudad de México',
+    location: 'Benito Juárez',
     skills: ['AWS', 'Terraform', 'Docker', 'CI/CD', 'Ansible'],
   },
   {
@@ -163,7 +163,7 @@ export const opportunities: Opportunity[] = [
     type: 'Project',
     description: 'Ayuda a proteger los activos digitales de nuestros clientes contra las ciberamenazas.',
     longDescription: 'En este rol de proyecto, realizarás evaluaciones de vulnerabilidad, monitorearás incidentes de seguridad y ayudarás a implementar políticas de seguridad. Obtendrás experiencia práctica con herramientas de seguridad líderes en la industria.',
-    location: 'Ciudad de México',
+    location: 'Miguel Hidalgo',
     skills: ['Ciberseguridad', 'Análisis de Redes', 'Pentesting', 'SIEM'],
   },
   {
@@ -187,7 +187,7 @@ export const opportunities: Opportunity[] = [
     type: 'Research',
     description: 'Investiga y desarrolla nuevas tecnologías en el campo de la energía solar y eólica.',
     longDescription: 'Este proyecto de investigación se centra en mejorar la eficiencia de los paneles solares y las turbinas eólicas. El candidato ideal tendrá una sólida formación en física o ingeniería y pasión por la sostenibilidad.',
-    location: 'Ciudad de México',
+    location: 'Iztapalapa',
     skills: ['Energías Renovables', 'Investigación', 'Análisis de Datos', 'Matlab'],
   },
   {
@@ -331,3 +331,5 @@ export const conversations: Conversation[] = [
 export const getBusinessById = (id: string) => businesses.find(b => b.id === id);
 export const getOpportunityById = (id: string) => opportunities.find(o => o.id === id);
 export const getUserById = (id: string) => users.find(u => u.id === id);
+
+    
