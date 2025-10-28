@@ -59,12 +59,11 @@ export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps
             </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          {opportunity.skills.slice(0,3).map((skill) => (
+          {opportunity.skills.map((skill) => (
             <Badge key={skill} variant="secondary">
               {skill}
             </Badge>
           ))}
-          {opportunity.skills.length > 3 && <Badge variant="outline">+{opportunity.skills.length - 3}</Badge>}
         </div>
       </CardContent>
       <CardFooter>
