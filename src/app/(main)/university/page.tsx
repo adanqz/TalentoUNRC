@@ -9,7 +9,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, MapPin, GraduationCap, Globe, Building } from "lucide-react";
+import { Mail, Phone, MapPin, GraduationCap, Globe, Building, BookOpen } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const sedes = [
     { name: "Coyoacán", address: "Av. Canal de Miramontes 1785, Campestre Churubusco, Coyoacán" },
@@ -23,6 +25,25 @@ const sedes = [
     { name: "Tláhuac", address: "Av. Tláhuac 5664, Santa Ana Poniente, Tláhuac" },
     { name: "Xochimilco", address: "Av. 16 de Septiembre S/N, Santa María Nativitas, Xochimilco" },
 ];
+
+const licenciaturas = [
+    { name: "Ciencias de la Comunicación", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LCC.pdf" },
+    { name: "Ciencias de Datos para Negocios", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LCDN.pdf" },
+    { name: "Contaduría y Finanzas", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LCF.pdf" },
+    { name: "Derecho y Criminología", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LDC.pdf" },
+    { name: "Mercadotecnia y Ventas", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LMV.pdf" },
+    { name: "Psicología", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LP.pdf" },
+    { name: "Relaciones Internacionales", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LRI.pdf" },
+    { name: "Administración y Comercio", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LAC.pdf" },
+    { name: "Diseño Gráfico y Medios Digitales", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LDGMD.pdf" },
+    { name: "Turismo", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LT.pdf" },
+    { name: "Ingeniería en Software", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/IS.pdf" },
+    { name: "Ingeniería en Control y Automatización", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/ICA.pdf" },
+    { name: "Urbanismo y Desarrollo Metropolitano", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LUDM.pdf" },
+    { name: "Ciencias Ambientales para Zonas Urbanas", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LCAZU.pdf" },
+    { name: "Ciencias de la Tierra", url: "https://www.rcastellanos.cdmx.gob.mx/storage/docs/oferta-academica/licenciaturas/mapas-curriculares/LCT.pdf" },
+];
+
 
 export default function UniversityPage() {
   return (
@@ -62,18 +83,23 @@ export default function UniversityPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <GraduationCap /> Áreas de Especialización
+                  <GraduationCap /> Oferta Académica
                 </CardTitle>
                 <CardDescription>
-                  Campos académicos y de investigación clave de la universidad.
+                  Conoce los planes de estudio de nuestras licenciaturas.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                {university.expertise.map((area) => (
-                  <Badge key={area} variant="secondary" className="text-md">
-                    {area}
-                  </Badge>
-                ))}
+              <CardContent>
+                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {licenciaturas.map((lic) => (
+                    <li key={lic.name}>
+                        <Link href={lic.url} target="_blank" rel="noopener noreferrer" className="block p-4 rounded-lg border hover:bg-muted transition-colors">
+                            <h4 className="font-semibold text-primary">{lic.name}</h4>
+                            <p className="text-sm text-muted-foreground">Ver plan de estudios</p>
+                        </Link>
+                    </li>
+                  ))}
+                </ul>
               </CardContent>
             </Card>
 
@@ -160,3 +186,5 @@ export default function UniversityPage() {
     </>
   );
 }
+
+    
