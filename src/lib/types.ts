@@ -20,6 +20,11 @@ export type UserStatus =
   | { type: 'inactivo' }
   | { type: 'egresado' };
 
+export type ExternalLink = {
+  platform: 'GitHub' | 'LinkedIn' | 'Behance' | 'Personal Website';
+  url: string;
+};
+
 export type User = {
   id: string;
   name: string;
@@ -30,6 +35,7 @@ export type User = {
   interests?: string[];
   semesterProjects?: SemesterProjects[];
   languages?: Language[];
+  externalLinks?: ExternalLink[];
 };
 
 export type Business = {

@@ -28,6 +28,11 @@ export const users: User[] = [
         { name: 'Español', proficiency: 100 },
         { name: 'Inglés', proficiency: 85 },
         { name: 'Francés', proficiency: 40 },
+    ],
+    externalLinks: [
+      { platform: 'GitHub', url: 'https://github.com/anatorres' },
+      { platform: 'LinkedIn', url: 'https://linkedin.com/in/anatorres' },
+      { platform: 'Personal Website', url: 'https://ana.dev' }
     ]
   },
   { id: 'user-2', name: 'Carlos Gomez', email: 'carlos.g@example.com', avatarUrl: getImage('user-avatar-2'), 
@@ -36,6 +41,10 @@ export const users: User[] = [
     languages: [
         { name: 'Español', proficiency: 100 },
         { name: 'Inglés', proficiency: 95 },
+    ],
+    externalLinks: [
+      { platform: 'GitHub', url: 'https://github.com/carlosgomez' },
+      { platform: 'LinkedIn', url: 'https://linkedin.com/in/carlosgomez' },
     ]
   },
   { id: 'user-3', name: 'Sofia Diaz', email: 'sofia.d@example.com', avatarUrl: getImage('user-avatar-3'), 
@@ -54,7 +63,12 @@ export const users: User[] = [
   },
   { id: 'user-6', name: 'Maria Rodriguez', email: 'maria.r@example.com', avatarUrl: getImage('user-avatar-6'), 
     status: { type: 'egresado' },
-    skills: ['Diseño UI/UX', 'Figma', 'Adobe XD', 'Investigación de Usuarios'], interests: ['Diseño de Producto', 'Experiencia de Usuario', 'Accesibilidad'] },
+    skills: ['Diseño UI/UX', 'Figma', 'Adobe XD', 'Investigación de Usuarios'], interests: ['Diseño de Producto', 'Experiencia de Usuario', 'Accesibilidad'],
+    externalLinks: [
+      { platform: 'Behance', url: 'https://behance.net/mariarodriguez' },
+      { platform: 'LinkedIn', url: 'https://linkedin.com/in/mariarodriguez' },
+    ]
+  },
   { id: 'user-7', name: 'David Chen', email: 'david.c@example.com', avatarUrl: getImage('user-avatar-7'), 
     status: { type: 'cursando', semester: 9 },
     skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform'], interests: ['DevOps', 'Cloud Computing', 'Ciberseguridad'],

@@ -5,7 +5,7 @@ import { notFound, redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mail, Briefcase, Wand2, BookOpen, FileText, Download, Languages, History, Circle } from "lucide-react";
+import { Mail, Briefcase, Wand2, BookOpen, FileText, Download, Languages, History, Circle, Link2, Github, Linkedin, Dribbble } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/accordion"
 import { OpportunityCard } from "@/components/opportunity-card";
 import { suggestRelevantOpportunities } from "@/ai/flows/suggest-relevant-opportunities";
-import type { Opportunity, UserStatus } from "@/lib/types";
+import type { Opportunity, UserStatus, ExternalLink } from "@/lib/types";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
@@ -30,6 +30,13 @@ import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
 import { cn } from "@/lib/utils";
 
 const COLORS = ['#631333', '#a13b63', '#d37ca1', '#E4B799', '#f0d8c9'];
+
+const platformIcons: Record<ExternalLink['platform'], React.ReactNode> = {
+    GitHub: <Github className="h-4 w-4" />,
+    LinkedIn: <Linkedin className="h-4 w-4" />,
+    Behance: <Dribbble className="h-4 w-4" />,
+    'Personal Website': <Link2 className="h-4 w-4" />,
+};
 
 function LanguageChart({ languages }: { languages: { name: string, proficiency: number }[] }) {
   const [isClient, setIsClient] = useState(false);
@@ -272,6 +279,23 @@ export default function StudentProfilePage() {
                 </div>
               </CardContent>
             </Card>
+             {student.externalLinks && student.externalLinks.length > 0 && (
+                 <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><Link2 /> Enlaces Externos</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                        {student.externalLinks.map(link => (
+                            <Button key={link.platform} variant="outline" asChild className="w-full justify-start">
+                                <Link href={link.url} target="_blank">
+                                    {platformIcons[link.platform]}
+                                    {link.platform}
+                                </Link>
+                            </Button>
+                        ))}
+                    </CardContent>
+                </Card>
+            )}
             {student.languages && student.languages.length > 0 && (
                  <Card>
                     <CardHeader>
