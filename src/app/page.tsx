@@ -16,11 +16,12 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[500px] w-full bg-slate-50">
         <Image
-          src="https://picsum.photos/seed/paris/1920/1080"
-          alt="Vista de la ciudad de París"
+          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGdyb3VwfGVufDB8fHx8MTc2MTQ5NjQwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Un grupo de estudiantes colaborando"
           fill
           className="object-cover"
-          data-ai-hint="cityscape paris"
+          data-ai-hint="students group"
+          priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20" />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
