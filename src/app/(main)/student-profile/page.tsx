@@ -41,42 +41,49 @@ function LanguageChart({ languages }: { languages: { name: string, proficiency: 
     return null; // Render nothing on the server
   }
 
-  return (
-    <ResponsiveContainer width="100%" height={200}>
-      <PieChart>
-        <Tooltip
-          content={<ChartTooltipContent 
-            formatter={(value, name) => [`${value}%`, name]}
-          />}
-        />
-        <Pie
-          data={languages}
-          dataKey="proficiency"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          outerRadius={80}
-          labelLine={false}
-          label={({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-            const RADIAN = Math.PI / 180;
-            const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-            const x = cx + radius * Math.cos(-midAngle * RADIAN);
-            const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  const chartConfig = languages.reduce((acc, lang) => {
+    acc[lang.name] = { label: lang.name };
+    return acc;
+  }, {} as any);
 
-            return (
-              <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-                {`${(percent * 100).toFixed(0)}%`}
-              </text>
-            );
-          }}
-        >
-          {languages.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Legend />
-      </PieChart>
-    </ResponsiveContainer>
+  return (
+    <ChartContainer config={chartConfig} className="mx-auto aspect-square h-full max-h-[250px]">
+      <ResponsiveContainer width="100%" height={200}>
+        <PieChart>
+          <Tooltip
+            content={<ChartTooltipContent 
+              formatter={(value, name) => [`${value}%`, name]}
+            />}
+          />
+          <Pie
+            data={languages}
+            dataKey="proficiency"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            outerRadius={80}
+            labelLine={false}
+            label={({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+              const RADIAN = Math.PI / 180;
+              const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+              const x = cx + radius * Math.cos(-midAngle * RADIAN);
+              const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+              return (
+                <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+                  {`${(percent * 100).toFixed(0)}%`}
+                </text>
+              );
+            }}
+          >
+            {languages.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Legend />
+        </PieChart>
+      </ResponsiveContainer>
+    </ChartContainer>
   );
 }
 
