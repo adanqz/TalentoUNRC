@@ -343,13 +343,17 @@ export const university: University = {
     },
 };
 
+const getBusinessByIdUnsafe = (id: string) => businesses.find(b => b.id === id)!;
+const getUserByIdUnsafe = (id: string) => users.find(u => u.id === id)!;
+
 export const conversations: Conversation[] = [
     {
         id: 'conv-1',
-        participant: businesses[0].team[0],
+        business: getBusinessByIdUnsafe('biz-1'),
+        student: getUserByIdUnsafe('user-1'),
         messages: [
             { id: 'msg-1', senderId: 'user-1', text: '¡Hola! Estoy muy interesada en las Prácticas de Desarrollador Frontend.', timestamp: '10:30 AM' },
-            { id: 'msg-2', senderId: 'user-3', text: 'Hola Ana, ¡gracias por contactarnos! Nos alegra saberlo. ¿Podrías enviarnos tu CV?', timestamp: '10:32 AM' },
+            { id: 'msg-2', senderId: 'biz-1', text: 'Hola Ana, ¡gracias por contactarnos! Nos alegra saberlo. ¿Podrías enviarnos tu CV?', timestamp: '10:32 AM' },
         ],
         lastMessage: 'Hola Ana, ¡gracias por contactarnos! Nos alegra...',
         lastMessageTimestamp: '10:32 AM',
@@ -357,21 +361,24 @@ export const conversations: Conversation[] = [
     },
     {
         id: 'conv-2',
-        participant: businesses[1].team[0],
+        business: getBusinessByIdUnsafe('biz-2'),
+        student: getUserByIdUnsafe('user-1'),
         messages: [
-             { id: 'msg-3', senderId: 'user-5', text: 'Hola, vi tu perfil y quería conectar.', timestamp: 'Ayer' },
+             { id: 'msg-3', senderId: 'biz-2', text: 'Hola Ana, hemos visto tu perfil y estamos interesados en tus habilidades de análisis de datos para un proyecto.', timestamp: 'Ayer' },
         ],
-        lastMessage: 'Hola, vi tu perfil y quería conectar.',
+        lastMessage: 'Hola Ana, hemos visto tu perfil y estamos...',
         lastMessageTimestamp: 'Ayer',
         unreadCount: 1,
     },
     {
         id: 'conv-3',
-        participant: users[6],
+        business: getBusinessByIdUnsafe('biz-4'),
+        student: getUserByIdUnsafe('user-5'),
         messages: [
-             { id: 'msg-4', senderId: 'user-1', text: 'Hola David, ¿tienes un momento para hablar sobre el proyecto de la nube?', timestamp: 'Hace 2 días' },
+             { id: 'msg-4', senderId: 'user-5', text: 'Buenos días, me gustaría postularme para la vacante de Diseño UI/UX.', timestamp: 'Hace 2 días' },
+             { id: 'msg-5', senderId: 'biz-4', text: '¡Hola Isabel! Gracias por tu interés. El proceso de selección ha comenzado, te mantendremos informada.', timestamp: 'Hace 2 días' },
         ],
-        lastMessage: 'Hola David, ¿tienes un momento para hablar sobre el...',
+        lastMessage: '¡Hola Isabel! Gracias por tu interés. El proceso...',
         lastMessageTimestamp: 'Hace 2 días',
         unreadCount: 0,
     }

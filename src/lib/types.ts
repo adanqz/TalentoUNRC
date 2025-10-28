@@ -78,14 +78,15 @@ export type University = {
 
 export type Message = {
   id: string;
-  senderId: string;
+  senderId: string; // Can be a user ID or a business ID
   text: string;
   timestamp: string;
 };
 
 export type Conversation = {
   id: string;
-  participant: User;
+  business: Business;
+  student: User;
   messages: Message[];
   lastMessage: string;
   lastMessageTimestamp: string;
