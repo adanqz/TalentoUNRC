@@ -9,7 +9,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, MapPin, GraduationCap, Globe } from "lucide-react";
+import { Mail, Phone, MapPin, GraduationCap, Globe, Building } from "lucide-react";
+
+const sedes = [
+    { name: "Coyoacán", address: "Av. Canal de Miramontes 1785, Campestre Churubusco, Coyoacán" },
+    { name: "Azcapotzalco", address: "Av. Aquiles Serdán 2060, Ex-Hacienda del Rosario, Azcapotzalco" },
+    { name: "Justo Sierra", address: "Justo Sierra 71, Centro Histórico, Cuauhtémoc" },
+    { name: "Gustavo A. Madero", address: "Av. 517 S/N, San Juan de Aragón I Secc, Gustavo A. Madero" },
+    { name: "Benito Juárez (Del Valle)", address: "Av. División del Nte. 906, Col del Valle Nte, Benito Juárez" },
+    { name: "Iztapalapa", address: "Calz. Ermita Iztapalapa 235, Iztapalapa" },
+    { name: "La Magdalena Contreras", address: "Av. San Bernabé 150, San Jerónimo Lídice, La Magdalena Contreras" },
+    { name: "Milpa Alta", address: "Av. México Nte. S/N, Villa Milpa Alta, Milpa Alta" },
+    { name: "Tláhuac", address: "Av. Tláhuac 5664, Santa Ana Poniente, Tláhuac" },
+    { name: "Xochimilco", address: "Av. 16 de Septiembre S/N, Santa María Nativitas, Xochimilco" },
+];
 
 export default function UniversityPage() {
   return (
@@ -45,7 +58,7 @@ export default function UniversityPage() {
 
       <div className="container mx-auto px-4 py-12 md:px-6">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 space-y-8">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -61,6 +74,30 @@ export default function UniversityPage() {
                     {area}
                   </Badge>
                 ))}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Building /> Sedes
+                </CardTitle>
+                <CardDescription>
+                  Nuestras ubicaciones en toda la Ciudad de México.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                  {sedes.map((sede) => (
+                    <div key={sede.name} className="flex items-start gap-3">
+                        <MapPin className="h-5 w-5 mt-1 flex-shrink-0 text-muted-foreground" />
+                        <div>
+                            <h4 className="font-semibold">{sede.name}</h4>
+                            <p className="text-sm text-muted-foreground">{sede.address}</p>
+                        </div>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </div>
