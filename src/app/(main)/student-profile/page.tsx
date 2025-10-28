@@ -183,6 +183,9 @@ export default function StudentProfilePage() {
                 <Button variant="outline">
                     <History className="mr-2 h-4 w-4" /> Consultar Historial Académico
                 </Button>
+                <Button variant="outline">
+                    <FileText className="mr-2 h-4 w-4" /> Carta de Presentación UNRC
+                </Button>
               </div>
             </div>
           </div>
@@ -285,3 +288,5 @@ export default function StudentProfilePage() {
     </>
   );
 }
+
+    
