@@ -5,7 +5,7 @@ import { notFound, redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mail, Briefcase, Wand2, BookOpen, FileText, Download, Languages } from "lucide-react";
+import { Mail, Briefcase, Wand2, BookOpen, FileText, Download, Languages, History } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -137,12 +137,15 @@ export default function StudentProfilePage() {
             <div className="flex-1 space-y-2">
               <h1 className="font-headline text-4xl font-bold">{student.name}</h1>
               <p className="max-w-2xl text-lg text-muted-foreground mx-auto md:mx-0">{student.email}</p>
-              <div className="flex justify-center md:justify-start gap-2">
+              <div className="flex flex-wrap justify-center md:justify-start gap-2">
                 <Button>
                   <Mail className="mr-2 h-4 w-4" /> Contactar Estudiante
                 </Button>
                  <Button variant="outline">
                     <Download className="mr-2 h-4 w-4" /> Descargar CV en PDF
+                </Button>
+                <Button variant="outline">
+                    <History className="mr-2 h-4 w-4" /> Consultar Historial Académico
                 </Button>
               </div>
             </div>
