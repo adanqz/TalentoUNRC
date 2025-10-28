@@ -8,7 +8,9 @@ const getImage = (id: string) => {
 }
 
 export const users: User[] = [
-  { id: 'user-1', name: 'Ana Torres', email: 'ana.t@example.com', avatarUrl: getImage('user-avatar-1'), skills: ['React', 'Node.js', 'TypeScript', 'GraphQL'], interests: ['Desarrollo Web', 'IA', 'Diseño UI/UX'], 
+  { id: 'user-1', name: 'Ana Torres', email: 'ana.t@example.com', avatarUrl: getImage('user-avatar-1'), 
+    status: { type: 'cursando', semester: 7 },
+    skills: ['React', 'Node.js', 'TypeScript', 'GraphQL'], interests: ['Desarrollo Web', 'IA', 'Diseño UI/UX'], 
     semesterProjects: [
       { semester: 'Semestre 1', projects: [
         { id: 'proj-1-1', name: 'Introducción a la Programación con Python', pdfUrl: '#' },
@@ -28,33 +30,55 @@ export const users: User[] = [
         { name: 'Francés', proficiency: 40 },
     ]
   },
-  { id: 'user-2', name: 'Carlos Gomez', email: 'carlos.g@example.com', avatarUrl: getImage('user-avatar-2'), skills: ['Python', 'Análisis de Datos', 'Machine Learning', 'TensorFlow', 'Scikit-learn'], interests: ['Ciencia de Datos', 'Fintech', 'Inversiones'],
+  { id: 'user-2', name: 'Carlos Gomez', email: 'carlos.g@example.com', avatarUrl: getImage('user-avatar-2'), 
+    status: { type: 'egresado' },
+    skills: ['Python', 'Análisis de Datos', 'Machine Learning', 'TensorFlow', 'Scikit-learn'], interests: ['Ciencia de Datos', 'Fintech', 'Inversiones'],
     languages: [
         { name: 'Español', proficiency: 100 },
         { name: 'Inglés', proficiency: 95 },
     ]
   },
-  { id: 'user-3', name: 'Sofia Diaz', email: 'sofia.d@example.com', avatarUrl: getImage('user-avatar-3'), skills: ['Java', 'Spring Boot', 'Microservicios', 'Hibernate'], interests: ['Desarrollo Backend', 'Sistemas Distribuidos'] },
-  { id: 'user-4', name: 'Javier Peña', email: 'javier.p@example.com', avatarUrl: getImage('user-avatar-4'), skills: ['Go', 'Kubernetes', 'Docker', 'CI/CD'], interests: ['DevOps', 'Infraestructura de Nube'] },
-  { id: 'user-5', name: 'Isabel Luna', email: 'isabel.l@example.com', avatarUrl: getImage('user-avatar-5'), skills: ['JavaScript', 'Vue.js', 'Nuxt.js', 'TailwindCSS'], interests: ['Desarrollo Frontend', 'E-commerce'],
+  { id: 'user-3', name: 'Sofia Diaz', email: 'sofia.d@example.com', avatarUrl: getImage('user-avatar-3'), 
+    status: { type: 'cursando', semester: 8 },
+    skills: ['Java', 'Spring Boot', 'Microservicios', 'Hibernate'], interests: ['Desarrollo Backend', 'Sistemas Distribuidos'] },
+  { id: 'user-4', name: 'Javier Peña', email: 'javier.p@example.com', avatarUrl: getImage('user-avatar-4'), 
+    status: { type: 'inactivo' },
+    skills: ['Go', 'Kubernetes', 'Docker', 'CI/CD'], interests: ['DevOps', 'Infraestructura de Nube'] },
+  { id: 'user-5', name: 'Isabel Luna', email: 'isabel.l@example.com', avatarUrl: getImage('user-avatar-5'), 
+    status: { type: 'cursando', semester: 5 },
+    skills: ['JavaScript', 'Vue.js', 'Nuxt.js', 'TailwindCSS'], interests: ['Desarrollo Frontend', 'E-commerce'],
     languages: [
         { name: 'Español', proficiency: 100 },
         { name: 'Inglés', proficiency: 70 },
     ]
   },
-  { id: 'user-6', name: 'Maria Rodriguez', email: 'maria.r@example.com', avatarUrl: getImage('user-avatar-6'), skills: ['Diseño UI/UX', 'Figma', 'Adobe XD', 'Investigación de Usuarios'], interests: ['Diseño de Producto', 'Experiencia de Usuario', 'Accesibilidad'] },
-  { id: 'user-7', name: 'David Chen', email: 'david.c@example.com', avatarUrl: getImage('user-avatar-7'), skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform'], interests: ['DevOps', 'Cloud Computing', 'Ciberseguridad'],
+  { id: 'user-6', name: 'Maria Rodriguez', email: 'maria.r@example.com', avatarUrl: getImage('user-avatar-6'), 
+    status: { type: 'egresado' },
+    skills: ['Diseño UI/UX', 'Figma', 'Adobe XD', 'Investigación de Usuarios'], interests: ['Diseño de Producto', 'Experiencia de Usuario', 'Accesibilidad'] },
+  { id: 'user-7', name: 'David Chen', email: 'david.c@example.com', avatarUrl: getImage('user-avatar-7'), 
+    status: { type: 'cursando', semester: 9 },
+    skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform'], interests: ['DevOps', 'Cloud Computing', 'Ciberseguridad'],
     languages: [
         { name: 'Inglés', proficiency: 100 },
         { name: 'Mandarín', proficiency: 100 },
         { name: 'Español', proficiency: 75 },
     ]
   },
-  { id: 'user-8', name: 'Laura Martinez', email: 'laura.m@example.com', avatarUrl: 'https://picsum.photos/seed/user8/100/100', skills: ['C#', '.NET', 'Azure', 'SQL Server'], interests: ['Desarrollo de Software Empresarial', 'Videojuegos'] },
-  { id: 'user-9', name: 'Ricardo Sanchez', email: 'ricardo.s@example.com', avatarUrl: 'https://picsum.photos/seed/user9/100/100', skills: ['PHP', 'Laravel', 'MySQL', 'Vue.js'], interests: ['Desarrollo Web Full-Stack', 'APIs REST'] },
-  { id: 'user-10', name: 'Fernanda Rojas', email: 'fernanda.r@example.com', avatarUrl: 'https://picsum.photos/seed/user10/100/100', skills: ['Swift', 'UIKit', 'Core Data', 'iOS'], interests: ['Desarrollo Móvil', 'Realidad Aumentada'] },
-  { id: 'user-11', name: 'Jorge Campos', email: 'jorge.c@example.com', avatarUrl: 'https://picsum.photos/seed/user11/100/100', skills: ['Kotlin', 'Android Jetpack', 'Coroutines', 'Room'], interests: ['Desarrollo Móvil', 'Android', 'Wearables'] },
-  { id: 'user-12', name: 'Patricia Vera', email: 'patricia.v@example.com', avatarUrl: 'https://picsum.photos/seed/user12/100/100', skills: ['Ruby on Rails', 'PostgreSQL', 'Heroku', 'TDD'], interests: ['Desarrollo Backend', 'Startups', 'EdTech'] }
+  { id: 'user-8', name: 'Laura Martinez', email: 'laura.m@example.com', avatarUrl: 'https://picsum.photos/seed/user8/100/100', 
+    status: { type: 'inactivo' },
+    skills: ['C#', '.NET', 'Azure', 'SQL Server'], interests: ['Desarrollo de Software Empresarial', 'Videojuegos'] },
+  { id: 'user-9', name: 'Ricardo Sanchez', email: 'ricardo.s@example.com', avatarUrl: 'https://picsum.photos/seed/user9/100/100', 
+    status: { type: 'cursando', semester: 6 },
+    skills: ['PHP', 'Laravel', 'MySQL', 'Vue.js'], interests: ['Desarrollo Web Full-Stack', 'APIs REST'] },
+  { id: 'user-10', name: 'Fernanda Rojas', email: 'fernanda.r@example.com', avatarUrl: 'https://picsum.photos/seed/user10/100/100', 
+    status: { type: 'egresado' },
+    skills: ['Swift', 'UIKit', 'Core Data', 'iOS'], interests: ['Desarrollo Móvil', 'Realidad Aumentada'] },
+  { id: 'user-11', name: 'Jorge Campos', email: 'jorge.c@example.com', avatarUrl: 'https://picsum.photos/seed/user11/100/100', 
+    status: { type: 'cursando', semester: 8 },
+    skills: ['Kotlin', 'Android Jetpack', 'Coroutines', 'Room'], interests: ['Desarrollo Móvil', 'Android', 'Wearables'] },
+  { id: 'user-12', name: 'Patricia Vera', email: 'patricia.v@example.com', avatarUrl: 'https://picsum.photos/seed/user12/100/100', 
+    status: { type: 'inactivo' },
+    skills: ['Ruby on Rails', 'PostgreSQL', 'Heroku', 'TDD'], interests: ['Desarrollo Backend', 'Startups', 'EdTech'] }
 ];
 
 export const opportunities: Opportunity[] = [

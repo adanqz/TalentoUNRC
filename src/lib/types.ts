@@ -15,11 +15,17 @@ export type Language = {
   proficiency: number; // 0-100
 };
 
+export type UserStatus =
+  | { type: 'cursando'; semester: number }
+  | { type: 'inactivo' }
+  | { type: 'egresado' };
+
 export type User = {
   id: string;
   name: string;
   email: string;
   avatarUrl: string;
+  status: UserStatus;
   skills?: string[];
   interests?: string[];
   semesterProjects?: SemesterProjects[];

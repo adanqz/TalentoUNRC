@@ -5,7 +5,7 @@ import { notFound, redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mail, Briefcase, Wand2, BookOpen, FileText, Download, Languages, History } from "lucide-react";
+import { Mail, Briefcase, Wand2, BookOpen, FileText, Download, Languages, History, Circle } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -21,12 +21,13 @@ import {
 } from "@/components/ui/accordion"
 import { OpportunityCard } from "@/components/opportunity-card";
 import { suggestRelevantOpportunities } from "@/ai/flows/suggest-relevant-opportunities";
-import type { Opportunity } from "@/lib/types";
+import type { Opportunity, UserStatus } from "@/lib/types";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 import { Pie, PieChart, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
+import { cn } from "@/lib/utils";
 
 const COLORS = ['#631333', '#a13b63', '#d37ca1', '#E4B799', '#f0d8c9'];
 
@@ -87,6 +88,38 @@ function LanguageChart({ languages }: { languages: { name: string, proficiency: 
   );
 }
 
+const StatusBadge = ({ status }: { status: UserStatus }) => {
+    let text;
+    let className;
+
+    switch (status.type) {
+        case 'cursando':
+            text = `Cursando ${status.semester}° semestre`;
+            className = "bg-green-100 text-green-800 border-green-200";
+            break;
+        case 'inactivo':
+            text = "Actualmente inactivo";
+            className = "bg-gray-100 text-gray-800 border-gray-200";
+            break;
+        case 'egresado':
+            text = "Egresado";
+            className = "bg-primary/10 text-primary border-primary/20";
+            break;
+    }
+
+    return (
+        <Badge variant="outline" className={cn("gap-2", className)}>
+            <Circle className={cn(
+                "h-2 w-2",
+                status.type === 'cursando' && "fill-green-500",
+                status.type === 'inactivo' && "fill-gray-400",
+                status.type === 'egresado' && "fill-primary",
+            )} />
+            {text}
+        </Badge>
+    );
+};
+
 
 export default function StudentProfilePage() {
   const searchParams = useSearchParams();
@@ -134,9 +167,12 @@ export default function StudentProfilePage() {
               className="rounded-full border-4 border-white shadow-lg"
               data-ai-hint="logo"
             />
-            <div className="flex-1 space-y-2">
+            <div className="flex-1 space-y-3">
               <h1 className="font-headline text-4xl font-bold">{student.name}</h1>
-              <p className="max-w-2xl text-lg text-muted-foreground mx-auto md:mx-0">{student.email}</p>
+              <div className="flex items-center justify-center md:justify-start gap-4">
+                <p className="text-lg text-muted-foreground">{student.email}</p>
+                <StatusBadge status={student.status} />
+              </div>
               <div className="flex flex-wrap justify-center md:justify-start gap-2">
                 <Button>
                   <Mail className="mr-2 h-4 w-4" /> Contactar Estudiante
