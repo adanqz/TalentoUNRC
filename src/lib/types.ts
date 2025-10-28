@@ -10,6 +10,11 @@ export type SemesterProjects = {
   projects: Project[];
 };
 
+export type Language = {
+  name: string;
+  proficiency: number; // 0-100
+};
+
 export type User = {
   id: string;
   name: string;
@@ -18,6 +23,7 @@ export type User = {
   skills?: string[];
   interests?: string[];
   semesterProjects?: SemesterProjects[];
+  languages?: Language[];
 };
 
 export type Business = {

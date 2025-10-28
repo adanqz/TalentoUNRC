@@ -1,10 +1,11 @@
 
+'use client';
 import { users, opportunities, getOpportunityById } from "@/lib/data";
-import { notFound, redirect } from "next/navigation";
+import { notFound, redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mail, Briefcase, Wand2, BookOpen, FileText, Download } from "lucide-react";
+import { Mail, Briefcase, Wand2, BookOpen, FileText, Download, Languages } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -23,34 +24,95 @@ import { suggestRelevantOpportunities } from "@/ai/flows/suggest-relevant-opport
 import type { Opportunity } from "@/lib/types";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useState } from "react";
+import { Pie, PieChart, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
 
-export default async function StudentProfilePage({ searchParams }: { searchParams: { id?: string }}) {
-  const studentId = searchParams.id || users[0].id;
+const COLORS = ['#631333', '#a13b63', '#d37ca1', '#E4B799', '#f0d8c9'];
+
+function LanguageChart({ languages }: { languages: { name: string, proficiency: number }[] }) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null; // Render nothing on the server
+  }
+
+  return (
+    <ResponsiveContainer width="100%" height={200}>
+      <PieChart>
+        <Tooltip
+          content={<ChartTooltipContent 
+            formatter={(value, name) => [`${value}%`, name]}
+          />}
+        />
+        <Pie
+          data={languages}
+          dataKey="proficiency"
+          nameKey="name"
+          cx="50%"
+          cy="50%"
+          outerRadius={80}
+          labelLine={false}
+          label={({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+            const RADIAN = Math.PI / 180;
+            const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+            const x = cx + radius * Math.cos(-midAngle * RADIAN);
+            const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+            return (
+              <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+                {`${(percent * 100).toFixed(0)}%`}
+              </text>
+            );
+          }}
+        >
+          {languages.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Legend />
+      </PieChart>
+    </ResponsiveContainer>
+  );
+}
+
+
+export default function StudentProfilePage() {
+  const searchParams = useSearchParams();
+  const studentId = searchParams.get('id') || users[0].id;
   const student = users.find(u => u.id === studentId);
+  const [suggestedOpportunities, setSuggestedOpportunities] = useState<Opportunity[]>([]);
+  const hasApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY && process.env.NEXT_PUBLIC_GEMINI_API_KEY !== "YOUR_API_KEY";
+
+   useEffect(() => {
+    async function fetchSuggestions() {
+      if (hasApiKey && student) {
+        try {
+          const allOpportunityDescriptions = opportunities.map(o => o.description);
+          const result = await suggestRelevantOpportunities({
+            studentSkills: student.skills || [],
+            studentInterests: student.interests || [],
+            availableOpportunities: allOpportunityDescriptions,
+          });
+          if (result && result.relevantOpportunities) {
+            const suggested = opportunities.filter(o => result.relevantOpportunities.includes(o.description));
+            setSuggestedOpportunities(suggested);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    fetchSuggestions();
+  }, [student, hasApiKey]);
 
   if (!student) {
-    notFound();
+    return notFound();
   }
-
-  const hasApiKey = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== "YOUR_API_KEY";
-  let suggestedOpportunities: Opportunity[] = [];
-
-  if (hasApiKey) {
-    try {
-      const allOpportunityDescriptions = opportunities.map(o => o.description);
-      const result = await suggestRelevantOpportunities({
-        studentSkills: student.skills || [],
-        studentInterests: student.interests || [],
-        availableOpportunities: allOpportunityDescriptions,
-      });
-      if (result && result.relevantOpportunities) {
-        suggestedOpportunities = opportunities.filter(o => result.relevantOpportunities.includes(o.description));
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
 
   return (
     <>
@@ -92,7 +154,7 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
                 </CardHeader>
                 <CardContent>
                     <Accordion type="single" collapsible defaultValue="item-1">
-                      {student.semesterProjects && student.semesterProjects.length > 0 && student.semesterProjects.map((semesterProject, index) => (
+                      {student.semesterProjects && student.semesterProjects.length > 0 ? student.semesterProjects.map((semesterProject, index) => (
                         <AccordionItem value={`item-${index + 1}`} key={semesterProject.semester}>
                           <AccordionTrigger className="text-lg font-semibold">{semesterProject.semester}</AccordionTrigger>
                           <AccordionContent>
@@ -111,7 +173,7 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
                             </ul>
                           </AccordionContent>
                         </AccordionItem>
-                      ))}
+                      )) : <p className="text-sm text-muted-foreground">No hay proyectos para mostrar.</p>}
                     </Accordion>
                 </CardContent>
             </Card>
@@ -161,11 +223,19 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
                 </div>
               </CardContent>
             </Card>
+            {student.languages && student.languages.length > 0 && (
+                 <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><Languages /> Idiomas</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <LanguageChart languages={student.languages} />
+                    </CardContent>
+                </Card>
+            )}
           </div>
         </div>
       </div>
     </>
   );
 }
-
-    
