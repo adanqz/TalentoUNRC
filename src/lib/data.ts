@@ -392,6 +392,22 @@ export const onlineUsers: OnlineUser[] = [
     { id: 'user-2', name: 'Carlos Gomez', avatarUrl: getImage('user-avatar-2'), currentPage: '/dashboard', onlineSince: new Date(Date.now() - 1000 * 60 * 30) }, // 30 minutes ago
 ];
 
+export const visitorStats = {
+  total: 125430,
+  lastMonth: 15230,
+  lastWeek: 4120,
+  today: 850,
+  histogram: [
+    { name: 'Lun', visits: 220 },
+    { name: 'Mar', visits: 180 },
+    { name: 'Mié', visits: 400 },
+    { name: 'Jue', visits: 330 },
+    { name: 'Vie', visits: 540 },
+    { name: 'Sáb', visits: 600 },
+    { name: 'Dom', visits: 310 },
+  ],
+};
+
 
 // Helper functions to get data by ID
 export const getBusinessById = (id: string) => businesses.find(b => b.id === id);

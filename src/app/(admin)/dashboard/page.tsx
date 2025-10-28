@@ -16,10 +16,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { suggestPotentialCandidates } from '@/ai/flows/suggest-potential-candidates';
 import { suggestRelevantOpportunities } from '@/ai/flows/suggest-relevant-opportunities';
 import { suggestSuitableCandidates } from '@/ai/flows/suggest-suitable-candidates';
-import { Loader2, Wand2, Users, Building, Briefcase, Wifi } from 'lucide-react';
-import { Bar, BarChart, CartesianGrid, XAxis, Pie, PieChart, Cell, Tooltip } from 'recharts';
+import { Loader2, Wand2, Users, Building, Briefcase, Wifi, BarChart as BarChartIcon } from 'lucide-react';
+import { Bar, BarChart, CartesianGrid, XAxis, Pie, PieChart, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
-import { opportunities, users, businesses, onlineUsers } from '@/lib/data';
+import { opportunities, users, businesses, onlineUsers, visitorStats } from '@/lib/data';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { formatDistanceToNow } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -176,8 +176,70 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </div>
+      
+      <div className="space-y-2 mt-8">
+        <h2 className="font-headline text-2xl font-bold tracking-tight">Análisis de Visitas</h2>
+      </div>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Visitas Totales</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{visitorStats.total.toLocaleString()}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Visitas (Mes Pasado)</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{visitorStats.lastMonth.toLocaleString()}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Visitas (Última Semana)</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{visitorStats.lastWeek.toLocaleString()}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Visitas (Hoy)</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{visitorStats.today.toLocaleString()}</div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-8">
+        <Card className="lg:col-span-3">
+          <CardHeader>
+            <CardTitle>Visitas de la Última Semana</CardTitle>
+            <CardDescription>Un histograma de las visitas al sitio durante los últimos 7 días.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={{}} className="h-64 w-full">
+              <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={visitorStats.histogram}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <Tooltip content={<ChartTooltipContent />} />
+                    <Bar dataKey="visits" name="Visitas" fill="hsl(var(--primary))" radius={4} />
+                  </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+        
         <Card className="lg:col-span-2">
             <CardHeader>
                 <CardTitle>Actividad de Usuarios en Tiempo Real</CardTitle>
@@ -243,7 +305,7 @@ export default function DashboardPage() {
         </Card>
       </div>
 
-       <div className="space-y-2">
+       <div className="space-y-2 mt-8">
         <h2 className="font-headline text-2xl font-bold tracking-tight flex items-center gap-2">
           <Wand2 /> Panel de la API de IA
         </h2>
