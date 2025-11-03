@@ -1,5 +1,5 @@
 
-import { getOpportunityById, users } from "@/lib/data";
+import { getBusinessById, getOpportunityById, users } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { suggestPotentialCandidates } from "@/ai/flows/suggest-potential-candidates";
 import ClientComponent from "./client-component";
@@ -15,6 +15,12 @@ export default async function OpportunityDetailPage({
   const opportunity = getOpportunityById(params.id);
 
   if (!opportunity) {
+    notFound();
+  }
+
+  const business = getBusinessById(opportunity.businessId);
+
+  if (!business) {
     notFound();
   }
 
@@ -44,6 +50,6 @@ export default async function OpportunityDetailPage({
 
 
   return (
-    <ClientComponent opportunity={opportunity} isBusinessUser={isBusinessUser} potentialCandidates={potentialCandidates} />
+    <ClientComponent opportunity={opportunity} business={business} isBusinessUser={isBusinessUser} potentialCandidates={potentialCandidates} />
   );
 }

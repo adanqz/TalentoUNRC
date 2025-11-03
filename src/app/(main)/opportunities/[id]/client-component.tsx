@@ -1,6 +1,6 @@
 
 'use client';
-import type { Opportunity } from "@/lib/types";
+import type { Opportunity, Business } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +16,7 @@ import {
   GraduationCap,
   DollarSign,
   Clock,
+  Building,
 } from "lucide-react";
 import {
   Card,
@@ -126,7 +127,7 @@ function SuggestedCandidates({ potentialCandidates }: SuggestedCandidatesProps) 
 }
 
 
-export default function ClientComponent({ opportunity, isBusinessUser, potentialCandidates }: { opportunity: Opportunity; isBusinessUser: boolean, potentialCandidates: any[] | null }) {
+export default function ClientComponent({ opportunity, business, isBusinessUser, potentialCandidates }: { opportunity: Opportunity; business: Business; isBusinessUser: boolean, potentialCandidates: any[] | null }) {
     return (
         <>
         <div className="bg-card border-b">
@@ -206,6 +207,18 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
                                         </Badge>
                                     ))}
                                 </div>
+                            </CardContent>
+                        </Card>
+
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2"><Building /> Acerca de la Compañía</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <p className="text-muted-foreground">{business.mission}</p>
+                                <Button asChild variant="secondary">
+                                    <Link href={`/businesses/${business.id}`}>Ver Perfil de la Empresa</Link>
+                                </Button>
                             </CardContent>
                         </Card>
 
