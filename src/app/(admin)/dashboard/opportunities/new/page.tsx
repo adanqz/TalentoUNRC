@@ -123,6 +123,10 @@ export default function NewOpportunityPage() {
             <Label htmlFor="longDescription">Descripción Larga</Label>
             <Textarea id="longDescription" placeholder="Una descripción detallada de la oportunidad, responsabilidades, etc." rows={5} />
         </div>
+        <div className="space-y-2">
+            <Label htmlFor="responsibilities">Responsabilidades (una por línea)</Label>
+            <Textarea id="responsibilities" placeholder="Ej. Desarrollar y mantener componentes de UI." rows={4} />
+        </div>
       </CardContent>
       <CardFooter className="flex justify-end gap-2">
         <Button variant="outline" asChild>

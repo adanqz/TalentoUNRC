@@ -78,6 +78,7 @@ export type Opportunity = {
   profileType: 'Estudiante' | 'Egresado' | 'Titulado Sin Experiencia' | 'Titulado';
   description: string;
   longDescription: string;
+  responsibilities: string[];
   location: string;
   horario: 'Remoto' | 'Híbrido' | 'Presencial' | 'Tiempo Completo' | 'Medio Tiempo';
   workHours?: string;

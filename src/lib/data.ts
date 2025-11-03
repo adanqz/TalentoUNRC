@@ -113,6 +113,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Estudiante',
     description: 'Únete a nuestro equipo para trabajar en una aplicación web de vanguardia usando React y TypeScript.',
     longDescription: 'Esta práctica profesional ofrece una experiencia práctica en el desarrollo, prueba y despliegue de una aplicación web moderna. Colaborarás con desarrolladores senior y gerentes de producto para entregar características de alta calidad. Aprenderás sobre metodologías ágiles, revisiones de código e integración continua.',
+    responsibilities: [
+      'Desarrollar y mantener componentes de interfaz de usuario con React y TypeScript.',
+      'Colaborar con diseñadores de UI/UX para implementar diseños.',
+      'Escribir pruebas unitarias y de integración para asegurar la calidad del código.',
+      'Participar en reuniones de equipo y revisiones de código.'
+    ],
     location: 'Cuauhtémoc',
     horario: 'Remoto',
     workHours: '9:00 - 13:00',
@@ -129,6 +135,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Estudiante',
     description: 'Analiza grandes conjuntos de datos para extraer insights significativos y construir modelos predictivos.',
     longDescription: 'Como socio de investigación, te sumergirás en conjuntos de datos complejos, aplicarás análisis estadístico y técnicas de machine learning para descubrir tendencias y presentarás tus hallazgos a los stakeholders. Este proyecto requiere una base sólida en estadística y programación.',
+    responsibilities: [
+      'Limpiar y preprocesar grandes volúmenes de datos.',
+      'Aplicar modelos estadísticos y de machine learning.',
+      'Visualizar datos y comunicar los hallazgos de manera efectiva.',
+      'Colaborar con el equipo para definir preguntas de investigación.'
+    ],
     location: 'Coyoacán',
     horario: 'Híbrido',
     workHours: '10:00 - 16:00',
@@ -145,6 +157,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Estudiante',
     description: 'Desarrolla una aplicación móvil multiplataforma para el sector agrícola usando Flutter.',
     longDescription: 'Este proyecto implica el ciclo de vida completo del desarrollo de una aplicación móvil, desde el diseño UI/UX hasta la integración con el backend y la publicación en las tiendas de aplicaciones. Trabajarás con un equipo dinámico para crear una solución innovadora para los agricultores.',
+    responsibilities: [
+      'Diseñar y construir la aplicación móvil usando Flutter.',
+      'Integrar la aplicación con servicios de backend y APIs.',
+      'Realizar pruebas y depuración para garantizar la estabilidad.',
+      'Publicar la aplicación en Google Play Store y Apple App Store.'
+    ],
     location: 'Álvaro Obregón',
     horario: 'Remoto',
     skills: ['Flutter', 'Dart', 'Firebase', 'Diseño UI/UX'],
@@ -160,6 +178,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Estudiante',
     description: 'Ayuda a construir y mantener nuestros servicios de backend y APIs escalables.',
     longDescription: 'En este rol, trabajarás con Node.js, Express y bases de datos como PostgreSQL y MongoDB. Serás responsable de diseñar e implementar APIs RESTful, asegurando un alto rendimiento y confiabilidad. La experiencia con plataformas en la nube como AWS o Google Cloud es una ventaja.',
+    responsibilities: [
+      'Diseñar, desarrollar y mantener APIs RESTful eficientes y escalables.',
+      'Gestionar bases de datos y asegurar la integridad de los datos.',
+      'Escribir código limpio, mantenible y bien documentado.',
+      'Desplegar aplicaciones en entornos de producción.'
+    ],
     location: 'Cuauhtémoc',
     horario: 'Presencial',
     workHours: '9:00 - 17:00',
@@ -176,6 +200,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Estudiante',
     description: 'Crea interfaces de usuario intuitivas y atractivas para nuestras aplicaciones web y móviles.',
     longDescription: 'Como practicante de UI/UX, serás responsable de realizar investigaciones de usuarios, crear wireframes y prototipos, y diseñar interfaces de usuario visualmente atractivas. Trabajarás en estrecha colaboración con los gerentes de producto y desarrolladores para garantizar una experiencia de usuario perfecta.',
+    responsibilities: [
+      'Realizar investigación de usuarios y pruebas de usabilidad.',
+      'Crear wireframes, prototipos y flujos de usuario.',
+      'Diseñar interfaces de usuario finales y sistemas de diseño.',
+      'Colaborar con desarrolladores para asegurar la correcta implementación de los diseños.'
+    ],
     location: 'Polanco',
     horario: 'Remoto',
     workHours: 'Horario flexible',
@@ -192,6 +222,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Titulado Sin Experiencia',
     description: 'Diseña y gestiona nuestra infraestructura en la nube en AWS.',
     longDescription: 'Buscamos un ingeniero de la nube experimentado para unirse a nuestro equipo. Serás responsable de diseñar, implementar y mantener nuestra infraestructura en la nube en AWS. Debes tener una sólida experiencia con servicios de AWS como EC2, S3, RDS y Lambda.',
+    responsibilities: [
+      'Diseñar e implementar infraestructura en la nube segura y escalable en AWS.',
+      'Automatizar el aprovisionamiento de infraestructura usando Terraform.',
+      'Monitorear el rendimiento y la seguridad de la infraestructura.',
+      'Implementar y mantener pipelines de CI/CD.'
+    ],
     location: 'Benito Juárez',
     horario: 'Tiempo Completo',
     workHours: '9:00 - 18:00',
@@ -208,6 +244,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Estudiante',
     description: 'Apoya a nuestro equipo de marketing con campañas en redes sociales, creación de contenido y estudios de mercado.',
     longDescription: 'Esta es una excelente oportunidad para que un estudiante de marketing gane experiencia práctica. Ayudarás a desarrollar y ejecutar campañas en redes sociales, escribirás entradas de blog y contenido para el sitio web, y realizarás estudios de mercado para identificar nuevas oportunidades.',
+    responsibilities: [
+      'Gestionar las cuentas de redes sociales de la empresa.',
+      'Crear contenido atractivo para el blog y el sitio web.',
+      'Analizar el rendimiento de las campañas de marketing.',
+      'Realizar investigaciones de mercado y análisis de la competencia.'
+    ],
     location: 'Álvaro Obregón',
     horario: 'Medio Tiempo',
     workHours: '14:00 - 18:00',
@@ -224,6 +266,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Estudiante',
     description: 'Únete a nuestro estudio para crear la próxima generación de videojuegos para móviles.',
     longDescription: 'Trabajarás con el motor de juego Unity y C# para desarrollar mecánicas de juego, implementar características y corregir errores. Esta es una oportunidad para aprender de veteranos de la industria y contribuir a un título comercial.',
+    responsibilities: [
+      'Programar mecánicas de juego en C# y Unity.',
+      'Colaborar con artistas y diseñadores para implementar recursos.',
+      'Optimizar el rendimiento del juego para dispositivos móviles.',
+      'Depurar y solucionar problemas de código.'
+    ],
     location: 'La Condesa',
     horario: 'Remoto',
     skills: ['Unity', 'C#', 'Desarrollo de Videojuegos', '3D'],
@@ -239,6 +287,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Egresado',
     description: 'Ayuda a proteger los activos digitales de nuestros clientes contra las ciberamenazas.',
     longDescription: 'En este rol de proyecto, realizarás evaluaciones de vulnerabilidad, monitorearás incidentes de seguridad y ayudarás a implementar políticas de seguridad. Obtendrás experiencia práctica con herramientas de seguridad líderes en la industria.',
+    responsibilities: [
+      'Monitorear los sistemas en busca de amenazas de seguridad.',
+      'Realizar escaneos de vulnerabilidad y pruebas de penetración.',
+      'Responder a incidentes de seguridad y realizar análisis forense.',
+      'Mantenerse actualizado sobre las últimas amenazas de seguridad.'
+    ],
     location: 'Miguel Hidalgo',
     horario: 'Presencial',
     workHours: '8:00 - 17:00',
@@ -255,6 +309,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Estudiante',
     description: 'Trabaja en el frontend y backend de nuestras aplicaciones SaaS.',
     longDescription: 'Buscamos un estudiante versátil que se sienta cómodo trabajando con tecnologías tanto del lado del cliente como del lado del servidor. Nuestra pila tecnológica incluye React, Node.js, Python y AWS. Es una gran oportunidad para convertirse en un desarrollador completo.',
+    responsibilities: [
+      'Desarrollar características tanto en el frontend (React) como en el backend (Node.js).',
+      'Trabajar con bases de datos y servicios en la nube.',
+      'Escribir y mantener pruebas para todo el stack.',
+      'Colaborar en un equipo ágil para entregar valor al usuario.'
+    ],
     location: 'Polanco',
     horario: 'Remoto',
     skills: ['React', 'Node.js', 'Python', 'MongoDB', 'AWS'],
@@ -270,6 +330,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Titulado',
     description: 'Investiga y desarrolla nuevas tecnologías en el campo de la energía solar y eólica.',
     longDescription: 'Este proyecto de investigación se centra en mejorar la eficiencia de los paneles solares y las turbinas eólicas. El candidato ideal tendrá una sólida formación en física o ingeniería y pasión por la sostenibilidad.',
+    responsibilities: [
+      'Realizar experimentos y simulaciones.',
+      'Analizar datos y publicar resultados de investigación.',
+      'Colaborar con socios industriales y académicos.',
+      'Mantenerse al día con los últimos avances en el campo.'
+    ],
     location: 'Iztapalapa',
     horario: 'Presencial',
     workHours: '9:00 - 18:00',
@@ -286,6 +352,12 @@ export const opportunities: Opportunity[] = [
     profileType: 'Titulado',
     description: 'Ayuda a construir una plataforma descentralizada utilizando la tecnología blockchain.',
     longDescription: 'Estamos buscando un desarrollador con experiencia en Ethereum y contratos inteligentes para unirse a nuestro innovador proyecto de blockchain. Serás responsable de diseñar y desarrollar aplicaciones descentralizadas (dApps).',
+    responsibilities: [
+      'Diseñar y escribir contratos inteligentes seguros en Solidity.',
+      'Desarrollar el frontend de la dApp para interactuar con los contratos.',
+      'Desplegar y probar la aplicación en redes de blockchain.',
+      'Investigar e implementar nuevas tecnologías de blockchain.'
+    ],
     location: 'Benito Juárez',
     horario: 'Híbrido',
     skills: ['Blockchain', 'Ethereum', 'Solidity', 'Smart Contracts'],

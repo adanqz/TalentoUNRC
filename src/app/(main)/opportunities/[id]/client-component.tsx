@@ -17,6 +17,7 @@ import {
   DollarSign,
   Clock,
   Building,
+  Check,
 } from "lucide-react";
 import {
   Card,
@@ -195,6 +196,22 @@ export default function ClientComponent({ opportunity, business, isBusinessUser,
                             </CardContent>
                         </Card>
                         
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="text-2xl">Responsabilidades Diarias</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <ul className="space-y-3">
+                                  {opportunity.responsibilities.map((resp, index) => (
+                                    <li key={index} className="flex items-start gap-3">
+                                      <Check className="h-5 w-5 mt-1 text-primary flex-shrink-0" />
+                                      <span>{resp}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                            </CardContent>
+                        </Card>
+
                         <Card>
                               <CardHeader>
                                 <CardTitle className="text-2xl">Habilidades Requeridas</CardTitle>
