@@ -130,13 +130,13 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
         <>
         <div className="bg-card border-b">
           <div className="container mx-auto px-4 py-12 md:px-6">
-            <div className="flex flex-col items-start gap-4 md:flex-row">
+            <div className="flex flex-col items-start gap-4 md:flex-row md:items-center">
                 <Image
                     src={opportunity.businessLogoUrl}
                     alt={`${opportunity.businessName} logo`}
                     width={80}
                     height={80}
-                    className="rounded-full border-4 border-white bg-white shadow-md"
+                    className="rounded-full border-4 border-white bg-white shadow-md flex-shrink-0"
                     data-ai-hint="logo"
                 />
                 <div className="flex-1 space-y-2">
@@ -176,11 +176,11 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
         </div>
         <div className="bg-slate-50/50">
             <div className="container mx-auto px-4 py-12 md:px-6">
-                <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-                    <div className="space-y-8 md:col-span-2">
+                <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+                    <div className="space-y-8 lg:col-span-2">
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-xl">Descripción del Puesto</CardTitle>
+                                <CardTitle className="text-2xl">Descripción del Puesto</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <div className="prose prose-slate max-w-none dark:prose-invert">
@@ -191,7 +191,7 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
                         
                         <Card>
                               <CardHeader>
-                                <CardTitle className="text-xl">Habilidades Requeridas</CardTitle>
+                                <CardTitle className="text-2xl">Habilidades Requeridas</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <div className="flex flex-wrap gap-2">
@@ -206,7 +206,7 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
 
                     </div>
                     <div className="space-y-8">
-                        <Button size="lg" className="w-full">
+                        <Button size="lg" className="w-full h-12 text-lg">
                             Aplicar Ahora
                         </Button>
                         {isBusinessUser && <SuggestedCandidates potentialCandidates={potentialCandidates} />}
