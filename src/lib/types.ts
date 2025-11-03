@@ -1,4 +1,5 @@
 
+
 export type Project = {
   id: string;
   name: string;
@@ -10,14 +11,51 @@ export type SemesterProjects = {
   projects: Project[];
 };
 
+export type Language = {
+  name: string;
+  proficiency: number; // 0-100
+};
+
+export type UserStatus =
+  | { type: 'cursando'; semester: number }
+  | { type: 'inactivo' }
+  | { type: 'egresado' }
+  | { type: 'baja temporal' };
+
+export type ExternalLink = {
+  platform: 'GitHub' | 'LinkedIn' | 'Behance' | 'Personal Website';
+  url: string;
+};
+
+export type TimelineEvent = {
+  id: string;
+  date: string;
+  type: 'Estudio' | 'Certificación' | 'Taller' | 'Conferencia' | 'Diplomado';
+  title: string;
+  issuer: string;
+  description?: string;
+};
+
 export type User = {
   id: string;
   name: string;
   email: string;
   avatarUrl: string;
+  status: UserStatus;
   skills?: string[];
   interests?: string[];
   semesterProjects?: SemesterProjects[];
+  languages?: Language[];
+  externalLinks?: ExternalLink[];
+  timeline?: TimelineEvent[];
+};
+
+export type OnlineUser = {
+    id: string;
+    name: string;
+    avatarUrl: string;
+    currentPage: string;
+    onlineSince: Date;
 };
 
 export type Business = {
@@ -30,17 +68,36 @@ export type Business = {
   opportunities: string[]; // Array of opportunity IDs
 };
 
+export type AcademicRequirements = {
+    degrees: string[];
+    softSkills: string[];
+    knowledge: {
+        name: string;
+        level: string;
+    }[];
+    semester?: {
+        min: number;
+        max: number;
+    }
+}
+
 export type Opportunity = {
   id: string;
   title: string;
   businessName: string;
   businessId: string;
   businessLogoUrl: string;
-  type: 'Pasantía' | 'Project' | 'Research';
+  type: 'Servicio Social' | 'Prácticas Profesionales' | 'Project' | 'Research';
+  profileType: 'Estudiante' | 'Egresado' | 'Titulado Sin Experiencia' | 'Titulado';
   description: string;
   longDescription: string;
+  responsibilities: string[];
   location: string;
+  horario: 'Remoto' | 'Híbrido' | 'Presencial' | 'Tiempo Completo' | 'Medio Tiempo';
+  workHours?: string;
   skills: string[];
+  monthlySupport?: number;
+  academicRequirements?: AcademicRequirements;
 };
 
 export type University = {
@@ -59,14 +116,15 @@ export type University = {
 
 export type Message = {
   id: string;
-  senderId: string;
+  senderId: string; // Can be a user ID or a business ID
   text: string;
   timestamp: string;
 };
 
 export type Conversation = {
   id: string;
-  participant: User;
+  business: Business;
+  student: User;
   messages: Message[];
   lastMessage: string;
   lastMessageTimestamp: string;

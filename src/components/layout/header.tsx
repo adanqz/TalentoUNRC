@@ -24,6 +24,7 @@ export default function Header() {
   const navItems = [
     { href: "/opportunities", label: "Oportunidades" },
     { href: "/businesses", label: "Empresas" },
+    { href: "/students", label: "Estudiantes" },
     { href: "/university", label: "Universidad" },
     { href: "/messages", label: "Mensajes" },
     { href: "/dashboard", label: "Panel" },

@@ -1,10 +1,11 @@
 
+'use client';
 import { users, opportunities, getOpportunityById } from "@/lib/data";
-import { notFound, redirect } from "next/navigation";
+import { notFound, redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mail, Briefcase, Wand2, BookOpen, FileText, Download } from "lucide-react";
+import { Mail, Briefcase, Wand2, BookOpen, FileText, Download, Languages, History, Circle, Link2, Github, Linkedin, Dribbble, GraduationCap, Award, ClipboardCheck } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -20,37 +21,158 @@ import {
 } from "@/components/ui/accordion"
 import { OpportunityCard } from "@/components/opportunity-card";
 import { suggestRelevantOpportunities } from "@/ai/flows/suggest-relevant-opportunities";
-import type { Opportunity } from "@/lib/types";
+import type { Opportunity, UserStatus, ExternalLink, TimelineEvent } from "@/lib/types";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useState } from "react";
+import { Pie, PieChart, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
+import { cn } from "@/lib/utils";
 
-export default async function StudentProfilePage({ searchParams }: { searchParams: { id?: string }}) {
-  const studentId = searchParams.id || users[0].id;
+const COLORS = ['#631333', '#a13b63', '#d37ca1', '#E4B799', '#f0d8c9'];
+
+const platformIcons: Record<ExternalLink['platform'], React.ReactNode> = {
+    GitHub: <Github className="h-4 w-4" />,
+    LinkedIn: <Linkedin className="h-4 w-4" />,
+    Behance: <Dribbble className="h-4 w-4" />,
+    'Personal Website': <Link2 className="h-4 w-4" />,
+};
+
+const timelineIcons: Record<TimelineEvent['type'], React.ReactNode> = {
+    'Estudio': <GraduationCap className="h-5 w-5" />,
+    'Certificación': <Award className="h-5 w-5" />,
+    'Taller': <BookOpen className="h-5 w-5" />,
+    'Conferencia': <ClipboardCheck className="h-5 w-5" />,
+    'Diplomado': <FileText className="h-5 w-5" />
+};
+
+function LanguageChart({ languages }: { languages: { name: string, proficiency: number }[] }) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null; // Render nothing on the server
+  }
+
+  const chartConfig = languages.reduce((acc, lang) => {
+    acc[lang.name] = { label: lang.name };
+    return acc;
+  }, {} as any);
+
+  return (
+    <ChartContainer config={chartConfig} className="mx-auto aspect-square h-full max-h-[250px]">
+      <ResponsiveContainer width="100%" height={200}>
+        <PieChart>
+          <Tooltip
+            content={<ChartTooltipContent 
+              formatter={(value, name) => [`${value}%`, name]}
+            />}
+          />
+          <Pie
+            data={languages}
+            dataKey="proficiency"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            outerRadius={80}
+            labelLine={false}
+            label={({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+              const RADIAN = Math.PI / 180;
+              const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+              const x = cx + radius * Math.cos(-midAngle * RADIAN);
+              const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+              return (
+                <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+                  {`${(percent * 100).toFixed(0)}%`}
+                </text>
+              );
+            }}
+          >
+            {languages.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Legend />
+        </PieChart>
+      </ResponsiveContainer>
+    </ChartContainer>
+  );
+}
+
+const StatusBadge = ({ status }: { status: UserStatus }) => {
+    let text;
+    let className;
+
+    switch (status.type) {
+        case 'cursando':
+            text = `Cursando ${status.semester}° semestre`;
+            className = "bg-green-100 text-green-800 border-green-200";
+            break;
+        case 'inactivo':
+            text = "Actualmente inactivo";
+            className = "bg-gray-100 text-gray-800 border-gray-200";
+            break;
+        case 'egresado':
+            text = "Egresado";
+            className = "bg-primary/10 text-primary border-primary/20";
+            break;
+        case 'baja temporal':
+            text = "Baja Temporal";
+            className = "bg-yellow-100 text-yellow-800 border-yellow-200";
+            break;
+    }
+
+    return (
+        <Badge variant="outline" className={cn("gap-2", className)}>
+            <Circle className={cn(
+                "h-2 w-2",
+                status.type === 'cursando' && "fill-green-500",
+                status.type === 'inactivo' && "fill-gray-400",
+                status.type === 'egresado' && "fill-primary",
+                status.type === 'baja temporal' && "fill-yellow-500",
+            )} />
+            {text}
+        </Badge>
+    );
+};
+
+
+export default function StudentProfilePage() {
+  const searchParams = useSearchParams();
+  const studentId = searchParams.get('id') || users[0].id;
   const student = users.find(u => u.id === studentId);
+  const [suggestedOpportunities, setSuggestedOpportunities] = useState<Opportunity[]>([]);
+  const hasApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY && process.env.NEXT_PUBLIC_GEMINI_API_KEY !== "YOUR_API_KEY";
+
+   useEffect(() => {
+    async function fetchSuggestions() {
+      if (hasApiKey && student) {
+        try {
+          const allOpportunityDescriptions = opportunities.map(o => o.description);
+          const result = await suggestRelevantOpportunities({
+            studentSkills: student.skills || [],
+            studentInterests: student.interests || [],
+            availableOpportunities: allOpportunityDescriptions,
+          });
+          if (result && result.relevantOpportunities) {
+            const suggested = opportunities.filter(o => result.relevantOpportunities.includes(o.description));
+            setSuggestedOpportunities(suggested);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    fetchSuggestions();
+  }, [student, hasApiKey]);
 
   if (!student) {
-    notFound();
+    return notFound();
   }
-
-  const hasApiKey = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== "YOUR_API_KEY";
-  let suggestedOpportunities: Opportunity[] = [];
-
-  if (hasApiKey) {
-    try {
-      const allOpportunityDescriptions = opportunities.map(o => o.description);
-      const result = await suggestRelevantOpportunities({
-        studentSkills: student.skills || [],
-        studentInterests: student.interests || [],
-        availableOpportunities: allOpportunityDescriptions,
-      });
-      if (result && result.relevantOpportunities) {
-        suggestedOpportunities = opportunities.filter(o => result.relevantOpportunities.includes(o.description));
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
 
   return (
     <>
@@ -65,15 +187,24 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
               className="rounded-full border-4 border-white shadow-lg"
               data-ai-hint="logo"
             />
-            <div className="flex-1 space-y-2">
+            <div className="flex-1 space-y-3">
               <h1 className="font-headline text-4xl font-bold">{student.name}</h1>
-              <p className="max-w-2xl text-lg text-muted-foreground mx-auto md:mx-0">{student.email}</p>
-              <div className="flex justify-center md:justify-start gap-2">
+              <div className="flex items-center justify-center md:justify-start gap-4">
+                <p className="text-lg text-muted-foreground">{student.email}</p>
+                <StatusBadge status={student.status} />
+              </div>
+              <div className="flex flex-wrap justify-center md:justify-start gap-2">
                 <Button>
                   <Mail className="mr-2 h-4 w-4" /> Contactar Estudiante
                 </Button>
                  <Button variant="outline">
                     <Download className="mr-2 h-4 w-4" /> Descargar CV en PDF
+                </Button>
+                <Button variant="outline">
+                    <History className="mr-2 h-4 w-4" /> Consultar Historial Académico
+                </Button>
+                <Button variant="outline">
+                    <FileText className="mr-2 h-4 w-4" /> Carta de Presentación UNRC
                 </Button>
               </div>
             </div>
@@ -85,19 +216,19 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
           <div className="space-y-8 lg:col-span-2">
              <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><BookOpen /> Proyectos y Documentos</CardTitle>
+                    <CardTitle className="flex items-center gap-2"><BookOpen /> Proyectos Prototípicos</CardTitle>
                     <CardDescription>
-                        Explora los proyectos y documentos de {student.name}.
+                        Reflejo del trabajo conjunto por semestre
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Accordion type="single" collapsible defaultValue="item-1">
-                      {student.semesterProjects && student.semesterProjects.length > 0 && student.semesterProjects.map((semesterProject, index) => (
+                      {student.semesterProjects && student.semesterProjects.length > 0 ? student.semesterProjects.map((semesterProject, index) => (
                         <AccordionItem value={`item-${index + 1}`} key={semesterProject.semester}>
                           <AccordionTrigger className="text-lg font-semibold">{semesterProject.semester}</AccordionTrigger>
                           <AccordionContent>
                             <ul className="space-y-3">
-                              {semesterProject.projects.map(project => (
+                              {semesterProject.projects.slice(0, 1).map(project => (
                                 <li key={project.id}>
                                   <Link href={project.pdfUrl} target="_blank" className="flex items-center justify-between rounded-md p-3 hover:bg-muted">
                                       <div className="flex items-center gap-3">
@@ -111,10 +242,36 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
                             </ul>
                           </AccordionContent>
                         </AccordionItem>
-                      ))}
+                      )) : <p className="text-sm text-muted-foreground">No hay proyectos para mostrar.</p>}
                     </Accordion>
                 </CardContent>
             </Card>
+
+            {student.timeline && student.timeline.length > 0 && (
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><History /> Línea de Tiempo Profesional</CardTitle>
+                    </CardHeader>
+                    <CardContent className="relative pl-6">
+                        <div className="absolute left-6 h-full w-0.5 bg-border -translate-x-1/2"></div>
+                        <div className="space-y-8">
+                            {student.timeline.map((event) => (
+                                <div key={event.id} className="relative flex items-start gap-4">
+                                    <div className="absolute left-0 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-primary -translate-x-[calc(50%+1px)]">
+                                        <div className="text-primary-foreground">{timelineIcons[event.type]}</div>
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-xs text-muted-foreground">{event.date}</p>
+                                        <h4 className="font-semibold">{event.title}</h4>
+                                        <p className="text-sm text-muted-foreground">{event.issuer}</p>
+                                        <p className="mt-1 text-sm">{event.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
 
              <Card>
                 <CardHeader>
@@ -161,6 +318,34 @@ export default async function StudentProfilePage({ searchParams }: { searchParam
                 </div>
               </CardContent>
             </Card>
+
+             {student.externalLinks && student.externalLinks.length > 0 && (
+                 <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><Link2 /> Enlaces Externos</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                        {student.externalLinks.map(link => (
+                            <Button key={link.platform} variant="outline" asChild className="w-full justify-start">
+                                <Link href={link.url} target="_blank">
+                                    {platformIcons[link.platform]}
+                                    {link.platform}
+                                </Link>
+                            </Button>
+                        ))}
+                    </CardContent>
+                </Card>
+            )}
+            {student.languages && student.languages.length > 0 && (
+                 <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><Languages /> Idiomas</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <LanguageChart languages={student.languages} />
+                    </CardContent>
+                </Card>
+            )}
           </div>
         </div>
       </div>

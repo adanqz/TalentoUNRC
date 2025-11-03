@@ -1,5 +1,7 @@
+
+
 'use client';
-import type { Opportunity } from "@/lib/types";
+import type { Opportunity, Business, AcademicRequirements } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +13,15 @@ import {
   GitBranch,
   Wand2,
   AlertTriangle,
+  Handshake,
+  GraduationCap,
+  DollarSign,
+  Clock,
+  Building,
+  Check,
+  Lightbulb,
+  Calendar,
+  Users,
 } from "lucide-react";
 import {
   Card,
@@ -22,16 +33,84 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
 
-const typeIcons = {
-    Pasantía: <Briefcase className="mr-2 h-5 w-5" />,
+const typeIcons: Record<Opportunity['type'], React.ReactNode> = {
+    'Prácticas Profesionales': <Briefcase className="mr-2 h-5 w-5" />,
+    'Servicio Social': <Handshake className="mr-2 h-5 w-5" />,
     Project: <GitBranch className="mr-2 h-5 w-5" />,
     Research: <FlaskConical className="mr-2 h-5 w-5" />,
 };
 
+const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    }).format(amount);
+}
+
 type SuggestedCandidatesProps = {
     potentialCandidates: any[] | null;
 };
+
+const knowledgeLevelColors: Record<string, string> = {
+    'Avanzado': 'bg-green-100 text-green-800',
+    'Intermedio': 'bg-blue-100 text-blue-800',
+    'Básico': 'bg-yellow-100 text-yellow-800',
+};
+
+
+function AcademicRequirementsSection({ academicRequirements }: { academicRequirements: AcademicRequirements }) {
+    return (
+         <Card>
+            <CardHeader>
+                <CardTitle className="text-2xl">Antecedentes Académicos</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-6">
+                        <div>
+                            <h4 className="font-semibold text-lg mb-2 flex items-center gap-2"><GraduationCap className="h-5 w-5 text-primary" /> Carreras</h4>
+                            <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                {academicRequirements.degrees.map(degree => <li key={degree}>{degree}</li>)}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-lg mb-2 flex items-center gap-2"><Users className="h-5 w-5 text-primary" /> Habilidades Blandas</h4>
+                             <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                {academicRequirements.softSkills.map(skill => <li key={skill}>{skill}</li>)}
+                            </ul>
+                        </div>
+                    </div>
+                     <div className="space-y-6">
+                        <div>
+                            <h4 className="font-semibold text-lg mb-2 flex items-center gap-2"><Lightbulb className="h-5 w-5 text-primary" /> Conocimientos Requeridos</h4>
+                            <div className="flex flex-wrap gap-2">
+                                {academicRequirements.knowledge.map(k => (
+                                    <div key={k.name} className="flex items-center">
+                                        <span className="bg-muted text-muted-foreground px-3 py-1 rounded-l-md text-sm">{k.name}</span>
+                                        <span className={`px-3 py-1 rounded-r-md text-sm font-semibold ${knowledgeLevelColors[k.level] || 'bg-gray-100 text-gray-800'}`}>{k.level}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        {academicRequirements.semester && (
+                             <div>
+                                <h4 className="font-semibold text-lg mb-2 flex items-center gap-2"><Calendar className="h-5 w-5 text-primary" /> Semestres</h4>
+                                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                    <li>Semestre mínimo: {academicRequirements.semester.min}</li>
+                                    <li>Semestre máximo: {academicRequirements.semester.max}</li>
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+    );
+}
 
 function SuggestedCandidates({ potentialCandidates }: SuggestedCandidatesProps) {
 
@@ -111,52 +190,75 @@ function SuggestedCandidates({ potentialCandidates }: SuggestedCandidatesProps) 
 }
 
 
-export default function ClientComponent({ opportunity, isBusinessUser, potentialCandidates }: { opportunity: Opportunity; isBusinessUser: boolean, potentialCandidates: any[] | null }) {
+export default function ClientComponent({ opportunity, business, isBusinessUser, potentialCandidates }: { opportunity: Opportunity; business: Business; isBusinessUser: boolean, potentialCandidates: any[] | null }) {
     return (
+        <>
+        <section className="relative w-full border-b bg-slate-50 py-20 md:py-24">
+            <Image
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxvZmZpY2UlMjBjb2xsYWJvcmF0aW9ufGVufDB8fHx8MTc2MTgzODEwMnww&ixlib=rb-4.1.0&q=80&w=1080"
+                alt="Profesionales colaborando en una oficina"
+                layout="fill"
+                className="object-cover"
+                data-ai-hint="office collaboration"
+            />
+            <div className="absolute inset-0 bg-black/60" />
+            <div className="relative z-10 container mx-auto px-4 md:px-6">
+                <div className="flex flex-col items-start gap-4 md:flex-row md:items-center text-white">
+                    <Image
+                        src={opportunity.businessLogoUrl}
+                        alt={`${opportunity.businessName} logo`}
+                        width={80}
+                        height={80}
+                        className="rounded-full border-4 border-white bg-white shadow-md flex-shrink-0"
+                        data-ai-hint="logo"
+                    />
+                    <div className="flex-1 space-y-2">
+                        <h1 className="font-headline text-4xl font-bold">{opportunity.title}</h1>
+                        <p className="text-xl text-slate-200">
+                            en{" "}
+                            <Link
+                                href={`/businesses/${opportunity.businessId}`}
+                                className="font-semibold text-white hover:underline"
+                            >
+                                {opportunity.businessName}
+                            </Link>
+                        </p>
+                        <div className="pt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-slate-300">
+                            <div className="flex items-center text-sm font-medium">
+                                {typeIcons[opportunity.type]}
+                                <span>{opportunity.type}</span>
+                            </div>
+                            <div className="flex items-center text-sm font-medium">
+                                <MapPin className="mr-2 h-5 w-5" />
+                                <span>{opportunity.location}</span>
+                            </div>
+                            <div className="flex items-center text-sm font-medium">
+                                <Clock className="mr-2 h-5 w-5" />
+                                <span>{opportunity.horario} {opportunity.workHours && `(${opportunity.workHours})`}</span>
+                            </div>
+                            <div className="flex items-center text-sm font-medium">
+                                <GraduationCap className="mr-2 h-5 w-5" />
+                                <span>{opportunity.profileType}</span>
+                            </div>
+                            {opportunity.monthlySupport !== undefined && (
+                                <div className="flex items-center text-sm font-medium">
+                                    <DollarSign className="mr-2 h-5 w-5" />
+                                    <span>{opportunity.monthlySupport > 0 ? `${formatCurrency(opportunity.monthlySupport)}/mes` : 'Sin apoyo'}</span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div className="bg-slate-50/50">
             <div className="container mx-auto px-4 py-12 md:px-6">
-                <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-                    <div className="space-y-8 md:col-span-2">
+                <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+                    <div className="space-y-8 lg:col-span-2">
                         <Card>
                             <CardHeader>
-                                <div className="flex items-start gap-4">
-                                    <Image
-                                        src={opportunity.businessLogoUrl}
-                                        alt={`${opportunity.businessName} logo`}
-                                        width={50}
-                                        height={50}
-                                        className="rounded-full border bg-white"
-                                        data-ai-hint="logo"
-                                    />
-                                    <div className="flex-1">
-                                        <CardTitle className="text-2xl">{opportunity.title}</CardTitle>
-                                        <CardDescription className="text-md">
-                                            en{" "}
-                                            <Link
-                                                href={`/businesses/${opportunity.businessId}`}
-                                                className="font-medium text-primary hover:underline"
-                                            >
-                                                {opportunity.businessName}
-                                            </Link>
-                                        </CardDescription>
-                                        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-muted-foreground">
-                                            <div className="flex items-center text-sm">
-                                                {typeIcons[opportunity.type]}
-                                                <span>{opportunity.type}</span>
-                                            </div>
-                                            <div className="flex items-center text-sm">
-                                                <MapPin className="mr-2 h-5 w-5" />
-                                                <span>{opportunity.location}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </CardHeader>
-                        </Card>
-
-                        <Card>
-                            <CardHeader>
-                                <CardTitle className="text-xl">Descripción del Puesto</CardTitle>
+                                <CardTitle className="text-2xl">Descripción del Puesto</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <div className="prose prose-slate max-w-none dark:prose-invert">
@@ -166,8 +268,26 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
                         </Card>
                         
                         <Card>
-                             <CardHeader>
-                                <CardTitle className="text-xl">Habilidades Requeridas</CardTitle>
+                            <CardHeader>
+                                <CardTitle className="text-2xl">Responsabilidades Diarias</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <ul className="space-y-3">
+                                  {opportunity.responsibilities.map((resp, index) => (
+                                    <li key={index} className="flex items-start gap-3">
+                                      <Check className="h-5 w-5 mt-1 text-primary flex-shrink-0" />
+                                      <span>{resp}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                            </CardContent>
+                        </Card>
+                        
+                        {opportunity.academicRequirements && <AcademicRequirementsSection academicRequirements={opportunity.academicRequirements} />}
+
+                        <Card>
+                              <CardHeader>
+                                <CardTitle className="text-2xl">Habilidades Técnicas Requeridas</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <div className="flex flex-wrap gap-2">
@@ -180,9 +300,21 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
                             </CardContent>
                         </Card>
 
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2"><Building /> Acerca de la Compañía</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <p className="text-muted-foreground">{business.mission}</p>
+                                <Button asChild variant="secondary">
+                                    <Link href={`/businesses/${business.id}`}>Ver Perfil de la Empresa</Link>
+                                </Button>
+                            </CardContent>
+                        </Card>
+
                     </div>
                     <div className="space-y-8">
-                        <Button size="lg" className="w-full">
+                        <Button size="lg" className="w-full h-12 text-lg">
                             Aplicar Ahora
                         </Button>
                         {isBusinessUser && <SuggestedCandidates potentialCandidates={potentialCandidates} />}
@@ -190,5 +322,6 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
                 </div>
             </div>
         </div>
+        </>
     );
 }

@@ -1,4 +1,5 @@
 
+
 import type { Opportunity } from "@/lib/types";
 import {
   Card,
@@ -12,18 +13,28 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Briefcase, MapPin, FlaskConical, GitBranch } from "lucide-react";
+import { Briefcase, MapPin, FlaskConical, GitBranch, Handshake, GraduationCap, DollarSign, Clock } from "lucide-react";
 
 type OpportunityCardProps = {
   opportunity: Opportunity;
   highlight?: boolean;
 };
 
-const typeIcons = {
-  Pasantía: <Briefcase className="h-4 w-4 text-muted-foreground" />,
+const typeIcons: Record<Opportunity['type'], React.ReactNode> = {
+  'Prácticas Profesionales': <Briefcase className="h-4 w-4 text-muted-foreground" />,
+  'Servicio Social': <Handshake className="h-4 w-4 text-muted-foreground" />,
   Project: <GitBranch className="h-4 w-4 text-muted-foreground" />,
   Research: <FlaskConical className="h-4 w-4 text-muted-foreground" />,
 };
+
+const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    }).format(amount);
+}
 
 export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps) {
   return (
@@ -47,7 +58,7 @@ export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps
         </div>
       </CardHeader>
       <CardContent className="flex-grow space-y-4">
-         <div className="flex gap-4 text-sm text-muted-foreground">
+         <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5">
                 {typeIcons[opportunity.type]}
                 <span>{opportunity.type}</span>
@@ -56,15 +67,28 @@ export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps
                 <MapPin className="h-4 w-4" />
                 <span>{opportunity.location}</span>
             </div>
+            <div className="flex items-center gap-1.5">
+                <GraduationCap className="h-4 w-4" />
+                <span>{opportunity.profileType}</span>
+            </div>
+             {opportunity.monthlySupport !== undefined && (
+                <div className="flex items-center gap-1.5">
+                    <DollarSign className="h-4 w-4" />
+                    <span>{opportunity.monthlySupport > 0 ? `${formatCurrency(opportunity.monthlySupport)}/mes` : 'Sin apoyo'}</span>
+                </div>
+            )}
+             <div className="flex items-center gap-1.5">
+                <Clock className="h-4 w-4" />
+                <span>{opportunity.horario}</span>
+                {opportunity.workHours && <span className="text-xs">({opportunity.workHours})</span>}
+            </div>
         </div>
-        <p className="line-clamp-2 text-sm text-muted-foreground">{opportunity.description}</p>
         <div className="flex flex-wrap gap-2">
-          {opportunity.skills.slice(0,3).map((skill) => (
+          {opportunity.skills.map((skill) => (
             <Badge key={skill} variant="secondary">
               {skill}
             </Badge>
           ))}
-          {opportunity.skills.length > 3 && <Badge variant="outline">+{opportunity.skills.length - 3}</Badge>}
         </div>
       </CardContent>
       <CardFooter>

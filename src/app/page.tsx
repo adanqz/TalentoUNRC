@@ -4,7 +4,8 @@ import { businesses, opportunities } from '@/lib/data';
 import Image from 'next/image';
 import Link from 'next/link';
 import { OpportunityCard } from '@/components/opportunity-card';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Briefcase, Building, Users } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function Home() {
   const latestOpportunities = opportunities.slice(0, 3);
@@ -15,11 +16,12 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[500px] w-full bg-slate-50">
         <Image
-          src="https://picsum.photos/seed/paris/1920/1080"
-          alt="Vista de la ciudad de París"
+          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGdyb3VwfGVufDB8fHx8MTc2MTQ5NjQwNnww&ixlib=rb-4.1.0&q=80&w=1080"
+          alt="Un grupo de estudiantes colaborando"
           fill
           className="object-cover"
-          data-ai-hint="cityscape paris"
+          data-ai-hint="students group"
+          priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20" />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
@@ -40,8 +42,59 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Explore Section */}
+      <section className="bg-background py-20">
+        <div className="container mx-auto px-4 md:px-6">
+            <h2 className="mb-10 text-center font-headline text-3xl font-bold">Explora Nuestra Plataforma</h2>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+                <Card className="text-center flex flex-col items-center justify-center p-6">
+                    <CardHeader>
+                        <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full">
+                            <Briefcase className="h-8 w-8" />
+                        </div>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                        <CardTitle className="text-xl mb-2">Oportunidades</CardTitle>
+                        <CardDescription>Encuentra la pasantía, proyecto o investigación perfecta para ti.</CardDescription>
+                    </CardContent>
+                    <Button asChild className="w-full">
+                        <Link href="/opportunities">Ver Oportunidades</Link>
+                    </Button>
+                </Card>
+                 <Card className="text-center flex flex-col items-center justify-center p-6">
+                    <CardHeader>
+                        <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full">
+                            <Building className="h-8 w-8" />
+                        </div>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                        <CardTitle className="text-xl mb-2">Empresas</CardTitle>
+                        <CardDescription>Conecta con empresas innovadoras y líderes en la industria.</CardDescription>
+                    </CardContent>
+                    <Button asChild className="w-full">
+                        <Link href="/businesses">Explorar Empresas</Link>
+                    </Button>
+                </Card>
+                 <Card className="text-center flex flex-col items-center justify-center p-6">
+                    <CardHeader>
+                        <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full">
+                            <Users className="h-8 w-8" />
+                        </div>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                        <CardTitle className="text-xl mb-2">Estudiantes</CardTitle>
+                        <CardDescription>Descubre el talento emergente de nuestra universidad.</CardDescription>
+                    </CardContent>
+                    <Button asChild className="w-full">
+                        <Link href="/students">Ver Estudiantes</Link>
+                    </Button>
+                </Card>
+            </div>
+        </div>
+      </section>
+      
       {/* Featured Companies Section */}
-      <section className="bg-background py-12">
+      <section className="bg-slate-50/50 py-12">
         <div className="container mx-auto px-4 md:px-6">
           <h3 className="mb-8 text-center text-sm font-semibold uppercase tracking-wider text-muted-foreground">
             Empresas que confían en nuestro talento
@@ -95,7 +148,7 @@ export default function Home() {
             <Button asChild size="lg" variant="secondary">
               <Link href="/student-profile">Crea tu Perfil</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+            <Button asChild size="lg" variant="secondary">
               <Link href="/businesses">Explora Empresas</Link>
             </Button>
           </div>

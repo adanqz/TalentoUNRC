@@ -35,6 +35,12 @@ const nextConfig: NextConfig = {
         hostname: 'sanmartindelaspiramides.gob.mx',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cloudflare-ipfs.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
