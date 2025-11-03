@@ -9,6 +9,7 @@ import {
   Briefcase,
   Package2,
   Settings,
+  Terminal,
 } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
@@ -29,6 +30,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     { href: '/dashboard/students', icon: Users, label: 'Estudiantes' },
     { href: '/dashboard/businesses', icon: Building, label: 'Empresas' },
     { href: '/dashboard/opportunities', icon: Briefcase, label: 'Oportunidades' },
+    { href: '/dashboard/logs', icon: Terminal, label: 'Logs'},
     { href: '/dashboard/settings', icon: Settings, label: 'Configuración' },
   ];
 
