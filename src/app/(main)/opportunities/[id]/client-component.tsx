@@ -193,56 +193,65 @@ function SuggestedCandidates({ potentialCandidates }: SuggestedCandidatesProps) 
 export default function ClientComponent({ opportunity, business, isBusinessUser, potentialCandidates }: { opportunity: Opportunity; business: Business; isBusinessUser: boolean, potentialCandidates: any[] | null }) {
     return (
         <>
-        <div className="bg-card border-b">
-          <div className="container mx-auto px-4 py-12 md:px-6">
-            <div className="flex flex-col items-start gap-4 md:flex-row md:items-center">
-                <Image
-                    src={opportunity.businessLogoUrl}
-                    alt={`${opportunity.businessName} logo`}
-                    width={80}
-                    height={80}
-                    className="rounded-full border-4 border-white bg-white shadow-md flex-shrink-0"
-                    data-ai-hint="logo"
-                />
-                <div className="flex-1 space-y-2">
-                    <h1 className="font-headline text-4xl font-bold">{opportunity.title}</h1>
-                     <p className="text-xl text-muted-foreground">
-                        en{" "}
-                        <Link
-                            href={`/businesses/${opportunity.businessId}`}
-                            className="font-semibold text-primary hover:underline"
-                        >
-                            {opportunity.businessName}
-                        </Link>
-                    </p>
-                    <div className="pt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-muted-foreground">
-                        <div className="flex items-center text-sm font-medium">
-                            {typeIcons[opportunity.type]}
-                            <span>{opportunity.type}</span>
-                        </div>
-                        <div className="flex items-center text-sm font-medium">
-                            <MapPin className="mr-2 h-5 w-5" />
-                            <span>{opportunity.location}</span>
-                        </div>
-                        <div className="flex items-center text-sm font-medium">
-                            <Clock className="mr-2 h-5 w-5" />
-                            <span>{opportunity.horario} {opportunity.workHours && `(${opportunity.workHours})`}</span>
-                        </div>
-                          <div className="flex items-center text-sm font-medium">
-                            <GraduationCap className="mr-2 h-5 w-5" />
-                            <span>{opportunity.profileType}</span>
-                        </div>
-                        {opportunity.monthlySupport !== undefined && (
+        <section className="relative w-full border-b bg-slate-50 py-20 md:py-24">
+            <Image
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxvZmZpY2UlMjBjb2xsYWJvcmF0aW9ufGVufDB8fHx8MTc2MTgzODEwMnww&ixlib=rb-4.1.0&q=80&w=1080"
+                alt="Profesionales colaborando en una oficina"
+                layout="fill"
+                className="object-cover"
+                data-ai-hint="office collaboration"
+            />
+            <div className="absolute inset-0 bg-black/60" />
+            <div className="relative z-10 container mx-auto px-4 md:px-6">
+                <div className="flex flex-col items-start gap-4 md:flex-row md:items-center text-white">
+                    <Image
+                        src={opportunity.businessLogoUrl}
+                        alt={`${opportunity.businessName} logo`}
+                        width={80}
+                        height={80}
+                        className="rounded-full border-4 border-white bg-white shadow-md flex-shrink-0"
+                        data-ai-hint="logo"
+                    />
+                    <div className="flex-1 space-y-2">
+                        <h1 className="font-headline text-4xl font-bold">{opportunity.title}</h1>
+                        <p className="text-xl text-slate-200">
+                            en{" "}
+                            <Link
+                                href={`/businesses/${opportunity.businessId}`}
+                                className="font-semibold text-white hover:underline"
+                            >
+                                {opportunity.businessName}
+                            </Link>
+                        </p>
+                        <div className="pt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-slate-300">
                             <div className="flex items-center text-sm font-medium">
-                                <DollarSign className="mr-2 h-5 w-5" />
-                                <span>{opportunity.monthlySupport > 0 ? `${formatCurrency(opportunity.monthlySupport)}/mes` : 'Sin apoyo'}</span>
+                                {typeIcons[opportunity.type]}
+                                <span>{opportunity.type}</span>
                             </div>
-                        )}
+                            <div className="flex items-center text-sm font-medium">
+                                <MapPin className="mr-2 h-5 w-5" />
+                                <span>{opportunity.location}</span>
+                            </div>
+                            <div className="flex items-center text-sm font-medium">
+                                <Clock className="mr-2 h-5 w-5" />
+                                <span>{opportunity.horario} {opportunity.workHours && `(${opportunity.workHours})`}</span>
+                            </div>
+                            <div className="flex items-center text-sm font-medium">
+                                <GraduationCap className="mr-2 h-5 w-5" />
+                                <span>{opportunity.profileType}</span>
+                            </div>
+                            {opportunity.monthlySupport !== undefined && (
+                                <div className="flex items-center text-sm font-medium">
+                                    <DollarSign className="mr-2 h-5 w-5" />
+                                    <span>{opportunity.monthlySupport > 0 ? `${formatCurrency(opportunity.monthlySupport)}/mes` : 'Sin apoyo'}</span>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
-          </div>
-        </div>
+        </section>
+
         <div className="bg-slate-50/50">
             <div className="container mx-auto px-4 py-12 md:px-6">
                 <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
