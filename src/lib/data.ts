@@ -124,6 +124,15 @@ export const opportunities: Opportunity[] = [
     workHours: '9:00 - 13:00',
     skills: ['React', 'TypeScript', 'CSS', 'HTML', 'Git'],
     monthlySupport: 8000,
+    academicRequirements: {
+      degrees: ['Ingeniería en Software', 'Ciencias de la Computación', 'Diseño Gráfico y Medios Digitales'],
+      softSkills: ['Comunicación Efectiva', 'Trabajo en Equipo', 'Resolución de Problemas', 'Adaptabilidad'],
+      knowledge: [
+        { name: 'Inglés', level: 'Avanzado' },
+        { name: 'Metodologías Ágiles', level: 'Intermedio' }
+      ],
+      semester: { min: 6, max: 8 }
+    }
   },
   {
     id: 'opp-2',
@@ -146,6 +155,15 @@ export const opportunities: Opportunity[] = [
     workHours: '10:00 - 16:00',
     skills: ['Python', 'R', 'SQL', 'Machine Learning', 'Visualización de Datos'],
     monthlySupport: 9500,
+    academicRequirements: {
+        degrees: ['Ciencia de Datos', 'Estadística', 'Matemáticas Aplicadas'],
+        softSkills: ['Pensamiento Analítico', 'Atención al Detalle', 'Curiosidad Intelectual'],
+        knowledge: [
+          { name: 'Inglés', level: 'Avanzado' },
+          { name: 'Paquetería Office', level: 'Avanzado' },
+        ],
+        semester: { min: 7, max: 9 }
+    }
   },
   {
     id: 'opp-3',

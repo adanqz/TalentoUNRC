@@ -68,6 +68,19 @@ export type Business = {
   opportunities: string[]; // Array of opportunity IDs
 };
 
+export type AcademicRequirements = {
+    degrees: string[];
+    softSkills: string[];
+    knowledge: {
+        name: string;
+        level: string;
+    }[];
+    semester?: {
+        min: number;
+        max: number;
+    }
+}
+
 export type Opportunity = {
   id: string;
   title: string;
@@ -84,6 +97,7 @@ export type Opportunity = {
   workHours?: string;
   skills: string[];
   monthlySupport?: number;
+  academicRequirements?: AcademicRequirements;
 };
 
 export type University = {

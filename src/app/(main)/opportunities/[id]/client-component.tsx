@@ -1,6 +1,7 @@
 
+
 'use client';
-import type { Opportunity, Business } from "@/lib/types";
+import type { Opportunity, Business, AcademicRequirements } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +19,9 @@ import {
   Clock,
   Building,
   Check,
+  Lightbulb,
+  Calendar,
+  Users,
 } from "lucide-react";
 import {
   Card,
@@ -29,6 +33,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
 
 const typeIcons: Record<Opportunity['type'], React.ReactNode> = {
     'Prácticas Profesionales': <Briefcase className="mr-2 h-5 w-5" />,
@@ -49,6 +54,63 @@ const formatCurrency = (amount: number) => {
 type SuggestedCandidatesProps = {
     potentialCandidates: any[] | null;
 };
+
+const knowledgeLevelColors: Record<string, string> = {
+    'Avanzado': 'bg-green-100 text-green-800',
+    'Intermedio': 'bg-blue-100 text-blue-800',
+    'Básico': 'bg-yellow-100 text-yellow-800',
+};
+
+
+function AcademicRequirementsSection({ academicRequirements }: { academicRequirements: AcademicRequirements }) {
+    return (
+         <Card>
+            <CardHeader>
+                <CardTitle className="text-2xl">Antecedentes Académicos</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-6">
+                        <div>
+                            <h4 className="font-semibold text-lg mb-2 flex items-center gap-2"><GraduationCap className="h-5 w-5 text-primary" /> Carreras</h4>
+                            <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                {academicRequirements.degrees.map(degree => <li key={degree}>{degree}</li>)}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-lg mb-2 flex items-center gap-2"><Users className="h-5 w-5 text-primary" /> Habilidades Blandas</h4>
+                             <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                {academicRequirements.softSkills.map(skill => <li key={skill}>{skill}</li>)}
+                            </ul>
+                        </div>
+                    </div>
+                     <div className="space-y-6">
+                        <div>
+                            <h4 className="font-semibold text-lg mb-2 flex items-center gap-2"><Lightbulb className="h-5 w-5 text-primary" /> Conocimientos Requeridos</h4>
+                            <div className="flex flex-wrap gap-2">
+                                {academicRequirements.knowledge.map(k => (
+                                    <div key={k.name} className="flex items-center">
+                                        <span className="bg-muted text-muted-foreground px-3 py-1 rounded-l-md text-sm">{k.name}</span>
+                                        <span className={`px-3 py-1 rounded-r-md text-sm font-semibold ${knowledgeLevelColors[k.level] || 'bg-gray-100 text-gray-800'}`}>{k.level}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        {academicRequirements.semester && (
+                             <div>
+                                <h4 className="font-semibold text-lg mb-2 flex items-center gap-2"><Calendar className="h-5 w-5 text-primary" /> Semestres</h4>
+                                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                    <li>Semestre mínimo: {academicRequirements.semester.min}</li>
+                                    <li>Semestre máximo: {academicRequirements.semester.max}</li>
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+    );
+}
 
 function SuggestedCandidates({ potentialCandidates }: SuggestedCandidatesProps) {
 
@@ -211,10 +273,12 @@ export default function ClientComponent({ opportunity, business, isBusinessUser,
                                 </ul>
                             </CardContent>
                         </Card>
+                        
+                        {opportunity.academicRequirements && <AcademicRequirementsSection academicRequirements={opportunity.academicRequirements} />}
 
                         <Card>
                               <CardHeader>
-                                <CardTitle className="text-2xl">Habilidades Requeridas</CardTitle>
+                                <CardTitle className="text-2xl">Habilidades Técnicas Requeridas</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <div className="flex flex-wrap gap-2">
