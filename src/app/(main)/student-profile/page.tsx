@@ -242,6 +242,32 @@ export default function StudentProfilePage() {
                 </CardContent>
             </Card>
 
+            {student.timeline && student.timeline.length > 0 && (
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><History /> Línea de Tiempo Profesional</CardTitle>
+                    </CardHeader>
+                    <CardContent className="relative pl-6">
+                        <div className="absolute left-6 h-full w-0.5 bg-border -translate-x-1/2"></div>
+                        <div className="space-y-8">
+                            {student.timeline.map((event) => (
+                                <div key={event.id} className="relative flex items-start gap-4">
+                                    <div className="absolute left-0 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-primary -translate-x-[calc(50%+1px)]">
+                                        <div className="text-primary-foreground">{timelineIcons[event.type]}</div>
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-xs text-muted-foreground">{event.date}</p>
+                                        <h4 className="font-semibold">{event.title}</h4>
+                                        <p className="text-sm text-muted-foreground">{event.issuer}</p>
+                                        <p className="mt-1 text-sm">{event.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
+
              <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2"><Wand2 className="text-accent" /> Oportunidades Sugeridas</CardTitle>
@@ -287,32 +313,6 @@ export default function StudentProfilePage() {
                 </div>
               </CardContent>
             </Card>
-
-             {student.timeline && student.timeline.length > 0 && (
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2"><History /> Línea de Tiempo Profesional</CardTitle>
-                    </CardHeader>
-                    <CardContent className="relative pl-6">
-                        <div className="absolute left-6 h-full w-0.5 bg-border -translate-x-1/2"></div>
-                        <div className="space-y-8">
-                            {student.timeline.map((event) => (
-                                <div key={event.id} className="relative flex items-start gap-4">
-                                    <div className="absolute left-0 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-primary -translate-x-[calc(50%+1px)]">
-                                        <div className="text-primary-foreground">{timelineIcons[event.type]}</div>
-                                    </div>
-                                    <div className="flex-1">
-                                        <p className="text-xs text-muted-foreground">{event.date}</p>
-                                        <h4 className="font-semibold">{event.title}</h4>
-                                        <p className="text-sm text-muted-foreground">{event.issuer}</p>
-                                        <p className="mt-1 text-sm">{event.description}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-            )}
 
              {student.externalLinks && student.externalLinks.length > 0 && (
                  <Card>
