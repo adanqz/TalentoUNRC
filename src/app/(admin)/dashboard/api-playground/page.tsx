@@ -16,11 +16,31 @@ import { Textarea } from '@/components/ui/textarea';
 import { suggestPotentialCandidates } from '@/ai/flows/suggest-potential-candidates';
 import { suggestRelevantOpportunities } from '@/ai/flows/suggest-relevant-opportunities';
 import { suggestSuitableCandidates } from '@/ai/flows/suggest-suitable-candidates';
-import { Loader2, Wand2 } from 'lucide-react';
+import { Loader2, Wand2, ChevronRight, Play } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { ScrollArea } from '@/components/ui/scroll-area';
+
+type Flow = 'potential-candidates' | 'relevant-opportunities' | 'suitable-candidates';
+
+const flowDetails = {
+    'potential-candidates': {
+        title: 'Sugerir Candidatos Potenciales',
+        description: 'Encuentra estudiantes que coincidan con la descripción de una oportunidad.',
+    },
+    'relevant-opportunities': {
+        title: 'Sugerir Oportunidades Relevantes',
+        description: 'Encuentra oportunidades para un estudiante según sus habilidades e intereses.',
+    },
+    'suitable-candidates': {
+        title: 'Sugerir Candidatos Adecuados',
+        description: 'Encuentra estudiantes cuyas habilidades se alinean con los requisitos.',
+    }
+}
 
 export default function ApiPlaygroundPage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
+  const [selectedFlow, setSelectedFlow] = useState<Flow>('potential-candidates');
 
   const [potentialCandidatesForm, setPotentialCandidatesForm] = useState({
     opportunityDescription: 'Pasantía de verano de 3 meses para un desarrollador de software para trabajar en nuestro producto SaaS. El candidato ideal debe tener experiencia con React y Node.js.',
@@ -38,72 +58,38 @@ export default function ApiPlaygroundPage() {
     studentSkills: 'Python, Django, Flask, PostgreSQL',
   });
 
-  const handlePotentialCandidates = async () => {
+  const handleSubmit = async () => {
     setLoading(true);
     setResult(null);
-    const skillsArray = potentialCandidatesForm.studentSkills.split(',').map(s => s.trim());
+
     try {
-      const res = await suggestPotentialCandidates({ opportunityDescription: potentialCandidatesForm.opportunityDescription, studentSkills: skillsArray });
+      let res;
+      if (selectedFlow === 'potential-candidates') {
+        const skillsArray = potentialCandidatesForm.studentSkills.split(',').map(s => s.trim());
+        res = await suggestPotentialCandidates({ opportunityDescription: potentialCandidatesForm.opportunityDescription, studentSkills: skillsArray });
+      } else if (selectedFlow === 'relevant-opportunities') {
+        const skillsArray = relevantOppsForm.studentSkills.split(',').map(s => s.trim());
+        const interestsArray = relevantOppsForm.studentInterests.split(',').map(s => s.trim());
+        const opportunitiesArray = relevantOppsForm.availableOpportunities.split('\n');
+        res = await suggestRelevantOpportunities({ studentSkills: skillsArray, studentInterests: interestsArray, availableOpportunities: opportunitiesArray });
+      } else if (selectedFlow === 'suitable-candidates') {
+        const skillsArray = suitableCandidatesForm.studentSkills.split(',').map(s => s.trim());
+        res = await suggestSuitableCandidates({ opportunityRequirements: suitableCandidatesForm.opportunityRequirements, studentSkills: skillsArray });
+      }
       setResult(res);
     } catch (e) {
       console.error(e);
-      setResult({ error: 'Ocurrió un error.' });
+      setResult({ error: 'Ocurrió un error al procesar la solicitud.' });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
-  
-  const handleRelevantOpportunities = async () => {
-    setLoading(true);
-    setResult(null);
-    const skillsArray = relevantOppsForm.studentSkills.split(',').map(s => s.trim());
-    const interestsArray = relevantOppsForm.studentInterests.split(',').map(s => s.trim());
-    const opportunitiesArray = relevantOppsForm.availableOpportunities.split('\n');
-    try {
-      const res = await suggestRelevantOpportunities({ studentSkills: skillsArray, studentInterests: interestsArray, availableOpportunities: opportunitiesArray });
-      setResult(res);
-    } catch (e) {
-      console.error(e);
-      setResult({ error: 'Ocurrió un error.' });
-    }
-    setLoading(false);
   };
 
-  const handleSuitableCandidates = async () => {
-    setLoading(true);
-    setResult(null);
-    const skillsArray = suitableCandidatesForm.studentSkills.split(',').map(s => s.trim());
-    try {
-      const res = await suggestSuitableCandidates({ opportunityRequirements: suitableCandidatesForm.opportunityRequirements, studentSkills: skillsArray });
-      setResult(res);
-    } catch (e) {
-      console.error(e);
-      setResult({ error: 'Ocurrió un error.' });
-    }
-    setLoading(false);
-  };
-
-
-  return (
-    <>
-      <div className="space-y-2">
-        <h1 className="font-headline text-3xl font-bold tracking-tight flex items-center gap-2">
-          <Wand2 /> API Playground
-        </h1>
-        <p className="text-muted-foreground">
-          Interactúa con los flujos de Genkit para probar las capacidades de IA de la aplicación.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Suggest Potential Candidates */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Sugerir Candidatos Potenciales</CardTitle>
-            <CardDescription>
-              Encuentra estudiantes que coincidan con la descripción de una oportunidad.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
+  const renderForm = () => {
+    switch (selectedFlow) {
+      case 'potential-candidates':
+        return (
+          <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="pc-opp-desc">Descripción de la Oportunidad</Label>
               <Textarea
@@ -121,22 +107,11 @@ export default function ApiPlaygroundPage() {
                 onChange={(e) => setPotentialCandidatesForm({...potentialCandidatesForm, studentSkills: e.target.value})}
               />
             </div>
-            <Button onClick={handlePotentialCandidates} disabled={loading}>
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Sugerir Candidatos
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Suggest Relevant Opportunities */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Sugerir Oportunidades Relevantes</CardTitle>
-            <CardDescription>
-              Encuentra oportunidades para un estudiante según sus habilidades e intereses.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
+          </div>
+        );
+      case 'relevant-opportunities':
+        return (
+          <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="ro-student-skills">Habilidades del Estudiante (separadas por comas)</Label>
               <Input
@@ -153,7 +128,7 @@ export default function ApiPlaygroundPage() {
                 onChange={(e) => setRelevantOppsForm({...relevantOppsForm, studentInterests: e.target.value})}
               />
             </div>
-             <div className="space-y-2">
+            <div className="space-y-2">
               <Label htmlFor="ro-opportunities">Oportunidades Disponibles (una por línea)</Label>
               <Textarea
                 id="ro-opportunities"
@@ -162,22 +137,11 @@ export default function ApiPlaygroundPage() {
                 rows={4}
               />
             </div>
-            <Button onClick={handleRelevantOpportunities} disabled={loading}>
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Sugerir Oportunidades
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Suggest Suitable Candidates */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Sugerir Candidatos Adecuados</CardTitle>
-            <CardDescription>
-              Encuentra estudiantes cuyas habilidades se alinean con los requisitos de la oportunidad.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
+          </div>
+        );
+      case 'suitable-candidates':
+        return (
+          <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="sc-opp-reqs">Requisitos de la Oportunidad</Label>
               <Textarea
@@ -195,26 +159,100 @@ export default function ApiPlaygroundPage() {
                 onChange={(e) => setSuitableCandidatesForm({...suitableCandidatesForm, studentSkills: e.target.value})}
               />
             </div>
-            <Button onClick={handleSuitableCandidates} disabled={loading}>
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Sugerir Candidatos
-            </Button>
-          </CardContent>
-        </Card>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <>
+      <div className="space-y-2">
+        <h1 className="font-headline text-3xl font-bold tracking-tight flex items-center gap-2">
+          <Wand2 /> API Playground
+        </h1>
+        <p className="text-muted-foreground">
+          Interactúa con los flujos de Genkit para probar las capacidades de IA de la aplicación.
+        </p>
       </div>
 
-      {result && (
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle>Resultado de la IA</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <pre className="p-4 bg-slate-100 dark:bg-slate-800 rounded-md overflow-x-auto">
-              {JSON.stringify(result, null, 2)}
-            </pre>
-          </CardContent>
-        </Card>
-      )}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-12rem)]">
+        {/* Endpoints List */}
+        <div className="lg:col-span-3">
+          <Card className="h-full">
+            <CardHeader>
+              <CardTitle>Endpoints</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col space-y-2">
+                {Object.keys(flowDetails).map((flowKey) => (
+                  <button
+                    key={flowKey}
+                    onClick={() => setSelectedFlow(flowKey as Flow)}
+                    className={cn(
+                      "flex items-center justify-between text-left p-3 rounded-md transition-colors w-full",
+                      selectedFlow === flowKey
+                        ? "bg-primary text-primary-foreground"
+                        : "hover:bg-muted"
+                    )}
+                  >
+                    <div>
+                        <p className="font-semibold">{flowDetails[flowKey as Flow].title}</p>
+                        <p className={cn("text-xs", selectedFlow === flowKey ? "text-primary-foreground/80" : "text-muted-foreground")}>{flowDetails[flowKey as Flow].description}</p>
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Request and Response */}
+        <div className="lg:col-span-9 grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Request Form */}
+          <div className="flex flex-col h-full">
+            <Card className="flex-1 flex flex-col">
+              <CardHeader>
+                <CardTitle>Solicitud</CardTitle>
+                <CardDescription>Parámetros para: <span className="font-semibold">{flowDetails[selectedFlow].title}</span></CardDescription>
+              </CardHeader>
+              <CardContent className="flex-1">
+                <ScrollArea className="h-full pr-4">
+                  {renderForm()}
+                </ScrollArea>
+              </CardContent>
+            </Card>
+            <Button onClick={handleSubmit} disabled={loading} className="mt-4 w-full">
+              {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Play className="mr-2" />}
+              Ejecutar
+            </Button>
+          </div>
+          
+          {/* Response */}
+          <Card className="flex flex-col h-full">
+            <CardHeader>
+              <CardTitle>Respuesta de la IA</CardTitle>
+            </CardHeader>
+            <CardContent className="flex-1 overflow-hidden">
+                <ScrollArea className="h-full">
+                {result ? (
+                    <pre className="p-4 bg-muted dark:bg-slate-800 rounded-md text-sm overflow-x-auto h-full">
+                        {JSON.stringify(result, null, 2)}
+                    </pre>
+                ) : (
+                    <div className="flex items-center justify-center h-full text-muted-foreground">
+                        <p>El resultado aparecerá aquí.</p>
+                    </div>
+                )}
+                </ScrollArea>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </>
   );
 }
+
+    
