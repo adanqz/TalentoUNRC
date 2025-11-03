@@ -64,9 +64,25 @@ export default function NewOpportunityPage() {
                 </Select>
             </div>
         </div>
-        <div className="space-y-2">
-            <Label htmlFor="location">Ubicación</Label>
-            <Input id="location" placeholder="Ej. Remoto, Ciudad de México" />
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+                <Label htmlFor="location">Ubicación</Label>
+                <Input id="location" placeholder="Ej. Remoto, Ciudad de México" />
+            </div>
+             <div className="space-y-2">
+                <Label htmlFor="profileType">Tipo de Perfil Requerido</Label>
+                 <Select>
+                    <SelectTrigger id="profileType">
+                        <SelectValue placeholder="Seleccione un tipo de perfil" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="Estudiante">Estudiante</SelectItem>
+                        <SelectItem value="Egresado">Egresado</SelectItem>
+                        <SelectItem value="Titulado Sin Experiencia">Titulado Sin Experiencia</SelectItem>
+                        <SelectItem value="Titulado">Titulado</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
         </div>
         <div className="space-y-2">
             <Label htmlFor="description">Descripción Corta</Label>

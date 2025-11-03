@@ -75,6 +75,7 @@ export type Opportunity = {
   businessId: string;
   businessLogoUrl: string;
   type: 'Servicio Social' | 'Prácticas Profesionales' | 'Project' | 'Research';
+  profileType: 'Estudiante' | 'Egresado' | 'Titulado Sin Experiencia' | 'Titulado';
   description: string;
   longDescription: string;
   location: string;

@@ -13,6 +13,7 @@ import {
   Wand2,
   AlertTriangle,
   Handshake,
+  GraduationCap,
 } from "lucide-react";
 import {
   Card,
@@ -150,6 +151,10 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
                                             <div className="flex items-center text-sm">
                                                 <MapPin className="mr-2 h-5 w-5" />
                                                 <span>{opportunity.location} ({opportunity.modality})</span>
+                                            </div>
+                                             <div className="flex items-center text-sm">
+                                                <GraduationCap className="mr-2 h-5 w-5" />
+                                                <span>{opportunity.profileType}</span>
                                             </div>
                                         </div>
                                     </div>

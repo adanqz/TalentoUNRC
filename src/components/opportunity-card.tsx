@@ -1,4 +1,5 @@
 
+
 import type { Opportunity } from "@/lib/types";
 import {
   Card,
@@ -12,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Briefcase, MapPin, FlaskConical, GitBranch, Handshake } from "lucide-react";
+import { Briefcase, MapPin, FlaskConical, GitBranch, Handshake, GraduationCap } from "lucide-react";
 
 type OpportunityCardProps = {
   opportunity: Opportunity;
@@ -48,7 +49,7 @@ export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps
         </div>
       </CardHeader>
       <CardContent className="flex-grow space-y-4">
-         <div className="flex gap-4 text-sm text-muted-foreground">
+         <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5">
                 {typeIcons[opportunity.type]}
                 <span>{opportunity.type}</span>
@@ -56,6 +57,10 @@ export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps
             <div className="flex items-center gap-1.5">
                 <MapPin className="h-4 w-4" />
                 <span>{opportunity.location} ({opportunity.modality})</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+                <GraduationCap className="h-4 w-4" />
+                <span>{opportunity.profileType}</span>
             </div>
         </div>
         <div className="flex flex-wrap gap-2">
