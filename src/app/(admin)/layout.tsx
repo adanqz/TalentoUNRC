@@ -11,6 +11,7 @@ import {
   Settings,
   Terminal,
   FlaskConical,
+  ClipboardCheck,
 } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
@@ -31,6 +32,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     { href: '/dashboard/students', icon: Users, label: 'Estudiantes' },
     { href: '/dashboard/businesses', icon: Building, label: 'Empresas' },
     { href: '/dashboard/opportunities', icon: Briefcase, label: 'Oportunidades' },
+    { href: '/dashboard/social-service', icon: ClipboardCheck, label: 'Servicio Social'},
     { href: '/dashboard/api-playground', icon: FlaskConical, label: 'API Playground'},
     { href: '/dashboard/logs', icon: Terminal, label: 'Logs'},
     { href: '/dashboard/settings', icon: Settings, label: 'Configuración' },
