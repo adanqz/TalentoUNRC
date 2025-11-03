@@ -47,4 +47,3 @@ export default async function OpportunityDetailPage({
     <ClientComponent opportunity={opportunity} isBusinessUser={isBusinessUser} potentialCandidates={potentialCandidates} />
   );
 }
-
