@@ -6,9 +6,12 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Table,
   TableBody,
@@ -18,7 +21,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { users } from '@/lib/data';
-import { MoreHorizontal, Plus } from 'lucide-react';
+import { MoreHorizontal, Plus, Upload, Download } from 'lucide-react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -30,7 +33,34 @@ import Link from 'next/link';
 
 export default function AdminStudentsPage() {
   return (
-    <div className="relative">
+    <div className="relative space-y-6">
+       <Card>
+        <CardHeader>
+          <CardTitle>Cargar Estudiantes Masivamente</CardTitle>
+          <CardDescription>
+            Agrega o actualiza estudiantes subiendo un archivo en formato CSV, XLS, XLSX o TXT.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid w-full max-w-sm items-center gap-2">
+            <Label htmlFor="student-file">Seleccionar Archivo</Label>
+            <Input id="student-file" type="file" accept=".csv, .xls, .xlsx, .txt" />
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-between border-t px-6 py-4">
+            <Button>
+                <Upload className="mr-2" />
+                Cargar Archivo
+            </Button>
+            <Button variant="outline" asChild>
+                <Link href="#">
+                    <Download className="mr-2" />
+                    Descargar Plantilla
+                </Link>
+            </Button>
+        </CardFooter>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle>Estudiantes</CardTitle>
