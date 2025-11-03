@@ -94,20 +94,26 @@ export default function NewOpportunityPage() {
                 <Input id="monthlySupport" type="number" placeholder="Ej. 8000" />
             </div>
         </div>
-        <div className="space-y-2">
-            <Label htmlFor="horario">Horario</Label>
-             <Select>
-                <SelectTrigger id="horario">
-                    <SelectValue placeholder="Seleccione el horario" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="Tiempo Completo">Tiempo Completo</SelectItem>
-                    <SelectItem value="Medio Tiempo">Medio Tiempo</SelectItem>
-                    <SelectItem value="Remoto">Remoto</SelectItem>
-                    <SelectItem value="Híbrido">Híbrido</SelectItem>
-                    <SelectItem value="Presencial">Presencial</SelectItem>
-                </SelectContent>
-            </Select>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+                <Label htmlFor="horario">Modalidad de Horario</Label>
+                 <Select>
+                    <SelectTrigger id="horario">
+                        <SelectValue placeholder="Seleccione la modalidad" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="Tiempo Completo">Tiempo Completo</SelectItem>
+                        <SelectItem value="Medio Tiempo">Medio Tiempo</SelectItem>
+                        <SelectItem value="Remoto">Remoto</SelectItem>
+                        <SelectItem value="Híbrido">Híbrido</SelectItem>
+                        <SelectItem value="Presencial">Presencial</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="workHours">Horas de Trabajo</Label>
+                <Input id="workHours" placeholder="Ej. 9:00 - 17:00, Horario flexible" />
+            </div>
         </div>
         <div className="space-y-2">
             <Label htmlFor="description">Descripción Corta</Label>

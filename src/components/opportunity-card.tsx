@@ -80,6 +80,7 @@ export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps
              <div className="flex items-center gap-1.5">
                 <Clock className="h-4 w-4" />
                 <span>{opportunity.horario}</span>
+                {opportunity.workHours && <span className="text-xs">({opportunity.workHours})</span>}
             </div>
         </div>
         <div className="flex flex-wrap gap-2">

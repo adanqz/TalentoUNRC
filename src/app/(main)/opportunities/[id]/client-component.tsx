@@ -162,7 +162,7 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
                         </div>
                         <div className="flex items-center text-sm font-medium">
                             <Clock className="mr-2 h-5 w-5" />
-                            <span>{opportunity.horario}</span>
+                            <span>{opportunity.horario} {opportunity.workHours && `(${opportunity.workHours})`}</span>
                         </div>
                           <div className="flex items-center text-sm font-medium">
                             <GraduationCap className="mr-2 h-5 w-5" />

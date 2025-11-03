@@ -80,6 +80,7 @@ export type Opportunity = {
   longDescription: string;
   location: string;
   horario: 'Remoto' | 'Híbrido' | 'Presencial' | 'Tiempo Completo' | 'Medio Tiempo';
+  workHours?: string;
   skills: string[];
   monthlySupport?: number;
 };
