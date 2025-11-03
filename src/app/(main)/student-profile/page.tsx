@@ -5,7 +5,7 @@ import { notFound, redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mail, Briefcase, Wand2, BookOpen, FileText, Download, Languages, History, Circle, Link2, Github, Linkedin, Dribbble } from "lucide-react";
+import { Mail, Briefcase, Wand2, BookOpen, FileText, Download, Languages, History, Circle, Link2, Github, Linkedin, Dribbble, GraduationCap, Award, ClipboardCheck } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/accordion"
 import { OpportunityCard } from "@/components/opportunity-card";
 import { suggestRelevantOpportunities } from "@/ai/flows/suggest-relevant-opportunities";
-import type { Opportunity, UserStatus, ExternalLink } from "@/lib/types";
+import type { Opportunity, UserStatus, ExternalLink, TimelineEvent } from "@/lib/types";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
@@ -36,6 +36,14 @@ const platformIcons: Record<ExternalLink['platform'], React.ReactNode> = {
     LinkedIn: <Linkedin className="h-4 w-4" />,
     Behance: <Dribbble className="h-4 w-4" />,
     'Personal Website': <Link2 className="h-4 w-4" />,
+};
+
+const timelineIcons: Record<TimelineEvent['type'], React.ReactNode> = {
+    'Estudio': <GraduationCap className="h-5 w-5" />,
+    'Certificación': <Award className="h-5 w-5" />,
+    'Taller': <BookOpen className="h-5 w-5" />,
+    'Conferencia': <ClipboardCheck className="h-5 w-5" />,
+    'Diplomado': <FileText className="h-5 w-5" />
 };
 
 function LanguageChart({ languages }: { languages: { name: string, proficiency: number }[] }) {
@@ -279,6 +287,33 @@ export default function StudentProfilePage() {
                 </div>
               </CardContent>
             </Card>
+
+             {student.timeline && student.timeline.length > 0 && (
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><History /> Línea de Tiempo Profesional</CardTitle>
+                    </CardHeader>
+                    <CardContent className="relative pl-6">
+                        <div className="absolute left-6 h-full w-0.5 bg-border -translate-x-1/2"></div>
+                        <div className="space-y-8">
+                            {student.timeline.map((event) => (
+                                <div key={event.id} className="relative flex items-start gap-4">
+                                    <div className="absolute left-0 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-primary -translate-x-[calc(50%+1px)]">
+                                        <div className="text-primary-foreground">{timelineIcons[event.type]}</div>
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-xs text-muted-foreground">{event.date}</p>
+                                        <h4 className="font-semibold">{event.title}</h4>
+                                        <p className="text-sm text-muted-foreground">{event.issuer}</p>
+                                        <p className="mt-1 text-sm">{event.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
+
              {student.externalLinks && student.externalLinks.length > 0 && (
                  <Card>
                     <CardHeader>

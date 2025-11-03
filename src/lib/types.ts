@@ -26,6 +26,15 @@ export type ExternalLink = {
   url: string;
 };
 
+export type TimelineEvent = {
+  id: string;
+  date: string;
+  type: 'Estudio' | 'Certificación' | 'Taller' | 'Conferencia' | 'Diplomado';
+  title: string;
+  issuer: string;
+  description?: string;
+};
+
 export type User = {
   id: string;
   name: string;
@@ -37,6 +46,7 @@ export type User = {
   semesterProjects?: SemesterProjects[];
   languages?: Language[];
   externalLinks?: ExternalLink[];
+  timeline?: TimelineEvent[];
 };
 
 export type OnlineUser = {

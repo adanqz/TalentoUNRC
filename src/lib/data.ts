@@ -34,6 +34,12 @@ export const users: User[] = [
       { platform: 'GitHub', url: 'https://github.com/anatorres' },
       { platform: 'LinkedIn', url: 'https://linkedin.com/in/anatorres' },
       { platform: 'Personal Website', url: 'https://ana.dev' }
+    ],
+    timeline: [
+      { id: 'tl-1', date: 'Agosto 2022', type: 'Estudio', title: 'Inicio de Licenciatura en Ciencias de la Computación', issuer: 'Universidad Nacional Rosario Castellanos', description: 'Comencé mis estudios superiores.' },
+      { id: 'tl-2', date: 'Junio 2023', type: 'Certificación', title: 'Desarrollador Full-Stack', issuer: 'Platzi', description: 'Completé la carrera de desarrollador web, aprendiendo sobre frontend, backend y bases de datos.' },
+      { id: 'tl-3', date: 'Enero 2024', type: 'Taller', title: 'Taller de Metodologías Ágiles', issuer: 'Universidad Nacional Rosario Castellanos', description: 'Participé en un taller intensivo sobre Scrum y Kanban.' },
+      { id: 'tl-4', date: 'Marzo 2024', type: 'Conferencia', title: 'Conferencia de IA de México', issuer: 'Mexico AI', description: 'Asistí a conferencias sobre los últimos avances en inteligencia artificial.' },
     ]
   },
   { id: 'user-2', name: 'Carlos Gomez', email: 'carlos.g@example.com', avatarUrl: getImage('user-avatar-2'), 
