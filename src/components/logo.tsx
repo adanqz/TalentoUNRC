@@ -1,12 +1,20 @@
-import { Link2Icon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export function Logo({ className }: { className?: string }) {
   return (
     <Link href="/" className={cn("flex items-center gap-2", className)}>
-      <Link2Icon className="h-6 w-6 text-primary" />
-      <span className={cn("font-headline text-xl font-bold", className)}>TalentosUNRC</span>
+      <Image 
+        src="/logo.png"
+        alt="API Talentos Logo"
+        width={28}
+        height={28}
+        className="h-7 w-7"
+      />
+      <span className={cn("font-headline text-xl font-bold", className)}>
+        API Talentos
+      </span>
     </Link>
   );
 }
