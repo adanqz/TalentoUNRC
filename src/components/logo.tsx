@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <Link href="/" className={cn("flex items-center gap-2", className)}>
+    <Link href="/" className={cn("flex items-center", className)}>
       <Image 
         src="/logo.png"
         alt="API Talentos Logo"
@@ -12,9 +12,6 @@ export function Logo({ className }: { className?: string }) {
         height={28}
         className="h-7 w-7"
       />
-      <span className={cn("font-headline text-xl font-bold", className)}>
-        API Talentos
-      </span>
     </Link>
   );
 }
