@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Briefcase, MapPin, FlaskConical, GitBranch, Handshake, GraduationCap } from "lucide-react";
+import { Briefcase, MapPin, FlaskConical, GitBranch, Handshake, GraduationCap, DollarSign } from "lucide-react";
 
 type OpportunityCardProps = {
   opportunity: Opportunity;
@@ -26,6 +26,15 @@ const typeIcons: Record<Opportunity['type'], React.ReactNode> = {
   Project: <GitBranch className="h-4 w-4 text-muted-foreground" />,
   Research: <FlaskConical className="h-4 w-4 text-muted-foreground" />,
 };
+
+const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    }).format(amount);
+}
 
 export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps) {
   return (
@@ -62,6 +71,12 @@ export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps
                 <GraduationCap className="h-4 w-4" />
                 <span>{opportunity.profileType}</span>
             </div>
+             {opportunity.monthlySupport !== undefined && (
+                <div className="flex items-center gap-1.5">
+                    <DollarSign className="h-4 w-4" />
+                    <span>{opportunity.monthlySupport > 0 ? `${formatCurrency(opportunity.monthlySupport)}/mes` : 'Sin apoyo'}</span>
+                </div>
+            )}
         </div>
         <div className="flex flex-wrap gap-2">
           {opportunity.skills.map((skill) => (

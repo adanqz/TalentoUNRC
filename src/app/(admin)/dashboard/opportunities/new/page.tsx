@@ -84,6 +84,16 @@ export default function NewOpportunityPage() {
                 </Select>
             </div>
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+                <Label htmlFor="skills">Habilidades Requeridas (separadas por comas)</Label>
+                <Input id="skills" placeholder="Ej. React, TypeScript, CSS" />
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="monthlySupport">Apoyo Monetario Mensual (MXN)</Label>
+                <Input id="monthlySupport" type="number" placeholder="Ej. 8000" />
+            </div>
+        </div>
         <div className="space-y-2">
             <Label htmlFor="description">Descripción Corta</Label>
             <Textarea id="description" placeholder="Una breve descripción de la oportunidad." rows={2} />
@@ -91,10 +101,6 @@ export default function NewOpportunityPage() {
         <div className="space-y-2">
             <Label htmlFor="longDescription">Descripción Larga</Label>
             <Textarea id="longDescription" placeholder="Una descripción detallada de la oportunidad, responsabilidades, etc." rows={5} />
-        </div>
-        <div className="space-y-2">
-            <Label htmlFor="skills">Habilidades Requeridas (separadas por comas)</Label>
-            <Input id="skills" placeholder="Ej. React, TypeScript, CSS" />
         </div>
       </CardContent>
       <CardFooter className="flex justify-end gap-2">

@@ -81,6 +81,7 @@ export type Opportunity = {
   location: string;
   modality: 'Remoto' | 'Híbrido' | 'Presencial';
   skills: string[];
+  monthlySupport?: number;
 };
 
 export type University = {
@@ -113,3 +114,4 @@ export type Conversation = {
   lastMessageTimestamp: string;
   unreadCount: number;
 };
+

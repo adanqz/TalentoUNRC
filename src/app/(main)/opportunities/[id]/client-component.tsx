@@ -14,6 +14,7 @@ import {
   AlertTriangle,
   Handshake,
   GraduationCap,
+  DollarSign,
 } from "lucide-react";
 import {
   Card,
@@ -32,6 +33,15 @@ const typeIcons: Record<Opportunity['type'], React.ReactNode> = {
     Project: <GitBranch className="mr-2 h-5 w-5" />,
     Research: <FlaskConical className="mr-2 h-5 w-5" />,
 };
+
+const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    }).format(amount);
+}
 
 type SuggestedCandidatesProps = {
     potentialCandidates: any[] | null;
@@ -156,6 +166,12 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
                                                 <GraduationCap className="mr-2 h-5 w-5" />
                                                 <span>{opportunity.profileType}</span>
                                             </div>
+                                            {opportunity.monthlySupport !== undefined && (
+                                                <div className="flex items-center text-sm">
+                                                    <DollarSign className="mr-2 h-5 w-5" />
+                                                    <span>{opportunity.monthlySupport > 0 ? `${formatCurrency(opportunity.monthlySupport)}/mes` : 'Sin apoyo'}</span>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

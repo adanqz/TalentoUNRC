@@ -116,6 +116,7 @@ export const opportunities: Opportunity[] = [
     location: 'Cuauhtémoc',
     modality: 'Remoto',
     skills: ['React', 'TypeScript', 'CSS', 'HTML', 'Git'],
+    monthlySupport: 8000,
   },
   {
     id: 'opp-2',
@@ -130,6 +131,7 @@ export const opportunities: Opportunity[] = [
     location: 'Coyoacán',
     modality: 'Híbrido',
     skills: ['Python', 'R', 'SQL', 'Machine Learning', 'Visualización de Datos'],
+    monthlySupport: 9500,
   },
   {
     id: 'opp-3',
@@ -144,6 +146,7 @@ export const opportunities: Opportunity[] = [
     location: 'Álvaro Obregón',
     modality: 'Remoto',
     skills: ['Flutter', 'Dart', 'Firebase', 'Diseño UI/UX'],
+    monthlySupport: 0,
   },
   {
     id: 'opp-4',
@@ -158,6 +161,7 @@ export const opportunities: Opportunity[] = [
     location: 'Cuauhtémoc',
     modality: 'Presencial',
     skills: ['Node.js', 'Express', 'PostgreSQL', 'APIs REST', 'Docker'],
+    monthlySupport: 6000,
   },
   {
     id: 'opp-5',
@@ -172,6 +176,7 @@ export const opportunities: Opportunity[] = [
     location: 'Polanco',
     modality: 'Remoto',
     skills: ['Figma', 'Sketch', 'Adobe XD', 'Investigación de Usuarios'],
+    monthlySupport: 7500,
   },
   {
     id: 'opp-6',
@@ -186,6 +191,7 @@ export const opportunities: Opportunity[] = [
     location: 'Benito Juárez',
     modality: 'Híbrido',
     skills: ['AWS', 'Terraform', 'Docker', 'CI/CD', 'Ansible'],
+    monthlySupport: 25000,
   },
   {
     id: 'opp-7',
@@ -200,6 +206,7 @@ export const opportunities: Opportunity[] = [
     location: 'Álvaro Obregón',
     modality: 'Remoto',
     skills: ['Redes Sociales', 'Marketing de Contenidos', 'SEO', 'Google Analytics'],
+    monthlySupport: 5000,
   },
   {
     id: 'opp-8',
@@ -214,6 +221,7 @@ export const opportunities: Opportunity[] = [
     location: 'La Condesa',
     modality: 'Remoto',
     skills: ['Unity', 'C#', 'Desarrollo de Videojuegos', '3D'],
+    monthlySupport: 9000,
   },
   {
     id: 'opp-9',
@@ -228,6 +236,7 @@ export const opportunities: Opportunity[] = [
     location: 'Miguel Hidalgo',
     modality: 'Presencial',
     skills: ['Ciberseguridad', 'Análisis de Redes', 'Pentesting', 'SIEM'],
+    monthlySupport: 22000,
   },
   {
     id: 'opp-10',
@@ -242,6 +251,7 @@ export const opportunities: Opportunity[] = [
     location: 'Polanco',
     modality: 'Remoto',
     skills: ['React', 'Node.js', 'Python', 'MongoDB', 'AWS'],
+    monthlySupport: 7000,
   },
    {
     id: 'opp-11',
@@ -256,6 +266,7 @@ export const opportunities: Opportunity[] = [
     location: 'Iztapalapa',
     modality: 'Presencial',
     skills: ['Energías Renovables', 'Investigación', 'Análisis de Datos', 'Matlab'],
+    monthlySupport: 0,
   },
   {
     id: 'opp-12',
@@ -270,6 +281,7 @@ export const opportunities: Opportunity[] = [
     location: 'Benito Juárez',
     modality: 'Híbrido',
     skills: ['Blockchain', 'Ethereum', 'Solidity', 'Smart Contracts'],
+    monthlySupport: 35000,
   },
 ];
 
