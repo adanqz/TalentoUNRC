@@ -95,6 +95,21 @@ export default function NewOpportunityPage() {
             </div>
         </div>
         <div className="space-y-2">
+            <Label htmlFor="horario">Horario</Label>
+             <Select>
+                <SelectTrigger id="horario">
+                    <SelectValue placeholder="Seleccione el horario" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="Tiempo Completo">Tiempo Completo</SelectItem>
+                    <SelectItem value="Medio Tiempo">Medio Tiempo</SelectItem>
+                    <SelectItem value="Remoto">Remoto</SelectItem>
+                    <SelectItem value="Híbrido">Híbrido</SelectItem>
+                    <SelectItem value="Presencial">Presencial</SelectItem>
+                </SelectContent>
+            </Select>
+        </div>
+        <div className="space-y-2">
             <Label htmlFor="description">Descripción Corta</Label>
             <Textarea id="description" placeholder="Una breve descripción de la oportunidad." rows={2} />
         </div>

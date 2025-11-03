@@ -15,6 +15,7 @@ import {
   Handshake,
   GraduationCap,
   DollarSign,
+  Clock,
 } from "lucide-react";
 import {
   Card,
@@ -157,7 +158,11 @@ export default function ClientComponent({ opportunity, isBusinessUser, potential
                         </div>
                         <div className="flex items-center text-sm font-medium">
                             <MapPin className="mr-2 h-5 w-5" />
-                            <span>{opportunity.location} ({opportunity.modality})</span>
+                            <span>{opportunity.location}</span>
+                        </div>
+                        <div className="flex items-center text-sm font-medium">
+                            <Clock className="mr-2 h-5 w-5" />
+                            <span>{opportunity.horario}</span>
                         </div>
                           <div className="flex items-center text-sm font-medium">
                             <GraduationCap className="mr-2 h-5 w-5" />

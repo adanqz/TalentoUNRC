@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Briefcase, MapPin, FlaskConical, GitBranch, Handshake, GraduationCap, DollarSign } from "lucide-react";
+import { Briefcase, MapPin, FlaskConical, GitBranch, Handshake, GraduationCap, DollarSign, Clock } from "lucide-react";
 
 type OpportunityCardProps = {
   opportunity: Opportunity;
@@ -65,7 +65,7 @@ export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps
             </div>
             <div className="flex items-center gap-1.5">
                 <MapPin className="h-4 w-4" />
-                <span>{opportunity.location} ({opportunity.modality})</span>
+                <span>{opportunity.location}</span>
             </div>
             <div className="flex items-center gap-1.5">
                 <GraduationCap className="h-4 w-4" />
@@ -77,6 +77,10 @@ export function OpportunityCard({ opportunity, highlight }: OpportunityCardProps
                     <span>{opportunity.monthlySupport > 0 ? `${formatCurrency(opportunity.monthlySupport)}/mes` : 'Sin apoyo'}</span>
                 </div>
             )}
+             <div className="flex items-center gap-1.5">
+                <Clock className="h-4 w-4" />
+                <span>{opportunity.horario}</span>
+            </div>
         </div>
         <div className="flex flex-wrap gap-2">
           {opportunity.skills.map((skill) => (

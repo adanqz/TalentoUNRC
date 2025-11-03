@@ -79,7 +79,7 @@ export type Opportunity = {
   description: string;
   longDescription: string;
   location: string;
-  modality: 'Remoto' | 'Híbrido' | 'Presencial';
+  horario: 'Remoto' | 'Híbrido' | 'Presencial' | 'Tiempo Completo' | 'Medio Tiempo';
   skills: string[];
   monthlySupport?: number;
 };
@@ -114,4 +114,3 @@ export type Conversation = {
   lastMessageTimestamp: string;
   unreadCount: number;
 };
-
