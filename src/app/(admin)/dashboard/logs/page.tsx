@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { Download, Search } from 'lucide-react';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const mockLogs = [
   {
@@ -108,8 +109,7 @@ export default function ServerLogsPage() {
             </SelectContent>
           </Select>
         </div>
-        <div className="rounded-md border bg-muted/50 p-4 font-mono text-sm">
-          <div className="h-[60vh] overflow-auto">
+        <ScrollArea className="h-[60vh] rounded-md border bg-muted/50 p-4 font-mono text-sm">
             {mockLogs.map((log, index) => (
               <div key={index} className="flex flex-col md:flex-row gap-x-4 py-1">
                 <span className="text-muted-foreground whitespace-nowrap">{log.timestamp}</span>
@@ -122,8 +122,7 @@ export default function ServerLogsPage() {
                 <p className="break-words whitespace-pre-wrap">{log.message}</p>
               </div>
             ))}
-          </div>
-        </div>
+        </ScrollArea>
       </CardContent>
     </Card>
   );

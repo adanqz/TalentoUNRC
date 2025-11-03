@@ -19,7 +19,8 @@ export type Language = {
 export type UserStatus =
   | { type: 'cursando'; semester: number }
   | { type: 'inactivo' }
-  | { type: 'egresado' };
+  | { type: 'egresado' }
+  | { type: 'baja temporal' };
 
 export type ExternalLink = {
   platform: 'GitHub' | 'LinkedIn' | 'Behance' | 'Personal Website';

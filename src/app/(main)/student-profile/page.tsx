@@ -120,6 +120,10 @@ const StatusBadge = ({ status }: { status: UserStatus }) => {
             text = "Egresado";
             className = "bg-primary/10 text-primary border-primary/20";
             break;
+        case 'baja temporal':
+            text = "Baja Temporal";
+            className = "bg-yellow-100 text-yellow-800 border-yellow-200";
+            break;
     }
 
     return (
@@ -129,6 +133,7 @@ const StatusBadge = ({ status }: { status: UserStatus }) => {
                 status.type === 'cursando' && "fill-green-500",
                 status.type === 'inactivo' && "fill-gray-400",
                 status.type === 'egresado' && "fill-primary",
+                status.type === 'baja temporal' && "fill-yellow-500",
             )} />
             {text}
         </Badge>
