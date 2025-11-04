@@ -17,13 +17,16 @@ import { suggestPotentialCandidates } from '@/ai/flows/suggest-potential-candida
 import { suggestRelevantOpportunities } from '@/ai/flows/suggest-relevant-opportunities';
 import { suggestSuitableCandidates } from '@/ai/flows/suggest-suitable-candidates';
 import { createOpportunity, readOpportunity, updateOpportunity, deleteOpportunity } from '@/ai/flows/opportunity-crud';
-import { Loader2, Wand2, ChevronRight, Play, Database, FilePlus, FileSearch, FilePen, FileX } from 'lucide-react';
+import { createStudent, readStudent, updateStudent, deleteStudent } from '@/ai/flows/student-crud';
+import { Loader2, Wand2, ChevronRight, Play, Database, FilePlus, FileSearch, FilePen, FileX, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 
-type Flow = 'potential-candidates' | 'relevant-opportunities' | 'suitable-candidates' | 'create-opportunity' | 'read-opportunity' | 'update-opportunity' | 'delete-opportunity';
+type Flow = 'potential-candidates' | 'relevant-opportunities' | 'suitable-candidates' 
+| 'create-opportunity' | 'read-opportunity' | 'update-opportunity' | 'delete-opportunity'
+| 'create-student' | 'read-student' | 'update-student' | 'delete-student';
 
 const suggestionFlowDetails = {
     'potential-candidates': {
@@ -40,7 +43,7 @@ const suggestionFlowDetails = {
     }
 };
 
-const crudFlowDetails = {
+const opportunityCrudFlowDetails = {
     'create-opportunity': {
         title: 'Crear Oportunidad',
         description: 'Crea una nueva oportunidad en el sistema.',
@@ -63,7 +66,30 @@ const crudFlowDetails = {
     }
 };
 
-const allFlowDetails = { ...suggestionFlowDetails, ...crudFlowDetails };
+const studentCrudFlowDetails = {
+    'create-student': {
+        title: 'Crear Estudiante',
+        description: 'Crea un nuevo estudiante en el sistema.',
+        icon: <FilePlus className="mr-2" />
+    },
+    'read-student': {
+        title: 'Leer Estudiante',
+        description: 'Lee los detalles de un estudiante por su ID.',
+        icon: <FileSearch className="mr-2" />
+    },
+    'update-student': {
+        title: 'Actualizar Estudiante',
+        description: 'Actualiza los detalles de un estudiante existente.',
+        icon: <FilePen className="mr-2" />
+    },
+    'delete-student': {
+        title: 'Eliminar Estudiante',
+        description: 'Elimina un estudiante del sistema.',
+        icon: <FileX className="mr-2" />
+    }
+};
+
+const allFlowDetails = { ...suggestionFlowDetails, ...opportunityCrudFlowDetails, ...studentCrudFlowDetails };
 
 export default function ApiPlaygroundPage() {
   const [loading, setLoading] = useState(false);
@@ -84,12 +110,19 @@ export default function ApiPlaygroundPage() {
     opportunityRequirements: 'Buscamos un desarrollador de Python con experiencia en Django y DRF. Se requiere conocimiento de PostgreSQL.',
     studentSkills: 'Python, Django, Flask, PostgreSQL',
   });
-  const [crudForm, setCrudForm] = useState({
+  const [opportunityCrudForm, setOpportunityCrudForm] = useState({
       id: 'opp-123',
       title: 'Desarrollador Full Stack Senior',
       description: 'Trabaja en un producto innovador con un equipo talentoso.',
       businessName: 'NextGen Solutions',
   });
+  const [studentCrudForm, setStudentCrudForm] = useState({
+      id: 'student-123',
+      name: 'Ana Torres',
+      email: 'ana.t@example.com',
+      skills: 'React, Node.js, TypeScript',
+  });
+
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -98,6 +131,7 @@ export default function ApiPlaygroundPage() {
     try {
       let res;
       switch (selectedFlow) {
+        // Suggestion Flows
         case 'potential-candidates':
           const pcSkills = potentialCandidatesForm.studentSkills.split(',').map(s => s.trim());
           res = await suggestPotentialCandidates({ opportunityDescription: potentialCandidatesForm.opportunityDescription, studentSkills: pcSkills });
@@ -112,17 +146,33 @@ export default function ApiPlaygroundPage() {
           const scSkills = suitableCandidatesForm.studentSkills.split(',').map(s => s.trim());
           res = await suggestSuitableCandidates({ opportunityRequirements: suitableCandidatesForm.opportunityRequirements, studentSkills: scSkills });
           break;
+
+        // Opportunity CRUD
         case 'create-opportunity':
-            res = await createOpportunity({ title: crudForm.title, description: crudForm.description, businessName: crudForm.businessName });
+            res = await createOpportunity({ title: opportunityCrudForm.title, description: opportunityCrudForm.description, businessName: opportunityCrudForm.businessName });
             break;
         case 'read-opportunity':
-            res = await readOpportunity({ id: crudForm.id });
+            res = await readOpportunity({ id: opportunityCrudForm.id });
             break;
         case 'update-opportunity':
-            res = await updateOpportunity(crudForm);
+            res = await updateOpportunity(opportunityCrudForm);
             break;
         case 'delete-opportunity':
-            res = await deleteOpportunity({ id: crudForm.id });
+            res = await deleteOpportunity({ id: opportunityCrudForm.id });
+            break;
+
+        // Student CRUD
+        case 'create-student':
+            res = await createStudent({ name: studentCrudForm.name, email: studentCrudForm.email, skills: studentCrudForm.skills.split(',').map(s => s.trim()) });
+            break;
+        case 'read-student':
+            res = await readStudent({ id: studentCrudForm.id });
+            break;
+        case 'update-student':
+            res = await updateStudent({ id: studentCrudForm.id, name: studentCrudForm.name, email: studentCrudForm.email, skills: studentCrudForm.skills.split(',').map(s => s.trim()) });
+            break;
+        case 'delete-student':
+            res = await deleteStudent({ id: studentCrudForm.id });
             break;
       }
       setResult(res);
@@ -187,20 +237,20 @@ export default function ApiPlaygroundPage() {
                  {selectedFlow === 'update-opportunity' && (
                     <div className="space-y-2">
                         <Label htmlFor="crud-id">ID de Oportunidad</Label>
-                        <Input id="crud-id" value={crudForm.id} onChange={(e) => setCrudForm({...crudForm, id: e.target.value})} />
+                        <Input id="crud-id" value={opportunityCrudForm.id} onChange={(e) => setOpportunityCrudForm({...opportunityCrudForm, id: e.target.value})} />
                     </div>
                 )}
                 <div className="space-y-2">
                     <Label htmlFor="crud-title">Título</Label>
-                    <Input id="crud-title" value={crudForm.title} onChange={(e) => setCrudForm({...crudForm, title: e.target.value})} />
+                    <Input id="crud-title" value={opportunityCrudForm.title} onChange={(e) => setOpportunityCrudForm({...opportunityCrudForm, title: e.target.value})} />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="crud-desc">Descripción</Label>
-                    <Textarea id="crud-desc" value={crudForm.description} onChange={(e) => setCrudForm({...crudForm, description: e.target.value})} rows={3} />
+                    <Textarea id="crud-desc" value={opportunityCrudForm.description} onChange={(e) => setOpportunityCrudForm({...opportunityCrudForm, description: e.target.value})} rows={3} />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="crud-biz">Nombre de la Empresa</Label>
-                    <Input id="crud-biz" value={crudForm.businessName} onChange={(e) => setCrudForm({...crudForm, businessName: e.target.value})} />
+                    <Input id="crud-biz" value={opportunityCrudForm.businessName} onChange={(e) => setOpportunityCrudForm({...opportunityCrudForm, businessName: e.target.value})} />
                 </div>
             </div>
             );
@@ -209,10 +259,43 @@ export default function ApiPlaygroundPage() {
             return (
                 <div className="space-y-2">
                     <Label htmlFor="crud-id">ID de Oportunidad</Label>
-                    <Input id="crud-id" value={crudForm.id} onChange={(e) => setCrudForm({...crudForm, id: e.target.value})} />
+                    <Input id="crud-id" value={opportunityCrudForm.id} onChange={(e) => setOpportunityCrudForm({...opportunityCrudForm, id: e.target.value})} />
                     <p className="text-xs text-muted-foreground">Prueba con `opp-123` para la lectura.</p>
                 </div>
             );
+      case 'create-student':
+      case 'update-student':
+          return (
+          <div className="space-y-4">
+                {selectedFlow === 'update-student' && (
+                  <div className="space-y-2">
+                      <Label htmlFor="student-crud-id">ID de Estudiante</Label>
+                      <Input id="student-crud-id" value={studentCrudForm.id} onChange={(e) => setStudentCrudForm({...studentCrudForm, id: e.target.value})} />
+                  </div>
+              )}
+              <div className="space-y-2">
+                  <Label htmlFor="student-crud-name">Nombre</Label>
+                  <Input id="student-crud-name" value={studentCrudForm.name} onChange={(e) => setStudentCrudForm({...studentCrudForm, name: e.target.value})} />
+              </div>
+              <div className="space-y-2">
+                  <Label htmlFor="student-crud-email">Email</Label>
+                  <Input id="student-crud-email" type="email" value={studentCrudForm.email} onChange={(e) => setStudentCrudForm({...studentCrudForm, email: e.target.value})} />
+              </div>
+              <div className="space-y-2">
+                  <Label htmlFor="student-crud-skills">Habilidades (separadas por comas)</Label>
+                  <Input id="student-crud-skills" value={studentCrudForm.skills} onChange={(e) => setStudentCrudForm({...studentCrudForm, skills: e.target.value})} />
+              </div>
+          </div>
+          );
+      case 'read-student':
+      case 'delete-student':
+          return (
+              <div className="space-y-2">
+                  <Label htmlFor="student-crud-id">ID de Estudiante</Label>
+                  <Input id="student-crud-id" value={studentCrudForm.id} onChange={(e) => setStudentCrudForm({...studentCrudForm, id: e.target.value})} />
+                  <p className="text-xs text-muted-foreground">Prueba con `student-123` para la lectura.</p>
+              </div>
+          );
       default:
         return null;
     }
@@ -232,7 +315,8 @@ export default function ApiPlaygroundPage() {
       <Tabs defaultValue="suggestions" className="h-[calc(100vh-12rem)] space-y-4">
         <TabsList>
             <TabsTrigger value="suggestions"><Wand2 className="mr-2"/> Sugerencias IA</TabsTrigger>
-            <TabsTrigger value="crud"><Database className="mr-2"/> CRUD Demo</TabsTrigger>
+            <TabsTrigger value="crud-opps"><Database className="mr-2"/> CRUD Oportunidades</TabsTrigger>
+            <TabsTrigger value="crud-students"><Users className="mr-2"/> CRUD Estudiantes</TabsTrigger>
         </TabsList>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-full">
@@ -262,9 +346,9 @@ export default function ApiPlaygroundPage() {
                         ))}
                     </div>
                     </TabsContent>
-                    <TabsContent value="crud">
+                    <TabsContent value="crud-opps">
                          <div className="flex flex-col space-y-2">
-                            {Object.keys(crudFlowDetails).map((flowKey) => (
+                            {Object.keys(opportunityCrudFlowDetails).map((flowKey) => (
                             <button
                                 key={flowKey}
                                 onClick={() => setSelectedFlow(flowKey as Flow)}
@@ -274,8 +358,28 @@ export default function ApiPlaygroundPage() {
                                 )}
                             >
                                 <div>
-                                    <p className="font-semibold">{crudFlowDetails[flowKey as keyof typeof crudFlowDetails].title}</p>
-                                    <p className={cn("text-xs", selectedFlow === flowKey ? "text-primary-foreground/80" : "text-muted-foreground")}>{crudFlowDetails[flowKey as keyof typeof crudFlowDetails].description}</p>
+                                    <p className="font-semibold">{opportunityCrudFlowDetails[flowKey as keyof typeof opportunityCrudFlowDetails].title}</p>
+                                    <p className={cn("text-xs", selectedFlow === flowKey ? "text-primary-foreground/80" : "text-muted-foreground")}>{opportunityCrudFlowDetails[flowKey as keyof typeof opportunityCrudFlowDetails].description}</p>
+                                </div>
+                                <ChevronRight className="h-4 w-4" />
+                            </button>
+                            ))}
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="crud-students">
+                         <div className="flex flex-col space-y-2">
+                            {Object.keys(studentCrudFlowDetails).map((flowKey) => (
+                            <button
+                                key={flowKey}
+                                onClick={() => setSelectedFlow(flowKey as Flow)}
+                                className={cn(
+                                    "flex items-center justify-between text-left p-3 rounded-md transition-colors w-full",
+                                    selectedFlow === flowKey ? "bg-primary text-primary-foreground" : "hover:bg-muted"
+                                )}
+                            >
+                                <div>
+                                    <p className="font-semibold">{studentCrudFlowDetails[flowKey as keyof typeof studentCrudFlowDetails].title}</p>
+                                    <p className={cn("text-xs", selectedFlow === flowKey ? "text-primary-foreground/80" : "text-muted-foreground")}>{studentCrudFlowDetails[flowKey as keyof typeof studentCrudFlowDetails].description}</p>
                                 </div>
                                 <ChevronRight className="h-4 w-4" />
                             </button>
