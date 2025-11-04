@@ -33,7 +33,7 @@ export function Logo({ className }: { className?: string }) {
           fill="hsl(var(--primary-foreground))"
         />
       </svg>
-      <span className="font-bold text-lg hidden sm:inline-block">API Talentos</span>
+      <span className="font-bold text-lg hidden sm:inline-block">TalentoUNRC</span>
     </Link>
   );
 }

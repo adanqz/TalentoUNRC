@@ -50,7 +50,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-                <p>&copy; {new Date().getFullYear()} API TalentosUNRC. Todos los derechos reservados.</p>
+                <p>&copy; {new Date().getFullYear()} TalentoUNRC. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>

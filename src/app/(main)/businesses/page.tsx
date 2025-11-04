@@ -32,7 +32,7 @@ export default function BusinessesPage() {
                     Empresas Asociadas
                 </h1>
                 <p className="mt-4 text-lg text-slate-200 md:text-xl">
-                    Explora las empresas innovadoras asociadas a través de API TalentosUNRC.
+                    Explora las empresas innovadoras asociadas a través de TalentoUNRC.
                 </p>
             </div>
             <div className="mt-8 mx-auto max-w-2xl rounded-lg border bg-card p-6 shadow-sm">

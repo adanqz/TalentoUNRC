@@ -277,7 +277,7 @@ export default function StudentProfilePage() {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2"><Wand2 className="text-accent" /> Oportunidades Sugeridas</CardTitle>
                     <CardDescription>
-                        Pasantías y proyectos sugeridos para {student.name} por la IA de API TalentosUNRC.
+                        Pasantías y proyectos sugeridos para {student.name} por la IA de TalentoUNRC.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>

@@ -33,7 +33,7 @@ export default function StudentsPage() {
                     Descubre a Nuestros Talentosos Estudiantes
                 </h1>
                 <p className="mt-4 text-lg text-slate-200 md:text-xl">
-                    Explora los perfiles de los estudiantes de API TalentosUNRC, sus habilidades, proyectos e intereses.
+                    Explora los perfiles de los estudiantes de TalentoUNRC, sus habilidades, proyectos e intereses.
                 </p>
             </div>
             <div className="mt-8 mx-auto max-w-2xl rounded-lg border bg-card p-6 shadow-sm">

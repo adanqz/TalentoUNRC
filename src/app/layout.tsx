@@ -11,7 +11,7 @@ const inter = Inter({
 
 
 export const metadata: Metadata = {
-  title: 'API TalentosUNRC',
+  title: 'TalentoUNRC',
   description: 'Conectando a estudiantes, empresas y la universidad para el crecimiento y la colaboración.',
 };
 
