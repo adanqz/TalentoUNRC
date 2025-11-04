@@ -25,7 +25,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { cn } from '@/lib/utils';
-import { Download, Search, User, Clock, Info, ShieldAlert, WifiOff, FileJson } from 'lucide-react';
+import { Download, Search, User, Clock, Info, ShieldAlert, WifiOff, FileJson, LogOut, Code } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -115,15 +115,82 @@ const mockLogs = [
             attempts: 3
         }
     },
+    {
+        id: 'log-7',
+        level: 'INFO',
+        timestamp: '2023-10-27T11:15:00Z',
+        actor: 'ana.t@example.com',
+        ip: '189.172.11.54',
+        action: 'USER_LOGOUT',
+        message: 'Usuario `ana.t@example.com` cerró sesión.',
+        details: {
+            userId: "user-1",
+            sessionDuration: "52m"
+        }
+    },
+    {
+        id: 'log-8',
+        level: 'AUDIT',
+        timestamp: '2023-10-27T12:01:22Z',
+        actor: 'carlos.g@example.com',
+        ip: '200.5.8.1',
+        action: 'STUDENT_APPLY',
+        message: 'Estudiante `carlos.g@example.com` aplicó a la oportunidad "Prácticas de Desarrollador Frontend".',
+        details: {
+            studentId: "user-2",
+            opportunityId: "opp-1"
+        }
+    },
+    {
+        id: 'log-9',
+        level: 'ERROR',
+        timestamp: '2023-10-27T12:30:00Z',
+        actor: 'system',
+        ip: '127.0.0.1',
+        action: 'API_CALL_FAILED',
+        message: 'Fallo en la llamada a la API externa de `Genkit`.',
+        details: {
+            endpoint: "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
+            statusCode: 503,
+            error: "Service Unavailable"
+        }
+    },
+    {
+        id: 'log-10',
+        level: 'DEBUG',
+        timestamp: '2023-10-27T12:31:05Z',
+        actor: 'system',
+        ip: '127.0.0.1',
+        action: 'CACHE_MISS',
+        message: 'Cache miss para el perfil de usuario `user-5`.',
+        details: {
+            cacheKey: "user:profile:user-5",
+            component: "UserProfileLoader"
+        }
+    },
+    {
+        id: 'log-11',
+        level: 'SECURITY',
+        timestamp: '2023-10-27T13:00:15Z',
+        actor: 'anonymous',
+        ip: '45.12.5.100',
+        action: 'SQL_INJECTION_ATTEMPT',
+        message: 'Posible intento de inyección SQL detectado en el endpoint de búsqueda.',
+        details: {
+            endpoint: "/api/search",
+            query: "query='; DROP TABLE users;--",
+            mitigation: "Blocked by WAF"
+        }
+    }
 ];
 
 const levelConfig: Record<string, { color: string; icon: React.ReactNode }> = {
-  INFO: { color: 'bg-blue-100 text-blue-800 border-blue-200', icon: <Info className="h-4 w-4 text-blue-500" /> },
-  WARN: { color: 'bg-yellow-100 text-yellow-800 border-yellow-200', icon: <ShieldAlert className="h-4 w-4 text-yellow-500" /> },
-  ERROR: { color: 'bg-red-100 text-red-800 border-red-200', icon: <WifiOff className="h-4 w-4 text-red-500" /> },
-  AUDIT: { color: 'bg-purple-100 text-purple-800 border-purple-200', icon: <FileJson className="h-4 w-4 text-purple-500" /> },
-  SECURITY: { color: 'bg-orange-100 text-orange-800 border-orange-200', icon: <ShieldAlert className="h-4 w-4 text-orange-500" /> },
-  DEBUG: { color: 'bg-gray-100 text-gray-800 border-gray-200', icon: <Info className="h-4 w-4 text-gray-500" /> },
+  INFO: { color: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/50 dark:text-blue-200 dark:border-blue-800', icon: <Info className="h-4 w-4 text-blue-500" /> },
+  WARN: { color: 'bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/50 dark:text-yellow-200 dark:border-yellow-800', icon: <ShieldAlert className="h-4 w-4 text-yellow-500" /> },
+  ERROR: { color: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/50 dark:text-red-200 dark:border-red-800', icon: <WifiOff className="h-4 w-4 text-red-500" /> },
+  AUDIT: { color: 'bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-900/50 dark:text-purple-200 dark:border-purple-800', icon: <FileJson className="h-4 w-4 text-purple-500" /> },
+  SECURITY: { color: 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-900/50 dark:text-orange-200 dark:border-orange-800', icon: <ShieldAlert className="h-4 w-4 text-orange-500" /> },
+  DEBUG: { color: 'bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-900/50 dark:text-gray-200 dark:border-gray-700', icon: <Code className="h-4 w-4 text-gray-500" /> },
 };
 
 
@@ -164,7 +231,7 @@ export default function ServerLogsPage() {
         </div>
         <ScrollArea className="h-[60vh] rounded-md border bg-muted/50 p-1">
             <Accordion type="single" collapsible className="w-full">
-            {mockLogs.map((log) => (
+            {mockLogs.sort((a,b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).map((log) => (
               <AccordionItem value={log.id} key={log.id} className="border-b-0">
                   <Card className="m-2">
                     <AccordionTrigger className="p-4 hover:no-underline font-mono text-sm">
@@ -224,3 +291,4 @@ export default function ServerLogsPage() {
     </Card>
   );
 }
+
