@@ -11,18 +11,27 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase lazily
+// Initialize Firebase lazily and only on the client-side
 function getFirebaseApp(): FirebaseApp {
-    if (getApps().length === 0) {
-        return initializeApp(firebaseConfig);
-    } else {
-        return getApp();
+    if (typeof window !== 'undefined') {
+        if (getApps().length === 0) {
+            return initializeApp(firebaseConfig);
+        } else {
+            return getApp();
+        }
     }
+    // On the server, return a dummy app object to avoid errors during SSR
+    return {} as FirebaseApp;
 }
 
 function getFirebaseAuth(): Auth {
     const app = getFirebaseApp();
-    return getAuth(app);
+    // Ensure getAuth is also only called client-side
+    if (typeof window !== 'undefined') {
+        return getAuth(app);
+    }
+    // Return a dummy auth object for the server
+    return {} as Auth;
 }
 
 export { getFirebaseAuth };

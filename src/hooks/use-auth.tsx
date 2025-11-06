@@ -8,7 +8,7 @@ import {
   useEffect,
   type ReactNode,
 } from 'react';
-import { onAuthStateChanged, type User } from 'firebase/auth';
+import { onAuthStateChanged, type User, type Auth } from 'firebase/auth';
 import { getFirebaseAuth } from '@/lib/firebase';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -26,6 +26,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
+    // Since getFirebaseAuth now only works on client,
+    // we can safely call it inside useEffect.
     const auth = getFirebaseAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
