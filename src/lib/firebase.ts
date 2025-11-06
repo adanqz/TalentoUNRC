@@ -25,6 +25,4 @@ function getFirebaseAuth(): Auth {
     return getAuth(app);
 }
 
-const app = getFirebaseApp();
-
-export { app, getFirebaseAuth };
+export { getFirebaseAuth };
