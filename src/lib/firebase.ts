@@ -11,17 +11,16 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase lazily and only on the client-side
 function getFirebaseApp(): FirebaseApp {
     if (typeof window !== 'undefined') {
-        if (getApps().length === 0) {
-            return initializeApp(firebaseConfig);
-        } else {
-            return getApp();
-        }
+        return getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
     }
-    // On the server, return a dummy app object to avoid errors during SSR
-    return {} as FirebaseApp;
+    // Dummy app for server-side rendering
+    return {
+        name: 'dummy',
+        options: {},
+        automaticDataCollectionEnabled: false,
+    } as FirebaseApp;
 }
 
 function getFirebaseAuth(): Auth {
