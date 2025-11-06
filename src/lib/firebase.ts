@@ -11,11 +11,20 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
-const app: FirebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+// Initialize Firebase lazily
+function getFirebaseApp(): FirebaseApp {
+    if (getApps().length === 0) {
+        return initializeApp(firebaseConfig);
+    } else {
+        return getApp();
+    }
+}
 
 function getFirebaseAuth(): Auth {
+    const app = getFirebaseApp();
     return getAuth(app);
 }
+
+const app = getFirebaseApp();
 
 export { app, getFirebaseAuth };
