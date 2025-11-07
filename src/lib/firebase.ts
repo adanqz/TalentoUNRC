@@ -14,6 +14,12 @@ const firebaseConfig = {
 // This function safely gets the firebase app instance, initializing it if necessary.
 // It's designed to work only in Next.js's client-side environment.
 function getFirebaseApp(): FirebaseApp {
+    if (typeof window === 'undefined') {
+        // On the server, we return a mock object to avoid errors during SSR.
+        // The real initialization will happen on the client.
+        return {} as FirebaseApp;
+    }
+
     if (getApps().length === 0) {
         return initializeApp(firebaseConfig);
     } else {
