@@ -1,5 +1,5 @@
 
-import { initializeApp, getApps, getApp } from "firebase/app";
+import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
 import { getAuth, type Auth } from "firebase/auth";
 
 const firebaseConfig = {
@@ -11,16 +11,30 @@ const firebaseConfig = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-function getFirebaseApp() {
-    return getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-}
+// Singleton pattern to ensure only one instance of Firebase app and Auth
+let app: FirebaseApp;
+let auth: Auth;
 
 function getFirebaseAuth(): Auth {
-    const app = getFirebaseApp();
-    return getAuth(app);
+    if (typeof window === 'undefined') {
+        // This is a safeguard, but getFirebaseAuth should only be called on the client.
+        // Returning a mock or throwing an error might be options, but for now,
+        // we rely on correct client-side usage.
+        // A proper fix would involve a more complex provider pattern.
+        // For now, let's ensure this is not the source of the error.
+        if (!app) {
+             app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+        }
+    } else {
+        if (!app) {
+            app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+        }
+    }
+    
+    if (!auth) {
+        auth = getAuth(app);
+    }
+    return auth;
 }
 
-const app = getFirebaseApp();
-const auth = getAuth(app);
-
-export { app, auth, getFirebaseAuth };
+export { getFirebaseAuth };
