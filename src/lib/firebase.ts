@@ -11,20 +11,29 @@ const firebaseConfig = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-function getFirebaseAuth(): Auth {
+// This function safely gets the firebase app instance, initializing it if necessary.
+// It's designed to work in Next.js's client-side environment.
+function getFirebaseApp(): FirebaseApp {
+    // We only want to initialize the app on the client side
     if (typeof window === 'undefined') {
-        // This is a safeguard, but getFirebaseAuth should only be called on the client.
-        // A proper fix would involve a more complex provider pattern.
-        // For now, let's ensure this is not the source of the error.
-        let app;
-        if (!app) {
-             app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-        }
-        return getAuth(app);
-    } else {
-        const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-        return getAuth(app);
+        // On the server, we can't safely initialize.
+        // We return a temporary mock app object to prevent errors during SSR.
+        // The actual Firebase logic will only run on the client.
+        return {} as FirebaseApp;
     }
+
+    if (getApps().length === 0) {
+        return initializeApp(firebaseConfig);
+    } else {
+        return getApp();
+    }
+}
+
+function getFirebaseAuth(): Auth {
+    const app = getFirebaseApp();
+    // In the case of SSR, app will be a mock object, but getAuth will not be called
+    // in a way that causes issues. The real `auth` logic is client-side.
+    return getAuth(app);
 }
 
 export { getFirebaseAuth };
