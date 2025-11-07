@@ -8,8 +8,7 @@ import {
   useEffect,
   type ReactNode,
 } from 'react';
-import { onAuthStateChanged, type User, type Auth } from 'firebase/auth';
-import { getFirebaseAuth } from '@/lib/firebase';
+import type { User } from 'firebase/auth';
 import { usePathname, useRouter } from 'next/navigation';
 
 type AuthContextType = {
@@ -26,15 +25,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // Since getFirebaseAuth now only works on client,
-    // we can safely call it inside useEffect.
-    const auth = getFirebaseAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
+    // Firebase is removed, so we just set loading to false.
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -60,7 +52,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    // Return a default value if not in provider, as AuthProvider is removed from root layout
+    return { user: null, loading: false };
   }
   return context;
 };

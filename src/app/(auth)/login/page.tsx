@@ -3,8 +3,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { signInWithEmailAndPassword, type Auth } from 'firebase/auth';
-import { getFirebaseAuth } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -24,32 +22,21 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [auth, setAuth] = useState<Auth | null>(null);
   const router = useRouter();
   const { toast } = useToast();
 
-  useEffect(() => {
-    // getFirebaseAuth is now guaranteed to run on the client
-    setAuth(getFirebaseAuth());
-  }, []);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!auth) return;
-
     setLoading(true);
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push('/dashboard');
-    } catch (error: any) {
-      toast({
+    // Simulating a login for now
+    toast({
+        title: 'Funcionalidad no disponible',
+        description: 'La autenticación con Firebase ha sido desactivada.',
         variant: 'destructive',
-        title: 'Error al iniciar sesión',
-        description: error.message,
-      });
-    } finally {
-      setLoading(false);
-    }
+    });
+    setTimeout(() => {
+        setLoading(false);
+    }, 1000);
   };
 
   return (
@@ -95,7 +82,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading || !auth}>
+            <Button type="submit" className="w-full" disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Iniciar Sesión
             </Button>

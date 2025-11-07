@@ -18,8 +18,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { users } from "@/lib/data"
 import Link from "next/link"
-import { getFirebaseAuth } from "@/lib/firebase";
-import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -30,8 +28,7 @@ export function UserNav() {
   const mockUser = users[0]; // mock current user for display purposes
 
   const handleLogout = async () => {
-    const auth = getFirebaseAuth();
-    await signOut(auth);
+    // No-op since firebase is removed
     router.push('/login');
   };
   
